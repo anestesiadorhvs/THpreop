@@ -240,6 +240,63 @@
                     </tr>
                 </table>
             </fieldset>
+            <fieldset>
+                <legend>Puntuación MELD</legend>
+                <div>
+                    <label for="creatinina">Creatinina (mg/dl):</label>
+                    <input type="number" id="creatinina" name="creatinina" step="0.01" value="1" onchange="updateMeldScores()">
+                </div>
+                <div>
+                    <label for="inrMeld">INR:</label>
+                    <input type="number" id="inrMeld" name="inrMeld" step="0.01" value="1" onchange="updateMeldScores()">
+                </div>
+                <div>
+                    <label for="bilirrubinaMeld">Bilirrubina (mg/dl):</label>
+                    <input type="number" id="bilirrubinaMeld" name="bilirrubinaMeld" step="0.01" value="1" onchange="updateMeldScores()">
+                </div>
+                <div>
+                    <label for="sodio">Na (mmol/L):</label>
+                    <input type="number" id="sodio" name="sodio" step="0.01" value="140" onchange="updateMeldScores()">
+                </div>
+                <div>
+                    <label>Creatinina: Valor máximo 4. Si el paciente ha sido sometido a diálisis 2 veces en la semana previa, puntuar 4</label>
+                </div>
+                <div>
+                    <label for="meldScore">MELD Score:</label>
+                    <span id="meldScore">0</span>
+                </div>
+                <div>
+                    <label for="meldNaScore">MELD-Na Score:</label>
+                    <span id="meldNaScore">0</span>
+                </div>
+                <h3>Mortalidad a tres meses</h3>
+                <table border="1" id="mortalidadTresMesesTable">
+                    <tr>
+                        <th>Valores MELD</th>
+                        <th>Mortalidad</th>
+                    </tr>
+                    <tr id="meld40">
+                        <td>40 o más</td>
+                        <td>71%</td>
+                    </tr>
+                    <tr id="meld30_39">
+                        <td>30-39</td>
+                        <td>52%</td>
+                    </tr>
+                    <tr id="meld20_29">
+                        <td>20-29</td>
+                        <td>19%</td>
+                    </tr>
+                    <tr id="meld10_19">
+                        <td>10-19</td>
+                        <td>6%</td>
+                    </tr>
+                    <tr id="meldMenor9">
+                        <td>&lt;9</td>
+                        <td>2%</td>
+                    </tr>
+                </table>
+            </fieldset>
             <button type="button" onclick="showNextSection(1)">Siguiente</button>
         </div>
         <div id="section2" class="section">
@@ -322,6 +379,44 @@
                 document.getElementById('childB').classList.add('highlight');
             } else if (escalaChild === "3") {
                 document.getElementById('childC').classList.add('highlight');
+            }
+        }
+
+        function updateMeldScores() {
+            let creatinina = parseFloat(document.getElementById('creatinina').value) || 0;
+            if (creatinina > 4) {
+                creatinina = 4;
+            }
+            const bilirrubina = parseFloat(document.getElementById('bilirrubinaMeld').value) || 0;
+            const inr = parseFloat(document.getElementById('inrMeld').value) || 0;
+            const sodio = parseFloat(document.getElementById('sodio').value) || 0;
+
+            const meldScore = 9.6 * Math.log(creatinina) + 3.8 * Math.log(bilirrubina) + 11.2 * Math.log(inr) + 6.4;
+            const meldNaScore = meldScore - sodio - (0.025 * meldScore * (140 - sodio)) + 140;
+
+            document.getElementById('meldScore').innerText = meldScore.toFixed(2);
+            document.getElementById('meldNaScore').innerText = meldNaScore.toFixed(2);
+
+            highlightMeldRow(meldScore);
+        }
+
+        function highlightMeldRow(meldScore) {
+            document.getElementById('meld40').classList.remove('highlight');
+            document.getElementById('meld30_39').classList.remove('highlight');
+            document.getElementById('meld20_29').classList.remove('highlight');
+            document.getElementById('meld10_19').classList.remove('highlight');
+            document.getElementById('meldMenor9').classList.remove('highlight');
+
+            if (meldScore >= 40) {
+                document.getElementById('meld40').classList.add('highlight');
+            } else if (meldScore >= 30) {
+                document.getElementById('meld30_39').classList.add('highlight');
+            } else if (meldScore >= 20) {
+                document.getElementById('meld20_29').classList.add('highlight');
+            } else if (meldScore >= 10) {
+                document.getElementById('meld10_19').classList.add('highlight');
+            } else {
+                document.getElementById('meldMenor9').classList.add('highlight');
             }
         }
     </script>
