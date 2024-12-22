@@ -11,57 +11,60 @@
     <div class="container mt-5">
         <h2 class="text-center">Formulario Índice</h2>
         <form id="indiceForm">
-            <!-- Sección Funcional -->
-            <div class="mb-3">
-                <label for="funcional" class="form-label">Funcional</label>
-                <select class="form-select" id="funcional" required>
-                    <option value="0" selected>Normal (0 puntos)</option>
-                    <option value="2">e' Septal &lt; 7 cm/seg ó e' Lateral &lt; 10 cm/seg (2 puntos)</option>
-                    <option value="2">Relación E/e' ≥ 15 (2 puntos)</option>
-                    <option value="2">PASP &gt; 35 mmHg (2 puntos)</option>
-                    <option value="1">Relación E/e' 9-14 (1 punto)</option>
-                    <option value="1">Global Strain &lt; 16% (1 punto)</option>
-                </select>
-            </div>
+            <fieldset>
+                <legend>Validación cardíaca</legend>
+                <!-- Sección Funcional -->
+                <div class="mb-3">
+                    <label for="funcional" class="form-label">Funcional</label>
+                    <select class="form-select" id="funcional" required>
+                        <option value="0" selected>Normal (0 puntos)</option>
+                        <option value="2">e' Septal &lt; 7 cm/seg ó e' Lateral &lt; 10 cm/seg (2 puntos)</option>
+                        <option value="2">Relación E/e' ≥ 15 (2 puntos)</option>
+                        <option value="2">PASP &gt; 35 mmHg (2 puntos)</option>
+                        <option value="1">Relación E/e' 9-14 (1 punto)</option>
+                        <option value="1">Global Strain &lt; 16% (1 punto)</option>
+                    </select>
+                </div>
 
-            <!-- Sección Morfológico -->
-            <div class="mb-3">
-                <label for="morfologico" class="form-label">Morfológico</label>
-                <select class="form-select" id="morfologico" required>
-                    <option value="0" selected>Normal (0 puntos)</option>
-                    <option value="2">Vol. Aurícula izquierda &gt; 34 ml/m<sup>2</sup> (2 puntos)</option>
-                    <option value="2">Masa VI &gt; 149/122 m<sup>2</sup> + Grosor relativo pared &gt; 0.42 (2 puntos)</option>
-                    <option value="1">Vol. Aurícula izquierda 29-34 ml/m<sup>2</sup> (1 punto)</option>
-                    <option value="1">Masa VI &gt; 115/95 gr/m<sup>2</sup> (1 punto)</option>
-                    <option value="1">Grosor pared VI &ge; 12 mm (1 punto)</option>
-                </select>
-            </div>
+                <!-- Sección Morfológico -->
+                <div class="mb-3">
+                    <label for="morfologico" class="form-label">Morfológico</label>
+                    <select class="form-select" id="morfologico" required>
+                        <option value="0" selected>Normal (0 puntos)</option>
+                        <option value="2">Vol. Aurícula izquierda &gt; 34 ml/m<sup>2</sup> (2 puntos)</option>
+                        <option value="2">Masa VI &gt; 149/122 m<sup>2</sup> + Grosor relativo pared &gt; 0.42 (2 puntos)</option>
+                        <option value="1">Vol. Aurícula izquierda 29-34 ml/m<sup>2</sup> (1 punto)</option>
+                        <option value="1">Masa VI &gt; 115/95 gr/m<sup>2</sup> (1 punto)</option>
+                        <option value="1">Grosor pared VI &ge; 12 mm (1 punto)</option>
+                    </select>
+                </div>
 
-            <!-- Sección Biomarcador en ritmo sinusal -->
-            <div class="mb-3">
-                <label for="biomarcador" class="form-label">Biomarcador en ritmo sinusal</label>
-                <select class="form-select" id="biomarcador">
-                    <option value="0" selected>Normal (0 puntos)</option>
-                    <option value="2">NT-proBNP &gt; 220 pg/ml (2 puntos)</option>
-                    <option value="1">NT-proBNP 115-220 pg/ml (1 punto)</option>
-                </select>
-            </div>
+                <!-- Sección Biomarcador en ritmo sinusal -->
+                <div class="mb-3">
+                    <label for="biomarcador" class="form-label">Biomarcador en ritmo sinusal</label>
+                    <select class="form-select" id="biomarcador">
+                        <option value="0" selected>Normal (0 puntos)</option>
+                        <option value="2">NT-proBNP &gt; 220 pg/ml (2 puntos)</option>
+                        <option value="1">NT-proBNP 115-220 pg/ml (1 punto)</option>
+                    </select>
+                </div>
 
-            <!-- Sección Biomarcador en FA -->
-            <div class="mb-3">
-                <label for="biomarcadorFA" class="form-label">Biomarcador en FA</label>
-                <select class="form-select" id="biomarcadorFA">
-                    <option value="0" selected>Normal (0 puntos)</option>
-                    <option value="2">NT-proBNP &gt; 660 pg/ml (2 puntos)</option>
-                    <option value="1">NT-proBNP 365-660 pg/ml (1 punto)</option>
-                </select>
-            </div>
+                <!-- Sección Biomarcador en FA -->
+                <div class="mb-3">
+                    <label for="biomarcadorFA" class="form-label">Biomarcador en FA</label>
+                    <select class="form-select" id="biomarcadorFA">
+                        <option value="0" selected>Normal (0 puntos)</option>
+                        <option value="2">NT-proBNP &gt; 660 pg/ml (2 puntos)</option>
+                        <option value="1">NT-proBNP 365-660 pg/ml (1 punto)</option>
+                    </select>
+                </div>
 
-            <!-- Botón Calcular -->
-            <div class="mt-4">
-                <button type="button" id="calcularIndice" class="btn btn-primary">Calcular</button>
-                <p class="mt-3">Índice total: <span id="indiceTotal">0</span></p>
-            </div>
+                <!-- Botón Calcular -->
+                <div class="mt-4">
+                    <button type="button" id="calcularIndice" class="btn btn-primary">Calcular</button>
+                    <p class="mt-3">Índice total: <span id="indiceTotal">0</span></p>
+                </div>
+            </fieldset>
         </form>
     </div>
 
@@ -95,8 +98,11 @@
 
                 // Mostrar el resultado
                 $("#indiceTotal").text(total);
+                // mostrar gauge en el que se especifique el riesgo en colores
+                
             });
         });
+
     </script>
 </body>
 </html>
