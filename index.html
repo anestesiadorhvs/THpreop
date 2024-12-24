@@ -518,8 +518,17 @@
                     <input type="number" id="paps" name="paps" step="0.01">
                 </div>
                 <div>
-                    <label for="papm">PAPm:</label>
-                    <input type="number" id="papm" name="papm" step="0.01">
+                    <label for="papmSelect">PAPm:</label>
+                    <select id="papmSelect" name="papmSelect">
+                        <option value="0" selected>Normal (PAPm &lt; 25)</option>
+                        <option value="1">HTP leve (PAPm 25-34)</option>
+                        <option value="2">HTP moderada (PAPm 35-44)</option>
+                        <option value="3">HTP severa (PAPm &ge; 45)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="irvp">IRVP:</label>
+                    <input type="number" id="irvp" name="irvp" step="0.01">
                 </div>
                 <div>
                     <label for="pshl">PSHL:</label>
@@ -529,6 +538,7 @@
                     <label for="pshe">PSHE:</label>
                     <input type="number" id="pshe" name="pshe" step="0.01">
                 </div>
+                
                 <div>
                     <label for="comentarioCateterismo">Comentario:</label>
                     <textarea id="comentarioCateterismo" name="comentarioCateterismo"></textarea>
@@ -539,7 +549,16 @@
         </div>
         <div id="section3" class="section">
             <h2>Valoración Pulmonar y Vía aérea</h2>
-            <!-- Contenido de la sección -->
+            <fieldset>
+                <legend>Rx tórax</legend>
+                <div>
+                    <label for="rxTorax">Hidrotórax</label>
+                    <select id="rxTorax" name="rxTorax">
+                        <option value="no" selected>No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+            </fieldset>
             <button type="button" onclick="showPreviousSection(3)">Anterior</button>
             <button type="button" onclick="showNextSection(3)">Siguiente</button>
         </div>
