@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <label for="edad">Edad:</label>
-                    <input type="number" id="edad" name="edad">
+                    <input type="number" id="edad" name="edad" onchange="evaluateStressEcho()">
                 </div>
                 <div>
                     <label for="sexo">Sexo:</label>
@@ -302,6 +302,42 @@
         <div id="section2" class="section">
             <h2>Valoración Cardiológica</h2>
             <fieldset>
+                <legend>Factores de Riesgo Cardiovascular</legend>
+                <div>
+                    <input type="checkbox" id="diabetes" name="diabetes" onchange="evaluateStressEcho()">
+                    <label for="diabetes">Diabetes</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="hipertension" name="hipertension" onchange="evaluateStressEcho()">
+                    <label for="hipertension">Hipertensión</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="dislipidemia" name="dislipidemia" onchange="evaluateStressEcho()">
+                    <label for="dislipidemia">Dislipidemia</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="tabaquismo" name="tabaquismo" onchange="evaluateStressEcho()">
+                    <label for="tabaquismo">Tabaquismo (actual o pasado)</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="obesidad" name="obesidad" onchange="evaluateStressEcho()">
+                    <label for="obesidad">Obesidad</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="historiaPatologiaCoronaria" name="historiaPatologiaCoronaria" onchange="evaluateStressEcho()">
+                    <label for="historiaPatologiaCoronaria">Historia previa o clínica de patología coronaria</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="historiaFamiliarPatologiaCoronaria" name="historiaFamiliarPatologiaCoronaria" onchange="evaluateStressEcho()">
+                    <label for="historiaFamiliarPatologiaCoronaria">Historia familiar de patología coronaria</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="arteriopatiaPeriferica" name="arteriopatiaPeriferica" onchange="evaluateStressEcho()">
+                    <label for="arteriopatiaPeriferica">Presencia de arteriopatía periférica</label>
+                </div>
+                
+            </fieldset>
+            <fieldset>
                 <legend>Electrocardiograma</legend>
                 <div>
                     <label for="ritmo">Ritmo:</label>
@@ -326,7 +362,7 @@
             <fieldset>
                 <legend>Ecocardiografia</legend>
                 <div>
-                    <label for="fraccionEyeccion">Fracción de Eyección:</label>
+                    <label for="fraccionEyeccion">Fracción de Eyección VI:</label>
                     <select id="fraccionEyeccion" name="fraccionEyeccion">
                         <option value="1">Normal (&gt;50%)</option>
                         <option value="2">Levemente Disminuida (40-49%)</option>
@@ -335,8 +371,19 @@
                     </select>
                 </div>
                 <div>
+                    <label for="fraccionVD">Función VD:</label>
+                    <select id="fraccionVD" name="fraccionVD">
+                        <option value="1">Normal</option>
+                        <option value="2">Deprimida</option>
+                    </select>
+                </div>
+                <div>
                     <label for="papsEstimada">PAPs estimada:</label>
                     <input type="number" id="papsEstimada" name="papsEstimada" step="0.01">
+                </div>
+                <div>
+                    <label for="Tapse">TAPSE:</label>
+                    <input type="number" id="Tapse" name="Tapse" step="0.01">
                 </div>
                 <div>
                     <label for="descripcionCardiologica">Descripción:</label>
@@ -346,6 +393,9 @@
             
             <fieldset>
                 <legend>Índice HFA PEEF</legend>
+                <div id="resultadoHfaPeef" style="padding: 5px; background-color: green; color: white;">
+                    Bajo riesgo de insuficiencia cardiaca
+                </div>
                 <!-- Sección Funcional -->
                 <div>
                     <label for="funcional">Funcional</label>
@@ -396,12 +446,94 @@
                     <label for="indiceHfaPeef">Índice HFA PEEF:</label>
                     <span id="indiceHfaPeef">0</span>
                 </div>
+                
+            </fieldset>
+            <fieldset>
+                <legend>Ecocardiograma de Stress</legend>
+                <div id="stressEchoMessage" style="padding: 5px; background-color: green; color: white;">
+                    No es necesario ecocardiograma de stress
+                </div>
                 <div>
-                    <label for="resultadoHfaPeef">Resultado:</label>
-                    <span id="resultadoHfaPeef" style="display: inline-block; padding: 5px;">Paciente con bajo riesgo de insuficiencia cardiaca</span>
+                    <label for="resultadoStress">Resultado:</label>
+                    <select id="resultadoStress" name="resultadoStress">
+                        <option value="0">No indicado</option>
+                        <option value="1">No puede realizarse</option>
+                        <option value="2">No concluyente</option>
+                        <option value="3">Concluyente positivo para isquemia</option>
+                        <option value="4">Concluyente negativo para isquemia</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="comentarioStress">Comentario:</label>
+                    <textarea id="comentarioStress" name="comentarioStress"></textarea>
                 </div>
             </fieldset>
-
+            <fieldset>
+                <legend>AngioTAC</legend>
+                <div id="angioTacMessage" style="padding: 5px; background-color: green; color: white;">
+                    No es necesario angioTAC
+                </div>
+                <div>
+                    <input type="checkbox" id="estenosisDerecha" name="estenosisDerecha">
+                    <label for="estenosisDerecha">Estenosis coronaria derecha &gt;70%</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="estenosisIzquierda" name="estenosisIzquierda">
+                    <label for="estenosisIzquierda">Estenosis coronaria izquierda &gt;50%</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="scoreCalcico" name="scoreCalcico">
+                    <label for="scoreCalcico">Score calcico por encima de 100</label>
+                </div>
+                <div>
+                    <label for="comentarioAngioTac">Comentario:</label>
+                    <textarea id="comentarioAngioTac" name="comentarioAngioTac"></textarea>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Coronariografía</legend>
+                <div id="coronariografiaMessage" style="padding: 5px; background-color: green; color: white;">
+                    No es necesario realizar coronariografía
+                </div>
+                <div>
+                    <label for="resultadoCoronariografia">Revascularizado:</label>
+                    <select id="resultadoCoronariografia" name="resultadoCoronariografia">
+                        <option value="0">No indicado</option>
+                        <option value="1">No puede realizarse</option>
+                        <option value="2">Revascularizado</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="comentarioCoronariografia">Comentario:</label>
+                    <textarea id="comentarioCoronariografia" name="comentarioCoronariografia"></textarea>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Cateterismo Derecho</legend>
+                <div id="cateterismoMessage" style="padding: 5px; background-color: green; color: white;">
+                    No es necesario cateterismo derecho
+                </div>
+                <div>
+                    <label for="paps">PAPs:</label>
+                    <input type="number" id="paps" name="paps" step="0.01">
+                </div>
+                <div>
+                    <label for="papm">PAPm:</label>
+                    <input type="number" id="papm" name="papm" step="0.01">
+                </div>
+                <div>
+                    <label for="pshl">PSHL:</label>
+                    <input type="number" id="pshl" name="pshl" step="0.01">
+                </div>
+                <div>
+                    <label for="pshe">PSHE:</label>
+                    <input type="number" id="pshe" name="pshe" step="0.01">
+                </div>
+                <div>
+                    <label for="comentarioCateterismo">Comentario:</label>
+                    <textarea id="comentarioCateterismo" name="comentarioCateterismo"></textarea>
+                </div>
+            </fieldset>
             <button type="button" onclick="showPreviousSection(2)">Anterior</button>
             <button type="button" onclick="showNextSection(2)">Siguiente</button>
         </div>
@@ -532,12 +664,15 @@
             if (indiceHfaPeef >= 5) {
                 resultado.innerText = "Paciente con Insuficiencia cardiaca";
                 resultado.style.backgroundColor = "red";
+                resultado.style.color = "white";
             } else if (indiceHfaPeef > 2 && indiceHfaPeef < 5) {
                 resultado.innerText = "Paciente con riesgo de insuficiencia cardiaca";
                 resultado.style.backgroundColor = "yellow";
+                resultado.style.color = "black";
             } else {
                 resultado.innerText = "Paciente con bajo riesgo de insuficiencia cardiaca";
                 resultado.style.backgroundColor = "green";
+                resultado.style.color = "white";
             }
         }
 
@@ -553,6 +688,98 @@
         document.getElementById('morfologico').addEventListener('change', calculateHfaPeefIndex);
         document.getElementById('biomarcador').addEventListener('change', calculateHfaPeefIndex);
         document.getElementById('biomarcadorFA').addEventListener('change', calculateHfaPeefIndex);
+
+        function evaluateStressEcho() {
+            const diabetes = document.getElementById('diabetes').checked;
+            const hipertension = document.getElementById('hipertension').checked;
+            const dislipidemia = document.getElementById('dislipidemia').checked;
+            const tabaquismo = document.getElementById('tabaquismo').checked;
+            const historiaPatologiaCoronaria = document.getElementById('historiaPatologiaCoronaria').checked;
+            const historiaFamiliarPatologiaCoronaria = document.getElementById('historiaFamiliarPatologiaCoronaria').checked;
+            const arteriopatiaPeriferica = document.getElementById('arteriopatiaPeriferica').checked;
+            const edad = parseInt(document.getElementById('edad').value) || 0;
+
+            let riesgoModerado = 0;
+            let mensaje = "No es necesario ecocardiograma de stress";
+            let color = "green";
+
+            if (diabetes || historiaPatologiaCoronaria) {
+                mensaje = "Es necesario ecocardiograma de stress";
+                color = "red";
+            } else {
+                if (hipertension) riesgoModerado++;
+                if (dislipidemia) riesgoModerado++;
+                if (tabaquismo) riesgoModerado++;
+                if (historiaFamiliarPatologiaCoronaria) riesgoModerado++;
+                if (arteriopatiaPeriferica) riesgoModerado++;
+
+                if (riesgoModerado >= 2 || (riesgoModerado >= 1 && edad >= 50)) {
+                    mensaje = "Es necesario ecocardiograma de stress";
+                    color = "red";
+                }
+            }
+
+            const stressEchoMessage = document.getElementById('stressEchoMessage');
+            stressEchoMessage.innerText = mensaje;
+            stressEchoMessage.style.backgroundColor = color;
+        }
+
+        function evaluateAngioTac() {
+            const resultadoStress = parseInt(document.getElementById('resultadoStress').value);
+            const angioTacMessage = document.getElementById('angioTacMessage');
+
+            if (resultadoStress === 1 || resultadoStress === 2) {
+                angioTacMessage.innerText = "Está indicado la realización de angioTAC";
+                angioTacMessage.style.backgroundColor = "red";
+            } else {
+                angioTacMessage.innerText = "No es necesario angioTAC";
+                angioTacMessage.style.backgroundColor = "green";
+            }
+        }
+
+        function evaluateCoronariografia() {
+            const estenosisDerecha = document.getElementById('estenosisDerecha').checked;
+            const estenosisIzquierda = document.getElementById('estenosisIzquierda').checked;
+            const scoreCalcico = document.getElementById('scoreCalcico').checked;
+            const resultadoStress = parseInt(document.getElementById('resultadoStress').value);
+            const historiaPatologiaCoronaria = document.getElementById('historiaPatologiaCoronaria').checked;
+
+            const coronariografiaMessage = document.getElementById('coronariografiaMessage');
+
+            if (estenosisDerecha || estenosisIzquierda || scoreCalcico || resultadoStress === 3 || historiaPatologiaCoronaria) {
+                coronariografiaMessage.innerText = "Está indicado la realización de coronariografía";
+                coronariografiaMessage.style.backgroundColor = "red";
+            } else {
+                coronariografiaMessage.innerText = "No es necesario realizar coronariografía";
+                coronariografiaMessage.style.backgroundColor = "green";
+            }
+        }
+
+        function evaluateCateterismoDerecho() {
+            const fraccionVD = parseInt(document.getElementById('fraccionVD').value);
+            const tapse = parseFloat(document.getElementById('Tapse').value) || 0;
+            const papsEstimada = parseFloat(document.getElementById('papsEstimada').value) || 0;
+
+            const cateterismoMessage = document.getElementById('cateterismoMessage');
+
+            if (fraccionVD === 2 || tapse < 16 || papsEstimada > 44) {
+                cateterismoMessage.innerText = "Está indicado la realización de cateterismo derecho";
+                cateterismoMessage.style.backgroundColor = "red";
+            } else {
+                cateterismoMessage.innerText = "No es necesario cateterismo derecho";
+                cateterismoMessage.style.backgroundColor = "green";
+            }
+        }
+
+        document.getElementById('resultadoStress').addEventListener('change', evaluateAngioTac);
+        document.getElementById('resultadoStress').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('scoreCalcico').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('historiaPatologiaCoronaria').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('fraccionVD').addEventListener('change', evaluateCateterismoDerecho);
+        document.getElementById('Tapse').addEventListener('input', evaluateCateterismoDerecho);
+        document.getElementById('papsEstimada').addEventListener('input', evaluateCateterismoDerecho);
 
     </script>
 </body>
