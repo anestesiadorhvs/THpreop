@@ -559,6 +559,77 @@
                     </select>
                 </div>
             </fieldset>
+            <fieldset>
+                <legend>Valoración gasométrica</legend>
+                <div>
+                    <label for="ph">Ph:</label>
+                    <input type="number" id="ph" name="ph" step="0.01" onchange="evaluateAnionGap()">
+                </div>
+                <div>
+                    <label for="pao2">PaO2:</label>
+                    <input type="number" id="pao2" name="pao2" step="0.01">
+                </div>
+                <div>
+                    <label for="paco2">PaCO2:</label>
+                    <input type="number" id="paco2" name="paco2" step="0.01">
+                </div>
+                <div>
+                    <label for="hco3">HCO3:</label>
+                    <input type="number" id="hco3" name="hco3" step="0.01" onchange="evaluateAnionGap()">
+                </div>
+                <div>
+                    <label for="eb">EB:</label>
+                    <input type="number" id="eb" name="eb" step="0.01">
+                </div>
+                <div>
+                    <label for="cl">Cl:</label>
+                    <input type="number" id="cl" name="cl" step="0.01" onchange="evaluateAnionGap()">
+                </div>
+                <div>
+                    <label for="na">Na:</label>
+                    <input type="number" id="na" name="na" step="0.01" onchange="evaluateAnionGap()">
+                </div>
+                <div>
+                    <label for="fio2">FiO2:</label>
+                    <input type="number" id="fio2" name="fio2" step="0.01" min="0" max="1" value="0.21" onchange="evaluateAnionGap(); evaluateAaGradient()">
+                </div>
+    
+                <div id="anionGapMessage" style="padding: 5px; background-color: green; color: white;">
+                    Anion GAP: normal
+                </div>
+                <div id="aaGradientMessage" style="padding: 5px; background-color: green; color: white;">
+                    Gradiente A-a de oxígeno: normal
+                </div>
+                <div id="ecoContrasteMessage" style="padding: 5px; background-color: green; color: white;">
+                    No se requiere ecografía de contraste
+                </div>
+                <table border="1" id="gravedadShpTable">
+                    <thead>
+                        <tr>
+                            <th>Gravedad SHP</th>
+                            <th>PaO2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="leve">
+                            <td>Leve</td>
+                            <td>&gt;=80</td>
+                        </tr>
+                        <tr id="moderada">
+                            <td>Moderada</td>
+                            <td>60-79</td>
+                        </tr>
+                        <tr id="severa">
+                            <td>Severa</td>
+                            <td>50-59</td>
+                        </tr>
+                        <tr id="muySevera">
+                            <td>Muy severa</td>
+                            <td>&lt;50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
             <button type="button" onclick="showPreviousSection(3)">Anterior</button>
             <button type="button" onclick="showNextSection(3)">Siguiente</button>
         </div>
@@ -790,8 +861,58 @@
             }
         }
 
-        document.getElementById('resultadoStress').addEventListener('change', evaluateAngioTac);
-        document.getElementById('resultadoStress').addEventListener('change', evaluateCoronariografia);
+
+        function evaluateAaGradient() {
+            const fio2 = parseFloat(document.getElementById('fio2').value) || 0.21;
+            const paco2 = parseFloat(document.getElementById('paco2').value) || 0;
+            const pao2 = parseFloat(document.getElementById('pao2').value) || 0;
+            const edad = parseInt(document.getElementById('edad').value) || 0;
+
+            const aaGradient = (713 * fio2) - (paco2 / 0.8) - pao2;
+            const aaGradientMessage = document.getElementById('aaGradientMessage');
+            const ecoContrasteMessage = document.getElementById('ecoContrasteMessage');
+
+            aaGradientMessage.innerText = "Gradiente A-a de oxígeno: " + aaGradient.toFixed(2);
+
+            if ((edad > 64 && aaGradient > 20) || (edad <= 64 && aaGradient > 15)) {
+                aaGradientMessage.style.backgroundColor = "red";
+                ecoContrasteMessage.innerText = "Se requiere realizar eco contraste para valorar shunt";
+                ecoContrasteMessage.style.backgroundColor = "red";
+            } else {
+                aaGradientMessage.style.backgroundColor = "green";
+                ecoContrasteMessage.innerText = "No se requiere ecografía de contraste";
+                ecoContrasteMessage.style.backgroundColor = "green";
+            }
+
+            highlightPaO2Row(pao2);
+        }
+
+        function evaluateEdad(){
+            evaluateAaGradient();
+            evaluateStressEcho()
+        }
+        function evaluateStress(){
+            evaluateAngioTac()
+            evaluateCoronariografia();
+        }
+        function highlightPaO2Row(pao2) {
+            document.getElementById('leve').style.backgroundColor = "";
+            document.getElementById('moderada').style.backgroundColor = "";
+            document.getElementById('severa').style.backgroundColor = "";
+            document.getElementById('muySevera').style.backgroundColor = "";
+
+            if (pao2 >= 80) {
+                document.getElementById('leve').style.backgroundColor = "red";
+            } else if (pao2 >= 60) {
+                document.getElementById('moderada').style.backgroundColor = "red";
+            } else if (pao2 >= 50) {
+                document.getElementById('severa').style.backgroundColor = "red";
+            } else {
+                document.getElementById('muySevera').style.backgroundColor = "red";
+            }
+        }
+
+        document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
         document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
         document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
         document.getElementById('scoreCalcico').addEventListener('change', evaluateCoronariografia);
@@ -799,7 +920,12 @@
         document.getElementById('fraccionVD').addEventListener('change', evaluateCateterismoDerecho);
         document.getElementById('Tapse').addEventListener('input', evaluateCateterismoDerecho);
         document.getElementById('papsEstimada').addEventListener('input', evaluateCateterismoDerecho);
+        document.getElementById('fio2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('paco2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('pao2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('edad').addEventListener('input', evaluateAaGradient);
 
+        
     </script>
 </body>
 </html>
