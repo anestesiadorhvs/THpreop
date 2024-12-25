@@ -639,6 +639,24 @@
                     </select>
                 </div>
             </fieldset>
+            <fieldset>
+                <legend>Pruebas de Función Respiratoria</legend>
+                <div>
+                    <label for="fev1">FEV1 (% predicho):</label>
+                    <input type="number" id="fev1" name="fev1" step="0.01" onchange="evaluatePulmonaryFunction()">
+                </div>
+                <div>
+                    <label for="fvc">FVC (% predicho):</label>
+                    <input type="number" id="fvc" name="fvc" step="0.01" onchange="evaluatePulmonaryFunction()">
+                </div>
+                <div>
+                    <label for="fev1FvcRatio">FEV1/FVC:</label>
+                    <span id="fev1FvcRatio">0</span>
+                </div>
+                <div id="pulmonaryFunctionMessage" style="padding: 5px; background-color: green; color: white;">
+                    Resultado de la función pulmonar
+                </div>
+            </fieldset>
             <button type="button" onclick="showPreviousSection(3)">Anterior</button>
             <button type="button" onclick="showNextSection(3)">Siguiente</button>
         </div>
@@ -933,6 +951,68 @@
         document.getElementById('paco2').addEventListener('input', evaluateAaGradient);
         document.getElementById('pao2').addEventListener('input', evaluateAaGradient);
         document.getElementById('edad').addEventListener('input', evaluateAaGradient);
+
+        function evaluatePulmonaryFunction() {
+            const fev1 = parseFloat(document.getElementById('fev1').value) || 0;
+            const fvc = parseFloat(document.getElementById('fvc').value) || 0;
+            const fev1FvcRatio = fev1 / fvc;
+            const pulmonaryFunctionMessage = document.getElementById('pulmonaryFunctionMessage');
+
+            document.getElementById('fev1FvcRatio').innerText = fev1FvcRatio.toFixed(2);
+
+            if (fev1FvcRatio < 0.7) {
+                if (fvc <= 80) {
+                    if (fvc > 65) {
+                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo leve (FVC > 65%)";
+                    } else if (fvc >= 50) {
+                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo moderado (FVC 50-65%)";
+                    } else if (fvc >= 35) {
+                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo severo (FVC 35-49%)";
+                    } else {
+                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo muy severo (FVC >35%)";
+                    }
+                    pulmonaryFunctionMessage.style.backgroundColor = "red";
+                } else {
+                    pulmonaryFunctionMessage.innerText = "Patrón normal";
+                    pulmonaryFunctionMessage.style.backgroundColor = "green";
+                }
+            } else {
+                if (fvc <= 80) {
+                    pulmonaryFunctionMessage.innerText = "Patrón mixto";
+                    pulmonaryFunctionMessage.style.backgroundColor = "red";
+                } else {
+                    if (fev1 > 65) {
+                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo leve (FEV1 > 65%)";
+                    } else if (fev1 >= 50) {
+                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo moderado (FEV1 50-65%)";
+                    } else if (fev1 >= 35) {
+                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo severo (FEV1 35-49%)";
+                    } else {
+                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo muy severo (FEV1 <35%)";
+                    }
+                    pulmonaryFunctionMessage.style.backgroundColor = "red";
+                }
+            }
+        }
+
+        document.getElementById('resultadoStress').addEventListener('change', evaluateAngioTac);
+        document.getElementById('resultadoStress').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('scoreCalcico').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('historiaPatologiaCoronaria').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('fraccionVD').addEventListener('change', evaluateCateterismoDerecho);
+        document.getElementById('Tapse').addEventListener('input', evaluateCateterismoDerecho);
+        document.getElementById('papsEstimada').addEventListener('input', evaluateCateterismoDerecho);
+        document.getElementById('na').addEventListener('input', evaluateAnionGap);
+        document.getElementById('cl').addEventListener('input', evaluateAnionGap);
+        document.getElementById('hco3').addEventListener('input', evaluateAnionGap);
+        document.getElementById('fio2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('paco2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('pao2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('edad').addEventListener('input', evaluateAaGradient);
+        document.getElementById('fev1').addEventListener('input', evaluatePulmonaryFunction);
+        document.getElementById('fvc').addEventListener('input', evaluatePulmonaryFunction);
 
         
     </script>
