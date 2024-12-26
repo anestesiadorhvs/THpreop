@@ -198,7 +198,8 @@
                     </tr>
                     <tr id="childA">
                         <td>Child A</td>
-                        <td>100%</                        <td>85%</td>
+                        <td>100%</td>
+                        <td>85%</td>
                     </tr>
                     <tr id="childB">
                         <td>Child B</td>
@@ -642,10 +643,10 @@
                     <input type="number" id="currentCreatinine" value="0.5" oninput="calculateEGFR()">
                 </div>
                 
-               
                 <div id="egfrMessage" style="padding: 5px; background-color: green; color: white;">
                     eGFR: <span id="egfrValue">0</span> mL/min/1.73m²
                 </div>
+
                 <table border="1" id="egfrTable">
                     <tr>
                         <th>Grado</th>
@@ -685,7 +686,10 @@
                 </table>
                 <div>
                     <label for="previousCreatinine">Creatinina previa (últimos 3 meses):</label>
-                    <input type="number" id="previousCreatinine" value="0.5">
+                    <input type="number" id="previousCreatinine" value="0.5" oninput="checkAKI()">
+                </div>
+                <div id="akiMessage" style="padding: 5px; background-color: yellow; color: black;">
+                    <!-- Mensaje de AKI se mostrará aquí -->
                 </div>
             </fieldset>
             <button type="button" onclick="showPreviousSection(4)">Anterior</button>
@@ -1037,8 +1041,26 @@
     } else {
         document.getElementById('grado5').style.backgroundColor = 'red';
     }   
-        };
+        checkAKI();
+        }
 
+function checkAKI() {
+    const currentCreatinine = parseFloat(document.getElementById('currentCreatinine').value);
+    const previousCreatinine = parseFloat(document.getElementById('previousCreatinine').value);
+    const akiMessage = document.getElementById('akiMessage');
+
+    if (currentCreatinine >= previousCreatinine * 1.5 && currentCreatinine <= previousCreatinine * 2 ) {
+        akiMessage.innerText = "Posible AKI grado 1 (aumento en 0,3 mg/dl o incremento 1,5-2 veces valor previo)";
+    } else if (currentCreatinine > previousCreatinine * 2 && currentCreatinine <= previousCreatinine * 3) {
+        akiMessage.innerText = "Posible AKI grado 2 (incremento 2-3 veces valor previo)";
+    } else if (currentCreatinine > previousCreatinine * 3 || currentCreatinine >= 4) {
+        akiMessage.innerText = "Posible AKI grado 3 (incremento >3 veces valor previo o Cr >=4gr/dl)";
+    } else {
+        akiMessage.innerText = "";
+    }
+}
+
+//listeners
         document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
         document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
         document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
