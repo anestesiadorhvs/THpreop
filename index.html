@@ -173,8 +173,8 @@
                     <label for="encefalopatia">Encefalopatía:</label>
                     <select id="encefalopatia" name="encefalopatia" onchange="updateChildPughScore()">
                         <option value="1" selected>Ausente</option>
-                        <option value="2">Grado 1-2</option>
-                        <option value="3">Grado 3-4</option>
+                        <option value="2">Grado 1-2 (Alteración mínima del comportamiento - Desorientación leve, asterixis)</option>
+                        <option value="3">Grado 3-4 (Confusión severa, somnolencia - Coma)</option>
                     </select>
                 </div>
                 <div>
@@ -189,33 +189,6 @@
                         <option value="3">Child C: 10-15 puntos</option>
                     </select>
                 </div>
-                <h3>Escala West Haven de la Encefalopatía Hepática</h3>
-                <table border="1">
-                    <tr>
-                        <th>Grado</th>
-                        <th>Descripción</th>
-                    </tr>
-                    <tr>
-                        <td>0</td>
-                        <td>Sin alteraciones</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Alteración mínima del comportamiento</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Desorientación leve, asterixis</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Confusión severa, somnolencia</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Coma</td>
-                    </tr>
-                </table>
                 <h3>Mortalidad de los pacientes a un año y dos años en función de la clasificación Child</h3>
                 <table border="1" id="mortalidadChildTable">
                     <tr>
@@ -379,11 +352,11 @@
                 </div>
                 <div>
                     <label for="papsEstimada">PAPs estimada:</label>
-                    <input type="number" id="papsEstimada" name="papsEstimada" step="0.01">
+                    <input type="number" id="papsEstimada" name="papsEstimada" value = "44" step="1">
                 </div>
                 <div>
                     <label for="Tapse">TAPSE:</label>
-                    <input type="number" id="Tapse" name="Tapse" step="0.01">
+                    <input type="number" id="Tapse" name="Tapse" value = "16" step="1">
                 </div>
                 <div>
                     <label for="descripcionCardiologica">Descripción:</label>
@@ -515,7 +488,7 @@
                 </div>
                 <div>
                     <label for="paps">PAPs:</label>
-                    <input type="number" id="paps" name="paps" step="0.01">
+                    <input type="number" id="paps" name="paps"  step="1">
                 </div>
                 <div>
                     <label for="papmSelect">PAPm:</label>
@@ -880,13 +853,13 @@
 
             const cateterismoMessage = document.getElementById('cateterismoMessage');
 
-            if (fraccionVD === 2 || tapse < 16 || papsEstimada > 44) {
-                cateterismoMessage.innerText = "Está indicado la realización de cateterismo derecho";
-                cateterismoMessage.style.backgroundColor = "red";
-            } else {
-                cateterismoMessage.innerText = "No es necesario cateterismo derecho";
+            if (fraccionVD === 1 && tapse > 14 && papsEstimada < 45) {
+                cateterismoMessage.innerText = "No está indicado la realización de cateterismo derecho";
                 cateterismoMessage.style.backgroundColor = "green";
-            }
+            } else {
+                cateterismoMessage.innerText = "Está indicada la realización de cateterismo derecho";
+                cateterismoMessage.style.backgroundColor = "red";
+            };
         }
 
 
