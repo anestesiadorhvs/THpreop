@@ -225,7 +225,8 @@
                     </tr>
                     <tr id="childA">
                         <td>Child A</td>
-                        <td>100%</                        <td>85%</td>
+                        <td>100%</td>
+                        <td>85%</td>
                     </tr>
                     <tr id="childB">
                         <td>Child B</td>
@@ -916,10 +917,10 @@
 
         function evaluateEdad(){
             evaluateAaGradient();
-            evaluateStressEcho()
+            evaluateStressEcho();
         }
         function evaluateStress(){
-            evaluateAngioTac()
+            evaluateAngioTac();
             evaluateCoronariografia();
         }
         function highlightPaO2Row(pao2) {
@@ -938,19 +939,6 @@
                 document.getElementById('muySevera').style.backgroundColor = "red";
             }
         }
-
-        document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
-        document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
-        document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
-        document.getElementById('scoreCalcico').addEventListener('change', evaluateCoronariografia);
-        document.getElementById('historiaPatologiaCoronaria').addEventListener('change', evaluateCoronariografia);
-        document.getElementById('fraccionVD').addEventListener('change', evaluateCateterismoDerecho);
-        document.getElementById('Tapse').addEventListener('input', evaluateCateterismoDerecho);
-        document.getElementById('papsEstimada').addEventListener('input', evaluateCateterismoDerecho);
-        document.getElementById('fio2').addEventListener('input', evaluateAaGradient);
-        document.getElementById('paco2').addEventListener('input', evaluateAaGradient);
-        document.getElementById('pao2').addEventListener('input', evaluateAaGradient);
-        document.getElementById('edad').addEventListener('input', evaluateAaGradient);
 
         function evaluatePulmonaryFunction() {
             const fev1 = parseFloat(document.getElementById('fev1').value) || 0;
@@ -995,8 +983,7 @@
             }
         }
 
-        document.getElementById('resultadoStress').addEventListener('change', evaluateAngioTac);
-        document.getElementById('resultadoStress').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
         document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
         document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
         document.getElementById('scoreCalcico').addEventListener('change', evaluateCoronariografia);
@@ -1004,17 +991,11 @@
         document.getElementById('fraccionVD').addEventListener('change', evaluateCateterismoDerecho);
         document.getElementById('Tapse').addEventListener('input', evaluateCateterismoDerecho);
         document.getElementById('papsEstimada').addEventListener('input', evaluateCateterismoDerecho);
-        document.getElementById('na').addEventListener('input', evaluateAnionGap);
-        document.getElementById('cl').addEventListener('input', evaluateAnionGap);
-        document.getElementById('hco3').addEventListener('input', evaluateAnionGap);
         document.getElementById('fio2').addEventListener('input', evaluateAaGradient);
         document.getElementById('paco2').addEventListener('input', evaluateAaGradient);
         document.getElementById('pao2').addEventListener('input', evaluateAaGradient);
-        document.getElementById('edad').addEventListener('input', evaluateAaGradient);
-        document.getElementById('fev1').addEventListener('input', evaluatePulmonaryFunction);
+        document.getElementById('edad').addEventListener('input', evaluateEdad);
         document.getElementById('fvc').addEventListener('input', evaluatePulmonaryFunction);
-
-        
     </script>
 </body>
 </html>
