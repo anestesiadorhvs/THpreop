@@ -692,6 +692,59 @@
                     <!-- Mensaje de AKI se mostrará aquí -->
                 </div>
             </fieldset>
+            <fieldset>
+                <legend>Riesgo de CRRT intraoperatoria</legend>
+                <div>
+                    <label for="falloHepatico">Fallo Hepático:</label>
+                    <select id="falloHepatico" name="falloHepatico" onchange="calculateCRRTScore()">
+                        <option value="1">Crónico</option>
+                        <option value="2">Agudo</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="donanteAsistolia">Donante en asistolia:</label>
+                    <select id="donanteAsistolia" name="donanteAsistolia" onchange="calculateCRRTScore()">
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="retrasplante">Retrasplante:</label>
+                    <select id="retrasplante" name="retrasplante" onchange="calculateCRRTScore()">
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="vasopresoresPreop">Vasopresores preop:</label>
+                    <select id="vasopresoresPreop" name="vasopresoresPreop" onchange="calculateCRRTScore()">
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="crrtPreop">CRRT preop:</label>
+                    <select id="crrtPreop" name="crrtPreop" onchange="calculateCRRTScore()">
+                        <option value="0">No</option>
+                        <option value="1">Sí</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="kPreop">K+ preop:</label>
+                    <input type="number" id="kPreop" name="kPreop" step="0.01" onchange="calculateCRRTScore()">
+                </div>
+                <div>
+                    <label for="isquemiaFrio">Tº Isquemia Frio:</label>
+                    <input type="number" id="isquemiaFrio" name="isquemiaFrio" step="0.01" onchange="calculateCRRTScore()">
+                </div>
+                <div>
+                    <label for="bilirrubina">Bilirrubina:</label>
+                    <input type="number" id="bilirrubina" name="bilirrubina" step="0.01" onchange="calculateCRRTScore()">
+                </div>
+                <div id="crrtScoreMessage" style="padding: 5px; background-color: green; color: white;">
+                    Score de CRRT: 0
+                </div>
+            </fieldset>
             <button type="button" onclick="showPreviousSection(4)">Anterior</button>
             <button type="button" onclick="showNextSection(4)">Siguiente</button>
         </div>
@@ -1075,6 +1128,46 @@ function checkAKI() {
         document.getElementById('edad').addEventListener('input', evaluateEdad);
         document.getElementById('fvc').addEventListener('input', evaluatePulmonaryFunction);
 
+    function calculateCRRTScore() {
+        const falloHepatico = parseInt(document.getElementById('falloHepatico').value);
+        const donanteAsistolia = parseInt(document.getElementById('donanteAsistolia').value);
+        const retrasplante = parseInt(document.getElementById('retrasplante').value);
+        const vasopresoresPreop = parseInt(document.getElementById('vasopresoresPreop').value);
+        const crrtPreop = parseInt(document.getElementById('crrtPreop').value);
+        const kPreop = parseFloat(document.getElementById('kPreop').value) || 0;
+        const isquemiaFrio = parseFloat(document.getElementById('isquemiaFrio').value) || 0;
+        const bilirrubina = parseFloat(document.getElementById('bilirrubina').value) || 0;
+
+        let score = 0;
+
+        if (falloHepatico === 1) { // Crónico
+            if (donanteAsistolia === 1) score += 10;
+            if (vasopresoresPreop === 1) score += 7;
+            if (crrtPreop === 1) score += 6;
+            score += Math.floor((kPreop - 3.5) / 0.12);
+            score += Math.floor(isquemiaFrio / 0.72);
+            score += Math.floor(bilirrubina / 6);
+        } else if (falloHepatico === 2) { // Agudo
+            if (donanteAsistolia === 1) score += 10;
+            if (retrasplante === 1) score += 9;
+            if (vasopresoresPreop === 1) score += 7;
+            if (crrtPreop === 1) score += 28;
+            score += Math.floor(isquemiaFrio / 1.72);
+            score += Math.floor(bilirrubina / 6);
+        }
+
+        const crrtScoreMessage = document.getElementById('crrtScoreMessage');
+        crrtScoreMessage.innerText = "Score de CRRT: " + score;
+    }
+
+    document.getElementById('falloHepatico').addEventListener('change', calculateCRRTScore);
+    document.getElementById('donanteAsistolia').addEventListener('change', calculateCRRTScore);
+    document.getElementById('retrasplante').addEventListener('change', calculateCRRTScore);
+    document.getElementById('vasopresoresPreop').addEventListener('change', calculateCRRTScore);
+    document.getElementById('crrtPreop').addEventListener('change', calculateCRRTScore);
+    document.getElementById('kPreop').addEventListener('input', calculateCRRTScore);
+    document.getElementById('isquemiaFrio').addEventListener('input', calculateCRRTScore);
+    document.getElementById('bilirrubina').addEventListener('input', calculateCRRTScore);
 
     </script>
 </body>
