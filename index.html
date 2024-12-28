@@ -745,66 +745,67 @@
             <button type="button" onclick="showNextSection(4)">Siguiente</button>
         </div>
         <div id="section5" class="section">
-            <h2>Valoración Hematológica</h2>
-            <fieldset>
-                <legend>Riesgo de sangrado</legend>
-                <div>
-                    <label for="retrasplante">Retrasplante:</label>
-                    <select id="retrasplante" onchange="calculateScore()">
-                        <option value="0">No</option>
-                        <option value="1">Sí</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="edadHematologica">Edad:</label>
-                    <input type="number" id="edadHematologica" oninput="calculateScore()">
-                </div>
-                <div>
-                    <label for="sexoHematologico">Sexo:</label>
-                    <select id="sexoHematologico" onchange="calculateScore()">
-                        <option value="1">Hombre</option>
-                        <option value="2">Mujer</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="hbHematologica">Hemoglobina:</label>
-                    <input type="number" id="hbHematologica" oninput="calculateScore()">
-                </div>
-                <div>
-                    <label for="creatininaHematologica">Creatinina (mg/dl):</label>
-                    <input type="number" id="creatininaHematologica" oninput="calculateScore()">
-                </div>
-                <div>
-                    <label for="inr">INR:</label>
-                    <input type="number" id="inr" oninput="calculateScore()">
-                </div>
-                <div>
-                    <label for="plaquetas">Plaquetas:</label>
-                    <input type="number" id="plaquetas" step="1" oninput="calculateScore()">
-                </div>
-                <div>
-                    <label for="ttpa">TTPa:</label>
-                    <input type="number" id="ttpa" step="0.01">
-                </div>
-                <div>
-                    <label for="albumina">Albúmina (gr/L):</label>
-                    <input type="number" id="albumina" step="0.01" oninput="calculateScore()">
-                </div>
-                <div>
-                    <input type="checkbox" id="cirugiaAbdominal" onchange="calculateScore()">
-                    <label for="cirugiaAbdominal">Cirugía Abdominal Previa</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="peritonitis" onchange="calculateScore()">
-                    <label for="peritonitis">Episodios de peritonitis espontanea previa</label>
-                </div>
-                <div id="scoreMessage" style="padding: 5px; background-color: green; color: white;">
-                    Score: <span id="scoreValue">0</span>
-                </div>
-            </fieldset>
-            <button type="button" onclick="showPreviousSection(5)">Anterior</button>
-            <button type="button" onclick="showNextSection(5)">Siguiente</button>
+    <h2>Valoración Hematológica</h2>
+    <fieldset>
+        <legend>Riesgo de sangrado</legend>
+        <div>
+            <label for="retrasplante">Retrasplante:</label>
+            <select id="retrasplante" onchange="calculateScore()">
+                <option value="0" selected>No</option>
+                <option value="1">Sí</option>
+            </select>
         </div>
+        <div>
+            <label for="edadHematologica">Edad:</label>
+            <input type="number" id="edadHematologica" oninput="calculateScore()">
+        </div>
+        <div>
+            <label for="sexoHematologico">Sexo:</label>
+            <select id="sexoHematologico" onchange="calculateScore()">
+                <option value="1" selected>Hombre</option>
+                <option value="2">Mujer</option>
+            </select>
+        </div>
+        <div>
+            <label for="hbHematologica">Hemoglobina:</label>
+            <input type="number" id="hbHematologica" oninput="calculateScore()">
+        </div>
+        <div>
+            <label for="creatininaHematologica">Creatinina (mg/dl):</label>
+            <input type="number" id="creatininaHematologica" oninput="calculateScore()">
+        </div>
+        <div>
+            <label for="inr">INR:</label>
+            <input type="number" id="inr" step="0.01" oninput="calculateScore()">
+        </div>
+        <div>
+            <label for="plaquetas">Plaquetas:</label>
+            <input type="number" id="plaquetas" step="1" oninput="calculateScore()">
+        </div>
+        <div>
+            <label for="ttpa">TTPa:</label>
+            <input type="number" id="ttpa" step="1">
+        </div>
+        <div>
+            <label for="albumina">Albúmina (gr/L):</label>
+            <input type="number" id="albumina" step="0.1" oninput="calculateScore()">
+        </div>
+        <div>
+            <input type="checkbox" id="cirugiaAbdominal" onchange="calculateScore()">
+            <label for="cirugiaAbdominal">Cirugía Abdominal Previa</label>
+        </div>
+        <div>
+            <input type="checkbox" id="peritonitis" onchange="calculateScore()">
+            <label for="peritonitis">Episodios de peritonitis espontanea previa</label>
+        </div>
+        <div id="scoreMessage" style="padding: 5px; background-color: green; color: white;">
+            Score: <span id="scoreValue">0</span>
+        </div>
+    </fieldset>
+    <button type="button" onclick="showPreviousSection(5)">Anterior</button>
+    <button type="button" onclick="showNextSection(5)">Siguiente</button>
+</div>
+
         <div id="section6" class="section">
             <h2>Valoración Endocrinometabólica</h2>
             <!-- Contenido de la sección -->
@@ -1228,13 +1229,8 @@
         document.getElementById('vasopresoresPreop').addEventListener('change', calculateCRRTScore);
         document.getElementById('crrtPreop').addEventListener('change', calculateCRRTScore);
         document.getElementById('kPreop').addEventListener('input', calculateCRRTScore);
-        document.getElementById('isquemiaFrio').addEventListener('input', calculateCRRTScore);
         document.getElementById('bilirrubina').addEventListener('input', calculateCRRTScore);
-
-        document.getElementById('edadHematologica').value = document.getElementById('edad').value;
-        document.getElementById('sexoHematologico').value = document.getElementById('sexo').value;
-        document.getElementById('creatininaHematologica').value = document.getElementById('currentCreatinine').value;
-
+       
         function calculateScore() {
             let score = 0;
             const edad = parseInt(document.getElementById('edadHematologica').value || 40);
@@ -1268,7 +1264,7 @@
                 scoreMessage.innerText = `Score: ${score}`;
             }
 
-            scoreValue.innerText = score;
+            
         }
     </script>
 </body>
