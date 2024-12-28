@@ -745,66 +745,46 @@
             <button type="button" onclick="showNextSection(4)">Siguiente</button>
         </div>
         <div id="section5" class="section">
-    <h2>Valoración Hematológica</h2>
-    <fieldset>
-        <legend>Riesgo de sangrado</legend>
-        <div>
-            <label for="retrasplante">Retrasplante:</label>
-            <select id="retrasplante" onchange="calculateScore()">
+        <h2>Valoración Hematológica</h2>
+        <fieldset>
+            <legend>Riesgo de Sangrado</legend>
+            <label for="retrasplantehemato">Retrasplante:</label>
+            <select id="retrasplantehemato" name="retrasplantehemato">
                 <option value="0" selected>No</option>
                 <option value="1">Sí</option>
             </select>
-        </div>
-        <div>
-            <label for="edadHematologica">Edad:</label>
-            <input type="number" id="edadHematologica" oninput="calculateScore()">
-        </div>
-        <div>
-            <label for="sexoHematologico">Sexo:</label>
-            <select id="sexoHematologico" onchange="calculateScore()">
+            <br>
+            <label for="sexohemato">Sexo:</label>
+            <select id="sexohemato" name="sexohemato">
                 <option value="1" selected>Hombre</option>
                 <option value="2">Mujer</option>
             </select>
-        </div>
-        <div>
-            <label for="hbHematologica">Hemoglobina:</label>
-            <input type="number" id="hbHematologica" oninput="calculateScore()">
-        </div>
-        <div>
-            <label for="creatininaHematologica">Creatinina (mg/dl):</label>
-            <input type="number" id="creatininaHematologica" oninput="calculateScore()">
-        </div>
-        <div>
+            <br>
+            <label for="edadhemato">Edad:</label>
+            <input type="number" id="edadhemato" name="edadhemato">
+            <br>
+            <label for="hemoglobina">Hemoglobina:</label>
+            <input type="number" id="hemoglobina" name="hemoglobina" >
+            <br>
             <label for="inr">INR:</label>
-            <input type="number" id="inr" step="0.01" oninput="calculateScore()">
-        </div>
-        <div>
+            <input type="number" id="inr" name="inr" >
+            <br>
+            <label for="creatininahemato">Creatinina:</label>
+            <input type="number" id="creatininahemato" name="creatininahemato" >
+            <br>
+            <label for="albumina">Albúmina:</label>
+            <input type="number" id="albumina" name="albumina" >
+            <br>
             <label for="plaquetas">Plaquetas:</label>
-            <input type="number" id="plaquetas" step="1" oninput="calculateScore()">
-        </div>
-        <div>
-            <label for="ttpa">TTPa:</label>
-            <input type="number" id="ttpa" step="1">
-        </div>
-        <div>
-            <label for="albumina">Albúmina (gr/L):</label>
-            <input type="number" id="albumina" step="0.1" oninput="calculateScore()">
-        </div>
-        <div>
-            <input type="checkbox" id="cirugiaAbdominal" onchange="calculateScore()">
-            <label for="cirugiaAbdominal">Cirugía Abdominal Previa</label>
-        </div>
-        <div>
-            <input type="checkbox" id="peritonitis" onchange="calculateScore()">
-            <label for="peritonitis">Episodios de peritonitis espontanea previa</label>
-        </div>
-        <div id="scoreMessage" style="padding: 5px; background-color: green; color: white;">
-            Score: <span id="scoreValue">0</span>
-        </div>
-    </fieldset>
-    <button type="button" onclick="showPreviousSection(5)">Anterior</button>
-    <button type="button" onclick="showNextSection(5)">Siguiente</button>
-</div>
+            <input type="number" id="plaquetas" name="plaquetas" >
+            <br>
+            <div id="bleedingScoreMessage" style="padding: 5px; background-color:red; color: white;">
+                Score de Sangrado: 0
+            </div>
+        </fieldset>
+        <button type="button" onclick="showPreviousSection(5)">Anterior</button>
+        <button type="button" onclick="showNextSection(5)">Siguiente</button>
+    </div>
 
         <div id="section6" class="section">
             <h2>Valoración Endocrinometabólica</h2>
@@ -1209,6 +1189,29 @@
             const crrtScoreMessage = document.getElementById('crrtScoreMessage');
             crrtScoreMessage.innerText = "Score de CRRT: " + score + mensaje;
         }
+        function calculateBleedingScore() {
+            let score = 0;
+
+            const retrasplante = document.getElementById('retrasplantehemato').value;
+            const sexo = document.getElementById('sexohemato').value;
+            const edad = parseFloat(document.getElementById('edadhemato').value);
+            const hemoglobina = parseFloat(document.getElementById('hemoglobina').value);
+            const inr = parseFloat(document.getElementById('inr').value);
+            const creatinina = parseFloat(document.getElementById('creatininahemato').value);
+            const albumina = parseFloat(document.getElementById('albumina').value);
+            const plaquetas = parseFloat(document.getElementById('plaquetas').value);
+
+            if (retrasplante == '1') score += 1;
+            if (hemoglobina < 10) score += 1;
+            if (edad > 40) score += 1;
+            if (inr >2) score += 2;
+            if (sexo == '1' && creatinina >= 1.36) score += 1;
+            if (sexo == '2' && creatinina >= 1.28) score += 1;
+            if (plaquetas < 70000) score += 1;
+            if (albumina < 24) score += 1;
+
+            document.getElementById('bleedingScoreMessage').innerText = 'Score de Sangrado: ' + score;
+        }
 //listeners
         document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
         document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
@@ -1230,42 +1233,16 @@
         document.getElementById('crrtPreop').addEventListener('change', calculateCRRTScore);
         document.getElementById('kPreop').addEventListener('input', calculateCRRTScore);
         document.getElementById('bilirrubina').addEventListener('input', calculateCRRTScore);
-       
-        function calculateScore() {
-            let score = 0;
-            const edad = parseInt(document.getElementById('edadHematologica').value || 40);
-            const hb = parseFloat(document.getElementById('hbHematologica').value || 11);
-            const plaquetas = parseInt(document.getElementById('plaquetas').value ||100000);
-            const inr = parseFloat(document.getElementById('inr').value || 1);
-            const albumina = parseFloat(document.getElementById('albumina').value || 30);
-            const retrasplante = parseInt(document.getElementById('retrasplante').value);
-            const sexo = parseInt(document.getElementById('sexoHematologico').value);
-            const creatinina = parseFloat(document.getElementById('creatininaHematologica').value || 0.5);
-            const cirugiaAbdominal = document.getElementById('cirugiaAbdominal').checked;
-            const peritonitis = document.getElementById('peritonitis').checked;
-
-            if (edad > 40) score += 1;
-            if (hb < 10) score += 1;
-            if (plaquetas < 70000) score += 1;
-            if (inr >= 2) score += 2;
-            if (albumina < 24) score += 1;
-            if (retrasplante === 1) score += 1;
-            if (sexo === 1 && creatinina >= 1.36) score += 1;
-            if (sexo === 2 && creatinina >= 1.24) score += 1;
-
-            const scoreMessage = document.getElementById('scoreMessage');
-            const scoreValue = document.getElementById('scoreValue');
-
-            if (score >= 3 || cirugiaAbdominal || peritonitis) {
-                scoreMessage.style.backgroundColor = 'red';
-                scoreMessage.innerText = `Paciente con alto riesgo de sangrado, score: ${score}`;
-            } else {
-                scoreMessage.style.backgroundColor = 'green';
-                scoreMessage.innerText = `Score: ${score}`;
-            }
-
-            
-        }
+        
+        document.getElementById('retasplantehemato').addEventListener('change', calculateBleedingScore);
+        document.getElementById('sexohemato').addEventListener('change', calculateBleedingScore);
+        document.getElementById('edadhemato').addEventListener('input', calculateBleedingScore);
+        document.getElementById('hemoglobina').addEventListener('input', calculateBleedingScore);
+        document.getElementById('inr').addEventListener('input', calculateBleedingScore);
+        document.getElementById('creatininahemato').addEventListener('input', calculateBleedingScore);
+        document.getElementById('albumina').addEventListener('input', calculateBleedingScore);
+        document.getElementById('plaquetas').addEventListener('input', calculateBleedingScore);
+        
     </script>
 </body>
 </html>
