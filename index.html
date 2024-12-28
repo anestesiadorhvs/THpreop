@@ -640,7 +640,7 @@
                 <legend>Analítica</legend>
                 <div>
                     <label for="currentCreatinine">Creatinina actual:</label>
-                    <input type="number" id="currentCreatinine" oninput="calculateEGFR()">
+                    <input type="number" id="currentCreatinine" value ="0.5" oninput="calculateEGFR()">
                 </div>
                 
                 <div id="egfrMessage" style="padding: 5px; background-color: green; color: white;">
@@ -686,9 +686,9 @@
                 </table>
                 <div>
                     <label for="previousCreatinine">Creatinina previa (últimos 3 meses):</label>
-                    <input type="number" id="previousCreatinine" oninput="checkAKI()">
+                    <input type="number" id="previousCreatinine" value= "0.5" oninput="checkAKI()">
                 </div>
-                <div id="akiMessage" style="padding: 5px; background-color:red; color:white;">
+                <div id="akiMessage" style="padding: 5px; background-color:green; color:white;">
                     Bajo riesgo de AKI
                 </div>
             </fieldset>
@@ -737,7 +737,7 @@
                     <label for="bilirrubina">Bilirrubina:</label>
                     <input type="number" id="bilirrubina" name="bilirrubina" step="0.01" onchange="calculateCRRTScore()">
                 </div>
-                <div id="crrtScoreMessage" style="padding: 5px; background-color:red; color: white;">
+                <div id="crrtScoreMessage" style="padding: 5px; background-color:blue; color: white;">
                     Score de CRRT: 0
                 </div>
             </fieldset>
@@ -766,8 +766,8 @@
             <label for="hemoglobina">Hemoglobina:</label>
             <input type="number" id="hemoglobina" name="hemoglobina" >
             <br>
-            <label for="inr">INR:</label>
-            <input type="number" id="inr" name="inr" >
+            <label for="protrombina">INR:</label>
+            <input type="number" id="protrombina" name="protrombina" >
             <br>
             <label for="creatininahemato">Creatinina:</label>
             <input type="number" id="creatininahemato" name="creatininahemato" >
@@ -778,8 +778,14 @@
             <label for="plaquetas">Plaquetas:</label>
             <input type="number" id="plaquetas" name="plaquetas" >
             <br>
-            <div id="bleedingScoreMessage" style="padding: 5px; background-color:red; color: white;">
-                Score de Sangrado: 0
+            <label for="cirugiaAbdominalPrevia">Cirugía abdominal previa:</label>
+            <input type="checkbox" id="cirugiaAbdominalPrevia" name="cirugiaAbdominalPrevia">
+            <br>
+            <label for="peritonitisBacterianaEspontanea">Peritonitis bacteriana espontánea:</label>
+            <input type="checkbox" id="peritonitisBacterianaEspontanea" name="peritonitisBacterianaEspontanea">
+            <br>
+            <div id="bleedingScoreMessage" style="padding: 5px; background-color: green; color: white;">
+                Bajo riesgo de sangrado. Score: 0
             </div>
         </fieldset>
         <button type="button" onclick="showPreviousSection(5)">Anterior</button>
@@ -1135,12 +1141,16 @@
             const akiMessage = document.getElementById('akiMessage');
 
             if (currentCreatinine >= previousCreatinine * 1.5 && currentCreatinine <= previousCreatinine * 2 ) {
+                akiMessage.style.backgroundColor = 'red';
                 akiMessage.innerText = "Posible AKI grado 1 (aumento en 0,3 mg/dl o incremento 1,5-2 veces valor previo)";
             } else if (currentCreatinine > previousCreatinine * 2 && currentCreatinine <= previousCreatinine * 3) {
+                akiMessage.style.backgroundColor = 'red';
                 akiMessage.innerText = "Posible AKI grado 2 (incremento 2-3 veces valor previo)";
             } else if (currentCreatinine > previousCreatinine * 3 || currentCreatinine >= 4) {
+                akiMessage.style.backgroundColor = 'red';
                 akiMessage.innerText = "Posible AKI grado 3 (incremento >3 veces valor previo o Cr >=4gr/dl)";
             } else {
+                akiMessage.style.backgroundColor = 'green';
                 akiMessage.innerText = "AKI poco probable";
             }
 }
@@ -1196,21 +1206,31 @@
             const sexo = document.getElementById('sexohemato').value;
             const edad = parseFloat(document.getElementById('edadhemato').value);
             const hemoglobina = parseFloat(document.getElementById('hemoglobina').value);
-            const inr = parseFloat(document.getElementById('inr').value);
+            const protrombina = parseFloat(document.getElementById('protrombina').value);
             const creatinina = parseFloat(document.getElementById('creatininahemato').value);
             const albumina = parseFloat(document.getElementById('albumina').value);
             const plaquetas = parseFloat(document.getElementById('plaquetas').value);
+            const messageDiv = document.getElementById('bleedingScoreMessage');
+            const cirugiaAbdominalPrevia = document.getElementById('cirugiaAbdominalPrevia').checked;
+            const peritonitisBacterianaEspontanea = document.getElementById('peritonitisBacterianaEspontanea').checked;
 
             if (retrasplante == '1') score += 1;
             if (hemoglobina < 10) score += 1;
             if (edad > 40) score += 1;
-            if (inr >2) score += 2;
+            if (protrombina >2) score += 2;
             if (sexo == '1' && creatinina >= 1.36) score += 1;
             if (sexo == '2' && creatinina >= 1.28) score += 1;
             if (plaquetas < 70000) score += 1;
             if (albumina < 24) score += 1;
 
-            document.getElementById('bleedingScoreMessage').innerText = 'Score de Sangrado: ' + score;
+            
+            if (score >= 3 || cirugiaAbdominalPrevia || peritonitisBacterianaEspontanea) {
+                messageDiv.style.backgroundColor = 'red';
+                messageDiv.innerHTML = `Alto riesgo de sangrado. Score: ${score}`;
+            } else {
+                messageDiv.style.backgroundColor = 'green';
+                messageDiv.innerHTML = `Bajo riesgo de sangrado. Score: ${score}`;
+            }
         }
 //listeners
         document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
@@ -1234,11 +1254,11 @@
         document.getElementById('kPreop').addEventListener('input', calculateCRRTScore);
         document.getElementById('bilirrubina').addEventListener('input', calculateCRRTScore);
         
-        document.getElementById('retasplantehemato').addEventListener('change', calculateBleedingScore);
+        document.getElementById('retrasplantehemato').addEventListener('change', calculateBleedingScore);
         document.getElementById('sexohemato').addEventListener('change', calculateBleedingScore);
         document.getElementById('edadhemato').addEventListener('input', calculateBleedingScore);
         document.getElementById('hemoglobina').addEventListener('input', calculateBleedingScore);
-        document.getElementById('inr').addEventListener('input', calculateBleedingScore);
+        document.getElementById('protrombina').addEventListener('input', calculateBleedingScore);
         document.getElementById('creatininahemato').addEventListener('input', calculateBleedingScore);
         document.getElementById('albumina').addEventListener('input', calculateBleedingScore);
         document.getElementById('plaquetas').addEventListener('input', calculateBleedingScore);
