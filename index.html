@@ -15,6 +15,23 @@
         .highlight {
             background-color: red;
         }
+        .table.table-bordered {
+            background-color: #dfe0e0; 
+            border-radius: 5px; /* Bordes redondeados */
+            overflow: hidden; /* Para que los bordes redondeados se apliquen correctamente */
+       
+        }
+        .table.table-bordered thead tr {
+            background-color: #4d72c7; /* Fondo azul claro pastel */
+            font-weight: bold; /* Texto en negrita */
+        }
+        .rounded-shadow {
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
     </style>
 </head>
 <body>
@@ -23,44 +40,52 @@
             <h2>Valoración Inicial</h2>
             <fieldset class="border p-4">
                 <legend class="w-auto">Datos Administrativos</legend>
-                <div class="form-group">
-                    <label for="nhc">NHC:</label>
-                    <input type="text" id="nhc" name="nhc" class="form-control">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nhc">NHC:</label>
+                        <input type="text" id="nhc" name="nhc" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="sexo">Sexo:</label>
+                        <select id="sexo" name="sexo" class="form-control">
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="edad">Edad:</label>
+                        <input type="number" id="edad" name="edad" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="peso">Peso:</label>
+                        <input type="number" id="peso" name="peso" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="talla">Talla:</label>
+                        <input type="number" id="talla" name="talla" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="imcorporal">IMC:</label>
+                        <input type="number" id="imcorporal" name="imcorporal" class="form-control">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="primerApellido">1er Apellido:</label>
-                    <input type="text" id="primerApellido" name="primerApellido" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="segundoApellido">2º Apellido:</label>
-                    <input type="text" id="segundoApellido" name="segundoApellido" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="edad">Edad:</label>
-                    <input type="number" id="edad" name="edad" class="form-control" onchange="evaluateStressEcho()">
-                </div>
-                <div class="form-group">
-                    <label for="sexo">Sexo:</label>
-                    <select id="sexo" name="sexo" class="form-control">
-                        <option value="1">Hombre</option>
-                        <option value="2">Mujer</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="peso">Peso:</label>
-                    <input type="number" id="peso" name="peso" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="talla">Talla:</label>
-                    <input type="number" id="talla" name="talla" class="form-control">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="primerApellido">1er Apellido:</label>
+                        <input type="text" id="primerApellido" name="primerApellido" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="segundoApellido">2º Apellido:</label>
+                        <input type="text" id="segundoApellido" name="segundoApellido" class="form-control">
+                    </div>
                 </div>
             </fieldset>
             <fieldset class="border p-4">
-                <legend class="w-auto">Trasplante</legend>
+                <legend class="w-auto">Indicaciones</legend>
                 <div class="form-group">
                     <label for="tipoTrasplante">Tipo de Trasplante:</label>
                     <select id="tipoTrasplante" name="tipoTrasplante" class="form-control">
@@ -70,81 +95,84 @@
                 </div>
                 <div class="form-group">
                     <label>Indicación:</label>
-                    <div class="form-check">
+                    <div class="form-row">
+                        <div class="form-check col-md-4">
                         <input type="checkbox" id="hepatocarcinoma" name="indicacion" value="Hepatocarcinoma" class="form-check-input">
                         <label for="hepatocarcinoma" class="form-check-label">Hepatocarcinoma</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="cirrosisAlcoholica" name="indicacion" value="Cirrosis Alcohólica" class="form-check-input">
                         <label for="cirrosisAlcoholica" class="form-check-label">Cirrosis Alcohólica</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="cirrosisVirusB" name="indicacion" value="Cirrosis por virus B" class="form-check-input">
                         <label for="cirrosisVirusB" class="form-check-label">Cirrosis por virus B</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="cirrosisVirusC" name="indicacion" value="Cirrosis por virus C" class="form-check-input">
                         <label for="cirrosisVirusC" class="form-check-label">Cirrosis por virus C</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="cirrosisNASH" name="indicacion" value="Cirrosis NASH" class="form-check-input">
                         <label for="cirrosisNASH" class="form-check-label">Cirrosis NASH</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="cirrosisAutoinmune" name="indicacion" value="Cirrosis Autoinmune" class="form-check-input">
                         <label for="cirrosisAutoinmune" class="form-check-label">Cirrosis Autoinmune</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="cirrosisCriptogenica" name="indicacion" value="Cirrosis Criptogénica" class="form-check-input">
                         <label for="cirrosisCriptogenica" class="form-check-label">Cirrosis Criptogénica</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="cirrosisBiliarPrimaria" name="indicacion" value="Cirrosis Biliar Primaria" class="form-check-input">
                         <label for="cirrosisBiliarPrimaria" class="form-check-label">Cirrosis Biliar Primaria</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="colangitisEsclerosante" name="indicacion" value="Colangitis Esclerosante" class="form-check-input">
                         <label for="colangitisEsclerosante" class="form-check-label">Colangitis Esclerosante</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="hemangioma" name="indicacion" value="Hemangioma" class="form-check-input">
                         <label for="hemangioma" class="form-check-label">Hemangioma</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="poliquistosisOvarica" name="indicacion" value="Poliquistosis Ovárica" class="form-check-input">
                         <label for="poliquistosisOvarica" class="form-check-label">Poliquistosis Ovárica</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="buddChiari" name="indicacion" value="Budd Chiari" class="form-check-input">
                         <label for="buddChiari" class="form-check-label">Budd Chiari</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="falloHepaticoAgudo" name="indicacion" value="Fallo Hepático Agudo" class="form-check-input">
                         <label for="falloHepaticoAgudo" class="form-check-label">Fallo Hepático Agudo</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="falloHepaticoAgudoSobreCronico" name="indicacion" value="Fallo Hepático Agudo Sobre Crónico" class="form-check-input">
                         <label for="falloHepaticoAgudoSobreCronico" class="form-check-label">Fallo Hepático Agudo Sobre Crónico</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="hepatitisAgudaSubfulminante" name="indicacion" value="Hepatítis Aguda subfulminante" class="form-check-input">
                         <label for="hepatitisAgudaSubfulminante" class="form-check-label">Hepatítis Aguda subfulminante</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="trombosisArteriaHepatica" name="indicacion" value="Trombosis de arteria Hepática" class="form-check-input">
                         <label for="trombosisArteriaHepatica" class="form-check-label">Trombosis de arteria Hepática</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="trombosisPortal" name="indicacion" value="Trombosis Portal" class="form-check-input">
                         <label for="trombosisPortal" class="form-check-label">Trombosis Portal</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-md-4">
                         <input type="checkbox" id="malfuncionPrimaria" name="indicacion" value="Malfunción Primaria" class="form-check-input">
                         <label for="malfuncionPrimaria" class="form-check-label">Malfunción Primaria</label>
                     </div>
+                    </div>
                 </div>
             </fieldset>
-            <fieldset class="border p-4">
+            <div class = "form-row">
+            <fieldset class="border p-4 col-md-6" id="childPughFieldset">
                 <legend class="w-auto">Clasificación Child Pugh</legend>
                 <div class="form-group">
                     <label for="ascitis">Ascitis:</label>
@@ -190,31 +218,8 @@
                         <option value="3">Child C: 10-15 puntos</option>
                     </select>
                 </div>
-                <h3>Mortalidad de los pacientes a un año y dos años en función de la clasificación Child</h3>
-                <table border="1" id="mortalidadChildTable" class="table table-bordered">
-                    <tr>
-                        <th>Clasificación Child</th>
-                        <th>Mortalidad a 1 año</th>
-                        <th>Mortalidad a 2 años</th>
-                    </tr>
-                    <tr id="childA">
-                        <td>Child A</td>
-                        <td>100%</td>
-                        <td>85%</td>
-                    </tr>
-                    <tr id="childB">
-                        <td>Child B</td>
-                        <td>80%</td>                        
-                        <td>60%</td>
-                    </tr>
-                    <tr id="childC">
-                        <td>Child C</td>
-                        <td>45%</td>                        
-                        <td>35%</td>
-                    </tr>
-                </table>
             </fieldset>
-            <fieldset class="border p-4">
+            <fieldset class="border p-4 col-md-6" id="meldFieldset">
                 <legend class="w-auto">Puntuación MELD</legend>
                 <div class="form-group">
                     <label for="creatinina">Creatinina (mg/dl):</label>
@@ -235,20 +240,54 @@
                 <div class="form-group">
                     <label>Creatinina: Valor máximo 4. Si el paciente ha sido sometido a diálisis 2 veces en la semana previa, puntuar 4</label>
                 </div>
-                <div class="form-group">
+                <div class="rounded-shadow" style="background-color: darkseagreen;">
                     <label for="meldScore">MELD Score:</label>
                     <span id="meldScore">0</span>
                 </div>
-                <div class="form-group">
+                <div class="rounded-shadow" style="background-color: darkseagreen;">
                     <label for="meldNaScore">MELD-Na Score:</label>
                     <span id="meldNaScore">0</span>
                 </div>
-                <h3>Mortalidad a tres meses</h3>
+                
+            </fieldset>
+            </div>
+            <div class="form-row">
+            <div class="col-md-6">
+            <h4>Mortalidad a un año y dos años</h4>
+            <table border="1" id="mortalidadChildTable" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Clasificación Child</th>
+                    <th>Mortalidad a 1 año</th>
+                    <th>Mortalidad a 2 años</th>
+                </tr>
+                </thead>
+                <tr id="childA">
+                    <td>Child A</td>
+                    <td>100%</td>
+                    <td>85%</td>
+                </tr>
+                <tr id="childB">
+                    <td>Child B</td>
+                    <td>80%</td>                        
+                    <td>60%</td>
+                </tr>
+                <tr id="childC">
+                    <td>Child C</td>
+                    <td>45%</td>                        
+                    <td>35%</td>
+                </tr>
+            </table>
+            </div>
+            <div class="col-md-6">
+            <h4>Mortalidad a tres meses</h4>
                 <table border="1" id="mortalidadTresMesesTable" class="table table-bordered">
+                    <thead>
                     <tr>
                         <th>Valores MELD</th>
                         <th>Mortalidad</th>
                     </tr>
+                    </thead>
                     <tr id="meld40">
                         <td>40 o más</td>
                         <td>71%</td>
@@ -270,7 +309,8 @@
                         <td>2%</td>
                     </tr>
                 </table>
-            </fieldset>
+            </div>
+            </div>
             <button type="button" class="btn btn-primary" onclick="showNextSection(1)">Siguiente</button>
         </div>
         <div id="section2" class="section">
@@ -367,9 +407,7 @@
             
             <fieldset class="border p-4">
                 <legend class="w-auto">Índice HFA PEEF</legend>
-                <div id="resultadoHfaPeef" style="padding: 5px; background-color: green; color: white;">
-                    Bajo riesgo de insuficiencia cardiaca
-                </div>
+                
                 <!-- Sección Funcional -->
                 <div class="form-group">
                     <label for="funcional">Funcional</label>
@@ -420,11 +458,14 @@
                     <label for="indiceHfaPeef">Índice HFA PEEF:</label>
                     <span id="indiceHfaPeef">0</span>
                 </div>
-                
+                <div id="resultadoHfaPeef" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
+                    Bajo riesgo de insuficiencia cardiaca
+                </div>
+
             </fieldset>
             <fieldset class="border p-4">
                 <legend class="w-auto">Ecocardiograma de Stress</legend>
-                <div id="stressEchoMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="stressEchoMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No es necesario ecocardiograma de stress
                 </div>
                 <div class="form-group">
@@ -444,7 +485,7 @@
             </fieldset>
             <fieldset class="border p-4">
                 <legend class="w-auto">AngioTAC</legend>
-                <div id="angioTacMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="angioTacMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No es necesario angioTAC
                 </div>
                 <div class="form-check">
@@ -466,7 +507,7 @@
             </fieldset>
             <fieldset class="border p-4">
                 <legend class="w-auto">Coronariografía</legend>
-                <div id="coronariografiaMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="coronariografiaMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No es necesario realizar coronariografía
                 </div>
                 <div class="form-group">
@@ -484,7 +525,7 @@
             </fieldset>
             <fieldset class="border p-4">
                 <legend class="w-auto">Cateterismo Derecho</legend>
-                <div id="cateterismoMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="cateterismoMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No es necesario cateterismo derecho
                 </div>
                 <div class="form-group">
@@ -568,7 +609,7 @@
                     <input type="number" id="fio2" name="fio2" step="0.01" min="0" max="1" value="0.21" class="form-control" onchange="evaluateAnionGap(); evaluateAaGradient()">
                 </div>
     
-                <div id="aaGradientMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="aaGradientMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     Gradiente A-a de oxígeno: normal
                 </div>
                 
@@ -601,7 +642,7 @@
             </fieldset>
             <fieldset class="border p-4">
                 <legend class="w-auto">Ecocardiografia de contraste</legend>
-                <div id="ecoContrasteMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="ecoContrasteMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No se requiere ecografía de contraste
                 </div>
                 <div class="form-group">
@@ -628,7 +669,7 @@
                     <label for="fev1FvcRatio">FEV1/FVC:</label>
                     <span id="fev1FvcRatio">0</span>
                 </div>
-                <div id="pulmonaryFunctionMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="pulmonaryFunctionMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     Resultado de la función pulmonar
                 </div>
             </fieldset>
@@ -644,16 +685,18 @@
                     <input type="number" id="currentCreatinine" value ="0.5" class="form-control" oninput="calculateEGFR()">
                 </div>
                 
-                <div id="egfrMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="egfrMessage" class = "rounded-shadow" style="padding: 5px; background-color: darkseagreen; color: black;">
                     eGFR: <span id="egfrValue">0</span> mL/min/1.73m²
                 </div>
 
                 <table border="1" id="egfrTable" class="table table-bordered">
+                    <thead>
                     <tr>
                         <th>Grado</th>
                         <th>eGFR</th>
                         <th>Definición</th>
                     </tr>
+                    </thead>
                     <tr id="grado1">
                         <td>Grado 1</td>
                         <td>>=90</td>
@@ -689,7 +732,7 @@
                     <label for="previousCreatinine">Creatinina previa (últimos 3 meses):</label>
                     <input type="number" id="previousCreatinine" value= "0.5" class="form-control" oninput="checkAKI()">
                 </div>
-                <div id="akiMessage" style="padding: 5px; background-color:green; color:white;">
+                <div id="akiMessage" class = "rounded-shadow" style="padding: 5px; background-color:green; color:white;">
                     Bajo riesgo de AKI
                 </div>
             </fieldset>
@@ -738,7 +781,7 @@
                     <label for="bilirrubina">Bilirrubina:</label>
                     <input type="number" id="bilirrubina" name="bilirrubina" step="0.01" class="form-control" onchange="calculateCRRTScore()">
                 </div>
-                <div id="crrtScoreMessage" style="padding: 5px; background-color:blue; color: white;">
+                <div id="crrtScoreMessage" class = "rounded-shadow" style="padding: 5px; background-color:darkseagreen; color:black;">
                     Score de CRRT: 0
                 </div>
             </fieldset>
@@ -795,7 +838,7 @@
                 <input type="checkbox" id="peritonitisBacterianaEspontanea" name="peritonitisBacterianaEspontanea" class="form-check-input">
                 <label for="peritonitisBacterianaEspontanea" class="form-check-label">Peritonitis bacteriana espontánea</label>
             </div>
-            <div id="bleedingScoreMessage" style="padding: 5px; background-color: green; color: white;">
+            <div id="bleedingScoreMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                 Bajo riesgo de sangrado. Score: 0
             </div>
         </fieldset>
@@ -884,7 +927,7 @@
                         <option value="2">Sí</option>
                     </select>
                 </div>
-                <div id="scoreMessageNPT" style="padding: 5px; margin-top: 10px;background-color: green;color: white;">
+                <div id="scoreMessageNPT" class = "rounded-shadow" style="padding: 5px; margin-top: 10px;background-color: green;color: white;">
                     Bajo riesgo de malnutrición. Score: 0
                 </div>
                 
@@ -979,7 +1022,7 @@
                     </select>
                 </div>
 
-                <div id="frailScoreMessage" style="padding: 5px; background-color: green; color: white;">
+                <div id="frailScoreMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     Bajo riesgo de fragilidad. Score Frail: 0
                 </div>
             </fieldset>
@@ -1083,7 +1126,7 @@
                     </select>
                 </div>
 
-                <div id="dukeScoreMessage" style="padding: 5px; margin-top: 10px;background-color: green;color: white;">
+                <div id="dukeScoreMessage" class = "rounded-shadow" style="padding: 5px; margin-top: 10px;background-color: green;color: white;">
                     Capacidad funcional aceptable.
                 </div>
                          
