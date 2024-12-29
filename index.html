@@ -795,9 +795,162 @@
         <div id="section6" class="section">
             <h2>Valoración Endocrinometabólica</h2>
             <!-- Contenido de la sección -->
+            <fieldset>
+                <legend>Valoración nutricional RFH NPT</legend>
+                
+                <label for="hepatitisAlcoholicaAguda">Hepatitis alcohólica aguda:</label>
+                <select id="hepatitisAlcoholicaAguda" name="hepatitisAlcoholicaAguda">
+                    <option value="0">No</option>
+                    <option value="6">Sí</option>
+                </select>
+                <br>
+
+                <label for="nutricionEnteral">Nutrición enteral:</label>
+                <select id="nutricionEnteral" name="nutricionEnteral">
+                    <option value="0">No</option>
+                    <option value="6">Sí</option>
+                </select>
+                <br>
+
+                <label for="sobrecargaHidrica">Sobrecarga hídrica:</label>
+                <select id="sobrecargaHidrica" name="sobrecargaHidrica">
+                    <option value="0">No</option>
+                    <option value="1">Sí</option>
+                </select>
+                <br>
+
+                <label for="imc">IMC:</label>
+                <select id="imc" name="imc">
+                    <option value="0">>20%</option>
+                    <option value="1">18.5-20%</option>
+                    <option value="2"><18.5%</option>
+                </select>
+                <br>
+
+                <label for="perdidaPeso6Meses">Pérdida de peso en los últimos 6 meses:</label>
+                <select id="perdidaPeso6Meses" name="perdidaPeso6Meses">
+                    <option value="0"><5%</option>
+                    <option value="1">5-10%</option>
+                    <option value="2">>10%</option>
+                </select>
+                <br>
+
+                <label for="enfermedadAgudaSinAlimentacion">Enfermedad aguda sin alimentación en 5 días:</label>
+                <select id="enfermedadAgudaSinAlimentacion" name="enfermedadAgudaSinAlimentacion">
+                    <option value="0">No</option>
+                    <option value="2">Sí</option>
+                </select>
+                <br>
+
+                <label for="capacidadAlimentarse">Interferida capacidad de alimentarse:</label>
+                <select id="capacidadAlimentarse" name="capacidadAlimentarse">
+                    <option value="0">No</option>
+                    <option value="1">Ocasionalmente</option>
+                    <option value="2">Sí</option>
+                </select>
+                <br>
+
+                <label for="menosMitadDieta5Dias">Menos de la mitad de la dieta en los últimos 5 días:</label>
+                <select id="menosMitadDieta5Dias" name="menosMitadDieta5Dias">
+                    <option value="0">No</option>
+                    <option value="2">Sí</option>
+                </select>
+                <br>
+
+                <label for="perdidaPeso3_6Meses">Pérdida de peso en los últimos 3-6 meses:</label>
+                <select id="perdidaPeso3_6Meses" name="perdidaPeso3_6Meses">
+                    <option value="0">No</option>
+                    <option value="1">No valorable</option>
+                    <option value="2">Sí</option>
+                </select>
+                <div id="scoreMessageNPT" style="padding: 5px; margin-top: 10px;background-color: green;color: white;">
+                    Bajo riesgo de malnutrición. Score: 0
+                </div>
+                
+            </fieldset>
+            <fieldset>
+                <legend>Escala Frail</legend>
+                
+                <strong>FATIGABILIDAD</strong><br>
+                <label for="fatigabilidad">¿Qué parte del tiempo durante las últimas 4 semanas se sintió cansado/a?</label>
+                <select id="fatigabilidad" name="fatigabilidad">
+                    <option value="1">Todo el tiempo</option>
+                    <option value="1">La mayoría de las veces</option>
+                    <option value="0">Parte del tiempo</option>
+                    <option value="0">Un poco del tiempo</option>
+                    <option value="0" selected>En ningún momento</option>
+                </select>
+                <br>
+
+                <strong>RESISTENCIA</strong><br>
+                <label for="resistencia">¿Tiene alguna dificultad para subir 10 escalones sin descansar por usted mismo/a, sin ningún tipo de ayuda?</label>
+                <select id="resistencia" name="resistencia">
+                    <option value="0" selected>No</option>
+                    <option value="1">Sí</option>
+                </select>
+                <br>
+
+                <strong>DEAMBULACION</strong><br>
+                <label for="deambulacion">Por sí mismo/a y sin el uso de ayudas, ¿tiene alguna dificultad para caminar varios cientos de metros?</label>
+                <select id="deambulacion" name="deambulacion">
+                    <option value="0" selected>No</option>
+                    <option value="1">Sí</option>
+                </select>
+                <br>
+
+                <strong>COMORBILIDAD</strong><br>
+                <label>Comorbilidades:</label>
+                <br>
+                <input type="checkbox" id="hipertension" name="comorbilidad" value="hipertension">
+                <label for="hipertension">Hipertensión</label>
+                <br>
+                <input type="checkbox" id="diabetes" name="comorbilidad" value="diabetes">
+                <label for="diabetes">Diabetes</label>
+                <br>
+                <input type="checkbox" id="cancer" name="comorbilidad" value="cancer">
+                <label for="cancer">Cáncer (excepto piel de baja importancia)</label>
+                <br>
+                <input type="checkbox" id="enfermedadPulmonar" name="comorbilidad" value="enfermedadPulmonar">
+                <label for="enfermedadPulmonar">Enfermedad pulmonar crónica</label>
+                <br>
+                <input type="checkbox" id="infarto" name="comorbilidad" value="infarto">
+                <label for="infarto">Infarto de miocardio</label>
+                <br>
+                <input type="checkbox" id="insuficienciaCardiaca" name="comorbilidad" value="insuficienciaCardiaca">
+                <label for="insuficienciaCardiaca">Insuficiencia cardíaca congestiva</label>
+                <br>
+                <input type="checkbox" id="angina" name="comorbilidad" value="angina">
+                <label for="angina">Angina de pecho</label>
+                <br>
+                <input type="checkbox" id="asma" name="comorbilidad" value="asma">
+                <label for="asma">Asma</label>
+                <br>
+                <input type="checkbox" id="artritis" name="comorbilidad" value="artritis">
+                <label for="artritis">Artritis</label>
+                <br>
+                <input type="checkbox" id="ictus" name="comorbilidad" value="ictus">
+                <label for="ictus">Ictus</label>
+                <br>
+                <input type="checkbox" id="enfermedadRenal" name="comorbilidad" value="enfermedadRenal">
+                <label for="enfermedadRenal">Enfermedad renal</label>
+                <br>
+
+                <strong>PESO</strong><br>
+                <label for="pesofrail">¿Cuánto peso ha perdido en un año?</label>
+                <select id="pesofrail" name="pesofrail">
+                    <option value="0" selected>No he perdido o he perdido menos de 5%</option>
+                    <option value="1">Más de un 5%</option> 
+                </select>
+                <br>
+
+                <div id="frailScoreMessage" style="padding: 5px; background-color: green; color: white;">
+                    Bajo riesgo de fragilidad. Score Frail: 0
+                </div>
+            </fieldset>
             <button type="button" onclick="showPreviousSection(6)">Anterior</button>
             <button type="button" onclick="showNextSection(6)">Siguiente</button>
         </div>
+
         <div id="section7" class="section">
             <h2>Estimación de riesgos y recomendaciones</h2>
             <!-- Contenido de la sección -->
@@ -1232,6 +1385,81 @@
                 messageDiv.innerHTML = `Bajo riesgo de sangrado. Score: ${score}`;
             }
         }
+        function calculateScoreNPT() {
+            const isSobrecargaHidrica = document.getElementById('sobrecargaHidrica').value === '1';
+            let score = 0;
+
+            if (isSobrecargaHidrica) {
+                score += parseInt(document.getElementById('capacidadAlimentarse').value);
+                score += parseInt(document.getElementById('menosMitadDieta5Dias').value);
+                score += parseInt(document.getElementById('perdidaPeso3_6Meses').value);
+            } else {
+                score += parseInt(document.getElementById('imc').value);
+                score += parseInt(document.getElementById('perdidaPeso6Meses').value);
+                score += parseInt(document.getElementById('enfermedadAgudaSinAlimentacion').value);
+            }
+
+            score += parseInt(document.getElementById('hepatitisAlcoholicaAguda').value);
+            score += parseInt(document.getElementById('nutricionEnteral').value);
+
+            const messageDiv = document.getElementById('scoreMessageNPT');
+             if (score === 0) {
+                messageDiv.style.backgroundColor = 'green';
+                messageDiv.style.color = 'white';
+                messageDiv.innerHTML = `Bajo riesgo. Score Nutricional: ${score}`;
+             } else if (score === 1) {
+                messageDiv.style.backgroundColor = 'yellow';
+                messageDiv.style.color = 'black';
+                messageDiv.innerHTML = `Riesgo moderado. Score Nutricional: ${score}`;
+             } else {
+                messageDiv.style.backgroundColor = 'red';
+                messageDiv.style.color = 'white';
+                messageDiv.innerHTML = `Alto riesgo. Score Nutricional: ${score}`;
+            }
+        }
+
+        function habilitar(){
+            const isSobrecargaHidrica = this.value === '1';
+            document.getElementById('imc').disabled = isSobrecargaHidrica;
+            document.getElementById('perdidaPeso6Meses').disabled = isSobrecargaHidrica;
+            document.getElementById('enfermedadAgudaSinAlimentacion').disabled = isSobrecargaHidrica;
+
+            document.getElementById('capacidadAlimentarse').disabled = !isSobrecargaHidrica;
+            document.getElementById('menosMitadDieta5Dias').disabled = !isSobrecargaHidrica;
+            document.getElementById('perdidaPeso3_6Meses').disabled = !isSobrecargaHidrica;
+
+            calculateScoreNPT();
+        }
+
+        function calculateFrailScore() {
+            let score = 0;
+
+            score += parseInt(document.getElementById('fatigabilidad').value);
+            score += parseInt(document.getElementById('resistencia').value);
+            score += parseInt(document.getElementById('deambulacion').value);
+            score += parseInt(document.getElementById('pesofrail').value);
+
+            const comorbilidades = document.querySelectorAll('input[name="comorbilidad"]:checked');
+            if (comorbilidades.length > 4) {
+                score += 1;
+            }
+
+            const messageDiv = document.getElementById('frailScoreMessage');
+            if (score === 0) {
+                messageDiv.style.backgroundColor = 'green';
+                messageDiv.style.color = 'white';
+                messageDiv.innerHTML = `Bajo riesgo de fragilidad. Score Frail: ${score}`;
+            } else if (score === 1) {
+                messageDiv.style.backgroundColor = 'yellow';
+                messageDiv.style.color = 'black';
+                messageDiv.innerHTML = `Riesgo moderado de fragilidad. Score Frail: ${score}`;
+            } else {
+                messageDiv.style.backgroundColor = 'red';
+                messageDiv.style.color = 'white';
+                messageDiv.innerHTML = `Alto riesgo de fragilidad. Score Frail: ${score}`;
+            }
+        }
+
 //listeners
         document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
         document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
@@ -1263,6 +1491,26 @@
         document.getElementById('albumina').addEventListener('input', calculateBleedingScore);
         document.getElementById('plaquetas').addEventListener('input', calculateBleedingScore);
         
+        document.getElementById('sobrecargaHidrica').addEventListener('change', habilitar);
+        document.getElementById('imc').addEventListener('change', calculateScoreNPT);
+        document.getElementById('perdidaPeso6Meses').addEventListener('change', calculateScoreNPT);
+        document.getElementById('enfermedadAgudaSinAlimentacion').addEventListener('change', calculateScoreNPT);
+        document.getElementById('capacidadAlimentarse').addEventListener('change', calculateScoreNPT);
+        document.getElementById('menosMitadDieta5Dias').addEventListener('change', calculateScoreNPT);
+        document.getElementById('perdidaPeso3_6Meses').addEventListener('change', calculateScoreNPT);
+        document.getElementById('hepatitisAlcoholicaAguda').addEventListener('change', calculateScoreNPT);
+        document.getElementById('nutricionEnteral').addEventListener('change', calculateScoreNPT);
+
+           // Añadir listeners para recalcular el score cuando cambien los valores relevantes
+        document.getElementById('fatigabilidad').addEventListener('change', calculateFrailScore);
+        document.getElementById('resistencia').addEventListener('change', calculateFrailScore);
+        document.getElementById('deambulacion').addEventListener('change', calculateFrailScore);
+        document.getElementById('pesofrail').addEventListener('change', calculateFrailScore);
+        document.querySelectorAll('input[name="comorbilidad"]').forEach(element => {
+            element.addEventListener('change', calculateFrailScore);
+        });
     </script>
+
+
 </body>
 </html>
