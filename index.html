@@ -796,7 +796,7 @@
             <h2>Valoración Endocrinometabólica</h2>
             <!-- Contenido de la sección -->
             <fieldset>
-                <legend>Valoración nutricional RFH NPT</legend>
+                <legend>Valoración nutricional. Escala RFH NPT</legend>
                 
                 <label for="hepatitisAlcoholicaAguda">Hepatitis alcohólica aguda:</label>
                 <select id="hepatitisAlcoholicaAguda" name="hepatitisAlcoholicaAguda">
@@ -869,7 +869,7 @@
                 
             </fieldset>
             <fieldset>
-                <legend>Escala Frail</legend>
+                <legend>Valoración de Fragilidad. Escala Frail</legend>
                 
                 <strong>FATIGABILIDAD</strong><br>
                 <label for="fatigabilidad">¿Qué parte del tiempo durante las últimas 4 semanas se sintió cansado/a?</label>
@@ -946,6 +946,111 @@
                 <div id="frailScoreMessage" style="padding: 5px; background-color: green; color: white;">
                     Bajo riesgo de fragilidad. Score Frail: 0
                 </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Valoración de Capacidad Funcional. Escala Duke</legend>
+                
+                <label for="autocuidado"><strong>¿Puede Usted realizar sus actividades de autocuidado, tales como alimentarse, vestirse, bañarse, o usar el baño?</strong></label>
+                <br>
+                <select id="autocuidado" name="autocuidado">
+                    <option value="2.75">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="caminarCasa"><strong>¿Puede Usted caminar dentro de su casa y alrededor de ésta?</strong></label>
+                <br>
+                <select id="caminarCasa" name="caminarCasa">
+                    <option value="1.75">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="caminar200m"><strong>¿Puede Usted caminar unos 200 metros, sin pendiente?</strong></label>
+                <br>
+                <select id="caminar200m" name="caminar200m">
+                    <option value="2.75">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="subirEscaleras"><strong>¿Puede subir un piso de escaleras?</strong></label>
+                <br>
+                <select id="subirEscaleras" name="subirEscaleras">
+                    <option value="5.5">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="correr"><strong>¿Puede correr una distancia corta?</strong></label>
+                <br>
+                <select id="correr" name="correr">
+                    <option value="8">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="trabajoLigero"><strong>¿Puede hacer trabajo ligero en casa como lavar platos o limpiar el polvo?</strong></label>
+                <br>
+                <select id="trabajoLigero" name="trabajoLigero">
+                    <option value="2.7">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="trabajoModerado"><strong>¿Puede hacer trabajo moderado en casa como barrer o hacer las camas?</strong></label>
+                <br>
+                <select id="trabajoModerado" name="trabajoModerado">
+                    <option value="3.5">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="trabajoFuerte"><strong>¿Puede hacer trabajo fuerte en casa como mover muebles o fregar?</strong></label>
+                <br>
+                <select id="trabajoFuerte" name="trabajoFuerte">
+                    <option value="8">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="trabajosJardin"><strong>¿Puede hacer trabajos de jardín como limpiar hojas, cortar plantas?</strong></label>
+                <br>
+                <select id="trabajosJardin" name="trabajosJardin">
+                    <option value="4.5">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="relacionesSexuales"><strong>¿Puede tener relaciones sexuales?</strong></label>
+                <br>
+                <select id="relacionesSexuales" name="relacionesSexuales">
+                    <option value="5.25">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="ejercicioModerado"><strong>¿Puede hacer ejercicio moderado como bailar o lanzar una pelota?</strong></label>
+                <br>
+                <select id="ejercicioModerado" name="ejercicioModerado">
+                    <option value="6">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <label for="ejercicioIntenso"><strong>¿Puede hacer ejercicio intenso como jugar al fútbol o baloncesto?</strong></label>
+                <br>
+                <select id="ejercicioIntenso" name="ejercicioIntenso">
+                    <option value="7.5">Sí</option>
+                    <option value="0">No</option>
+                </select>
+                <br>
+
+                <div id="dukeScoreMessage" style="padding: 5px; margin-top: 10px;background-color: green;color: white;">
+                    Capacidad funcional aceptable.
+                </div>
+                         
             </fieldset>
             <button type="button" onclick="showPreviousSection(6)">Anterior</button>
             <button type="button" onclick="showNextSection(6)">Siguiente</button>
@@ -1459,6 +1564,32 @@
                 messageDiv.innerHTML = `Alto riesgo de fragilidad. Score Frail: ${score}`;
             }
         }
+        function calculateDukeScore() {
+                    let score = 0;
+                    score += parseFloat(document.getElementById('autocuidado').value);
+                    score += parseFloat(document.getElementById('caminarCasa').value);
+                    score += parseFloat(document.getElementById('caminar200m').value);
+                    score += parseFloat(document.getElementById('subirEscaleras').value);
+                    score += parseFloat(document.getElementById('correr').value);
+                    score += parseFloat(document.getElementById('trabajoLigero').value);
+                    score += parseFloat(document.getElementById('trabajoModerado').value);
+                    score += parseFloat(document.getElementById('trabajoFuerte').value);
+                    score += parseFloat(document.getElementById('trabajosJardin').value);
+                    score += parseFloat(document.getElementById('relacionesSexuales').value);
+                    score += parseFloat(document.getElementById('ejercicioModerado').value);
+                    score += parseFloat(document.getElementById('ejercicioIntenso').value);
+
+                    const messageDiv = document.getElementById('dukeScoreMessage');
+                    if (score < 15) {
+                        messageDiv.style.backgroundColor = 'red';
+                        messageDiv.style.color = 'white';
+                        messageDiv.innerHTML = `Baja capacidad funcional. Score: ${score}`;
+                    } else {
+                        messageDiv.style.backgroundColor = 'green';
+                        messageDiv.style.color = 'white';
+                        messageDiv.innerHTML = `Capacidad funcional aceptable. Score: ${score}`;
+                    }
+                }
 
 //listeners
         document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
@@ -1509,6 +1640,10 @@
         document.querySelectorAll('input[name="comorbilidad"]').forEach(element => {
             element.addEventListener('change', calculateFrailScore);
         });
+
+        document.querySelectorAll('#autocuidado, #caminarCasa, #caminar200m, #subirEscaleras, #correr, #trabajoLigero, #trabajoModerado, #trabajoFuerte, #trabajosJardin, #relacionesSexuales, #ejercicioModerado, #ejercicioIntenso').forEach(element => {
+                    element.addEventListener('change', calculateDukeScore);
+                });
     </script>
 
 
