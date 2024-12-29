@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Valoración</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   
     <style>
         .section {
             display: none;
@@ -32,7 +33,15 @@
         margin-top: 5px;
         margin-bottom: 5px;
     }
+    hr {
+        border: 0;
+        height: 1px;
+        background: #333;
+        background-image: linear-gradient(to right, #ccc, #333, #ccc);
+    }
+    
     </style>
+    
 </head>
 <body>
     <form id="valoracionForm" class="container mt-4">
@@ -43,46 +52,47 @@
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="nhc">NHC:</label>
-                        <input type="text" id="nhc" name="nhc" class="form-control">
+                        <input type="text" id="nhc" name="nhc" class="form-control" step="1" required>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="sexo">Sexo:</label>
-                        <select id="sexo" name="sexo" class="form-control">
-                            <option value="masculino">Masculino</option>
-                            <option value="femenino">Femenino</option>
+                        <label for="sexoinicio">Sexo:</label>
+                        <select id="sexoinicio" name="sexoinicio" class="form-control" required>
+                            <option value="1">Masculino</option>
+                            <option value="2">Femenino</option>
                         </select>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="edad">Edad:</label>
-                        <input type="number" id="edad" name="edad" class="form-control">
+                        <label for="edadinicio">Edad:</label>
+                        <input type="number" id="edadinicio" name="edadinicio" class="form-control" step="1" required>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="peso">Peso:</label>
-                        <input type="number" id="peso" name="peso" class="form-control">
+                        <label for="pesoinicio">Peso:</label>
+                        <input type="number" id="pesoinicio" name="pesoinicio" class="form-control" step="0.1" required>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="talla">Talla:</label>
-                        <input type="number" id="talla" name="talla" class="form-control">
+                        <label for="tallainicio">Talla:</label>
+                        <input type="number" id="tallainicio" name="tallainicio" class="form-control" step="1" required>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="imcorporal">IMC:</label>
-                        <input type="number" id="imcorporal" name="imcorporal" class="form-control">
+                        <label for="imcinicio">IMC:</label>
+                        <input type="number" id="imcinicio" name="imcinicio" class="form-control" readonly>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control">
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="primerApellido">1er Apellido:</label>
-                        <input type="text" id="primerApellido" name="primerApellido" class="form-control">
+                        <input type="text" id="primerApellido" name="primerApellido" class="form-control" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="segundoApellido">2º Apellido:</label>
-                        <input type="text" id="segundoApellido" name="segundoApellido" class="form-control">
+                        <input type="text" id="segundoApellido" name="segundoApellido" class="form-control" required>
                     </div>
                 </div>
+                Todos los campos de esta seccion son obligatorios, el botón "Siguiente" se habilitará una vez se completen todos los campos.
             </fieldset>
             <fieldset class="border p-4">
                 <legend class="w-auto">Indicaciones</legend>
@@ -94,7 +104,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Indicación:</label>
+                   
                     <div class="form-row">
                         <div class="form-check col-md-4">
                         <input type="checkbox" id="hepatocarcinoma" name="indicacion" value="Hepatocarcinoma" class="form-check-input">
@@ -176,7 +186,7 @@
                 <legend class="w-auto">Clasificación Child Pugh</legend>
                 <div class="form-group">
                     <label for="ascitis">Ascitis:</label>
-                    <select id="ascitis" name="ascitis" class="form-control" onchange="updateChildPughScore()">
+                    <select id="ascitis" name="ascitis" class="form-control">
                         <option value="1" selected>Ausente</option>
                         <option value="2">Leve</option>
                         <option value="3">Moderada</option>
@@ -184,7 +194,7 @@
                 </div>
                 <div class="form-group">
                     <label for="bilirrubina">Bilirrubina:</label>
-                    <select id="bilirrubina" name="bilirrubina" class="form-control" onchange="updateChildPughScore()">
+                    <select id="bilirrubina" name="bilirrubina" class="form-control">
                         <option value="1" selected>&lt;=2</option>
                         <option value="2">2-3</option>
                         <option value="3">&gt;3</option>
@@ -192,7 +202,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inr">INR:</label>
-                    <select id="inr" name="inr" class="form-control" onchange="updateChildPughScore()">
+                    <select id="inr" name="inr" class="form-control">
                         <option value="1" selected>&lt;1.8</option>
                         <option value="2">1.8-2.3</option>
                         <option value="3">&gt;2.3</option>
@@ -200,7 +210,7 @@
                 </div>
                 <div class="form-group">
                     <label for="encefalopatia">Encefalopatía:</label>
-                    <select id="encefalopatia" name="encefalopatia" class="form-control" onchange="updateChildPughScore()">
+                    <select id="encefalopatia" name="encefalopatia" class="form-control">
                         <option value="1" selected>Ausente</option>
                         <option value="2">Grado 1-2 (Alteración mínima del comportamiento - Desorientación leve, asterixis)</option>
                         <option value="3">Grado 3-4 (Confusión severa, somnolencia - Coma)</option>
@@ -212,7 +222,7 @@
                 </div>
                 <div class="form-group">
                     <label for="escalaChild">Escala Child:</label>
-                    <select id="escalaChild" name="escalaChild" class="form-control" onchange="highlightChildRow()">
+                    <select id="escalaChild" name="escalaChild" class="form-control">
                         <option value="1">Child A: 5-6 puntos</option>
                         <option value="2">Child B: 7-9 puntos</option>
                         <option value="3">Child C: 10-15 puntos</option>
@@ -222,20 +232,20 @@
             <fieldset class="border p-4 col-md-6" id="meldFieldset">
                 <legend class="w-auto">Puntuación MELD</legend>
                 <div class="form-group">
-                    <label for="creatinina">Creatinina (mg/dl):</label>
-                    <input type="number" id="creatinina" name="creatinina" step="0.01" value="1" class="form-control" onchange="updateMeldScores()">
+                    <label for="creatininaMeld">Creatinina (mg/dl):</label>
+                    <input type="number" id="creatininaMeld" name="creatininaMeld" step="0.01" value="0.5" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="inrMeld">INR:</label>
-                    <input type="number" id="inrMeld" name="inrMeld" step="0.01" value="1" class="form-control" onchange="updateMeldScores()">
+                    <input type="number" id="inrMeld" name="inrMeld" step="0.01" value="1" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="bilirrubinaMeld">Bilirrubina (mg/dl):</label>
-                    <input type="number" id="bilirrubinaMeld" name="bilirrubinaMeld" step="0.01" value="1" class="form-control" onchange="updateMeldScores()">
+                    <input type="number" id="bilirrubinaMeld" name="bilirrubinaMeld" step="0.01" value="1" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="sodio">Na (mmol/L):</label>
-                    <input type="number" id="sodio" name="sodio" step="0.01" value="140" class="form-control" onchange="updateMeldScores()">
+                    <label for="sodioMeld">Na (mmol/L):</label>
+                    <input type="number" id="sodioMeld" name="sodioMeld" step="0.01" value="140" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Creatinina: Valor máximo 4. Si el paciente ha sido sometido a diálisis 2 veces en la semana previa, puntuar 4</label>
@@ -311,23 +321,41 @@
                 </table>
             </div>
             </div>
+            <hr>
             <button type="button" class="btn btn-primary" onclick="showNextSection(1)">Siguiente</button>
+            <hr>
         </div>
         <div id="section2" class="section">
             <h2>Valoración Cardiológica</h2>
             <fieldset class="border p-4">
                 <legend class="w-auto">Factores de Riesgo Cardiovascular</legend>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <h3>Criterios Mayores</h3>
                 <div class="form-check">
                     <input type="checkbox" id="diabetes" name="diabetes" class="form-check-input" onchange="evaluateStressEcho()">
                     <label for="diabetes" class="form-check-label">Diabetes</label>
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" id="historiaPatologiaCoronaria" name="historiaPatologiaCoronaria" class="form-check-input" onchange="evaluateStressEcho()">
+                    <label for="historiaPatologiaCoronaria" class="form-check-label">Historia previa o clínica de patología coronaria</label>
+                </div>
+                <br>
+                
+                </div>
+                <div class="col-md-6">
+                    <h3>Criterios Menores</h3>
+                    <div class="form-group">
+                        <label for="edadeco">Edad:</label>
+                        <input type="number" id="edadeco" name="edadeco" class="form-control" step="1" readonly>
+                    </div>
                 <div class="form-check">
                     <input type="checkbox" id="hipertension" name="hipertension" class="form-check-input" onchange="evaluateStressEcho()">
                     <label for="hipertension" class="form-check-label">Hipertensión</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" id="dislipidemia" name="dislipidemia" class="form-check-input" onchange="evaluateStressEcho()">
-                    <label for="dislipidemia" class="form-check-label">Dislipidemia</label>
+                    <label for="dislipidemia" class="form-check-label">Dislipemia</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" id="tabaquismo" name="tabaquismo" class="form-check-input" onchange="evaluateStressEcho()">
@@ -337,10 +365,7 @@
                     <input type="checkbox" id="obesidad" name="obesidad" class="form-check-input" onchange="evaluateStressEcho()">
                     <label for="obesidad" class="form-check-label">Obesidad</label>
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" id="historiaPatologiaCoronaria" name="historiaPatologiaCoronaria" class="form-check-input" onchange="evaluateStressEcho()">
-                    <label for="historiaPatologiaCoronaria" class="form-check-label">Historia previa o clínica de patología coronaria</label>
-                </div>
+                
                 <div class="form-check">
                     <input type="checkbox" id="historiaFamiliarPatologiaCoronaria" name="historiaFamiliarPatologiaCoronaria" class="form-check-input" onchange="evaluateStressEcho()">
                     <label for="historiaFamiliarPatologiaCoronaria" class="form-check-label">Historia familiar de patología coronaria</label>
@@ -349,9 +374,11 @@
                     <input type="checkbox" id="arteriopatiaPeriferica" name="arteriopatiaPeriferica" class="form-check-input" onchange="evaluateStressEcho()">
                     <label for="arteriopatiaPeriferica" class="form-check-label">Presencia de arteriopatía periférica</label>
                 </div>
-                
+                </div>
+                </div>
             </fieldset>
-            <fieldset class="border p-4">
+            <div class="form-row">
+            <fieldset class="border p-4 col-md-6">
                 <legend class="w-auto">Electrocardiograma</legend>
                 <div class="form-group">
                     <label for="ritmo">Ritmo:</label>
@@ -368,44 +395,12 @@
                     <label for="qtc">QTc:</label>
                     <input type="number" id="qtc" name="qtc" step="0.01" class="form-control">
                 </div>
-                <div class="form-group">
+                <div class="form-group col">
                     <label for="descripcionEcg">Descripción:</label>
                     <textarea id="descripcionEcg" name="descripcionEcg" class="form-control"></textarea>
                 </div>
             </fieldset>
-            <fieldset class="border p-4">
-                <legend class="w-auto">Ecocardiografia</legend>
-                <div class="form-group">
-                    <label for="fraccionEyeccion">Fracción de Eyección VI:</label>
-                    <select id="fraccionEyeccion" name="fraccionEyeccion" class="form-control">
-                        <option value="1">Normal (&gt;50%)</option>
-                        <option value="2">Levemente Disminuida (40-49%)</option>
-                        <option value="3">Moderadamente disminuida (30-39%)</option>
-                        <option value="4">Severamente disminuida (&lt;30%)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="fraccionVD">Función VD:</label>
-                    <select id="fraccionVD" name="fraccionVD" class="form-control">
-                        <option value="1">Normal</option>
-                        <option value="2">Deprimida</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="papsEstimada">PAPs estimada:</label>
-                    <input type="number" id="papsEstimada" name="papsEstimada"  step="1" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="Tapse">TAPSE:</label>
-                    <input type="number" id="Tapse" name="Tapse"  step="1" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="descripcionCardiologica">Descripción:</label>
-                    <textarea id="descripcionCardiologica" name="descripcionCardiologica" class="form-control"></textarea>
-                </div>
-            </fieldset>
-            
-            <fieldset class="border p-4">
+            <fieldset class="border p-4 col-md-6">
                 <legend class="w-auto">Índice HFA PEEF</legend>
                 
                 <!-- Sección Funcional -->
@@ -463,7 +458,42 @@
                 </div>
 
             </fieldset>
-            <fieldset class="border p-4">
+            </div>
+            <div class="form-row">
+            <fieldset class="border p-4 col-md-6">
+                <legend class="w-auto">Ecocardiografia</legend>
+                <div class="form-group">
+                    <label for="fraccionEyeccion">Fracción de Eyección VI:</label>
+                    <select id="fraccionEyeccion" name="fraccionEyeccion" class="form-control">
+                        <option value="1">Normal (&gt;50%)</option>
+                        <option value="2">Levemente Disminuida (40-49%)</option>
+                        <option value="3">Moderadamente disminuida (30-39%)</option>
+                        <option value="4">Severamente disminuida (&lt;30%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fraccionVD">Función VD:</label>
+                    <select id="fraccionVD" name="fraccionVD" class="form-control">
+                        <option value="1">Normal</option>
+                        <option value="2">Deprimida</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="papsEstimada">PAPs estimada:</label>
+                    <input type="number" id="papsEstimada" name="papsEstimada"  step="1" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="Tapse">TAPSE:</label>
+                    <input type="number" id="Tapse" name="Tapse"  step="1" class="form-control">
+                </div>
+                <div class="form-group col">
+                    <label for="descripcionCardiologica">Descripción:</label>
+                    <textarea id="descripcionCardiologica" name="descripcionCardiologica" class="form-control"></textarea>
+                </div>
+            </fieldset>
+            
+            
+            <fieldset class="border p-4 col-md-6">
                 <legend class="w-auto">Ecocardiograma de Stress</legend>
                 <div id="stressEchoMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No es necesario ecocardiograma de stress
@@ -478,12 +508,14 @@
                         <option value="4">Concluyente negativo para isquemia</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group col">
                     <label for="comentarioStress">Comentario:</label>
                     <textarea id="comentarioStress" name="comentarioStress" class="form-control"></textarea>
                 </div>
             </fieldset>
-            <fieldset class="border p-4">
+            </div>
+            <div class="form-row">
+            <fieldset class="border p-4 col-md-4">
                 <legend class="w-auto">AngioTAC</legend>
                 <div id="angioTacMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No es necesario angioTAC
@@ -500,12 +532,13 @@
                     <input type="checkbox" id="scoreCalcico" name="scoreCalcico" class="form-check-input">
                     <label for="scoreCalcico" class="form-check-label">Score calcico por encima de 100</label>
                 </div>
-                <div class="form-group">
+                <br>
+                <div class="form-group col">
                     <label for="comentarioAngioTac">Comentario:</label>
                     <textarea id="comentarioAngioTac" name="comentarioAngioTac" class="form-control"></textarea>
                 </div>
             </fieldset>
-            <fieldset class="border p-4">
+            <fieldset class="border p-4 col-md-4">
                 <legend class="w-auto">Coronariografía</legend>
                 <div id="coronariografiaMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No es necesario realizar coronariografía
@@ -518,12 +551,12 @@
                         <option value="2">Revascularizado</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group col">
                     <label for="comentarioCoronariografia">Comentario:</label>
                     <textarea id="comentarioCoronariografia" name="comentarioCoronariografia" class="form-control"></textarea>
                 </div>
             </fieldset>
-            <fieldset class="border p-4">
+            <fieldset class="border p-4 col-md-4">
                 <legend class="w-auto">Cateterismo Derecho</legend>
                 <div id="cateterismoMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     No es necesario cateterismo derecho
@@ -554,13 +587,16 @@
                     <input type="number" id="pshe" name="pshe" step="0.01" class="form-control">
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group col">
                     <label for="comentarioCateterismo">Comentario:</label>
                     <textarea id="comentarioCateterismo" name="comentarioCateterismo" class="form-control"></textarea>
                 </div>
             </fieldset>
+            </div>
+            <hr>
             <button type="button" class="btn btn-primary" onclick="showPreviousSection(2)">Anterior</button>
             <button type="button" class="btn btn-primary" onclick="showNextSection(2)">Siguiente</button>
+            <hr>
         </div>
         <div id="section3" class="section">
             <h2>Valoración Pulmonar y Vía aérea</h2>
@@ -778,8 +814,8 @@
                     <input type="number" id="kPreop" name="kPreop" step="0.01" class="form-control" onchange="calculateCRRTScore()">
                 </div>
                 <div class="form-group">
-                    <label for="bilirrubina">Bilirrubina:</label>
-                    <input type="number" id="bilirrubina" name="bilirrubina" step="0.01" class="form-control" onchange="calculateCRRTScore()">
+                    <label for="bilirrubinaCRRT">Bilirrubina:</label>
+                    <input type="number" id="bilirrubinaCRRT" name="bilirrubinaCRRT" step="0.01" class="form-control" onchange="calculateCRRTScore()">
                 </div>
                 <div id="crrtScoreMessage" class = "rounded-shadow" style="padding: 5px; background-color:darkseagreen; color:black;">
                     Score de CRRT: 0
@@ -802,7 +838,7 @@
             <div class="form-group">
                 <label for="sexohemato">Sexo:</label>
                 <select id="sexohemato" name="sexohemato" class="form-control">
-                    <option value="1" selected>Hombre</option>
+                    <option value="1">Hombre</option>
                     <option value="2">Mujer</option>
                 </select>
             </div>
@@ -1142,589 +1178,9 @@
         </div>
     </form>
 
-    <script>
-        function showNextSection(currentSection) {
-            document.getElementById('section' + currentSection).classList.remove('active');
-            document.getElementById('section' + (currentSection + 1)).classList.add('active');
-        }
-
-        function showPreviousSection(currentSection) {
-            document.getElementById('section' + currentSection).classList.remove('active');
-            document.getElementById('section' + (currentSection - 1)).classList.add('active');
-        }
-
-        function updateChildPughScore() {
-            const ascitis = parseInt(document.getElementById('ascitis').value);
-            const bilirrubina = parseInt(document.getElementById('bilirrubina').value);
-            const inr = parseInt(document.getElementById('inr').value);
-            const encefalopatia = parseInt(document.getElementById('encefalopatia').value);
-
-            const totalScore = ascitis + bilirrubina + inr + encefalopatia;
-            document.getElementById('childPughScore').innerText = totalScore;
-
-            const escalaChild = document.getElementById('escalaChild');
-            if (totalScore >= 5 && totalScore <= 6) {
-                escalaChild.value = "1";
-            } else if (totalScore >= 7 && totalScore <= 9) {
-                escalaChild.value = "2";
-            } else if (totalScore >= 10 && totalScore <= 15) {
-                escalaChild.value = "3";
-            }
-            highlightChildRow();
-        }
-
-        function highlightChildRow() {
-            const escalaChild = document.getElementById('escalaChild').value;
-            document.getElementById('childA').classList.remove('highlight');
-            document.getElementById('childB').classList.remove('highlight');
-            document.getElementById('childC').classList.remove('highlight');
-
-            if (escalaChild === "1") {
-                document.getElementById('childA').classList.add('highlight');
-            } else if (escalaChild === "2") {
-                document.getElementById('childB').classList.add('highlight');
-            } else if (escalaChild === "3") {
-                document.getElementById('childC').classList.add('highlight');
-            }
-        }
-
-        function updateMeldScores() {
-            let creatinina = parseFloat(document.getElementById('creatinina').value) || 0;
-            if (creatinina > 4) {
-                creatinina = 4;
-            }
-            const bilirrubina = parseFloat(document.getElementById('bilirrubinaMeld').value) || 0;
-            const inr = parseFloat(document.getElementById('inrMeld').value) || 0;
-            const sodio = parseFloat(document.getElementById('sodio').value) || 0;
-
-            const meldScore = 9.6 * Math.log(creatinina) + 3.8 * Math.log(bilirrubina) + 11.2 * Math.log(inr) + 6.4;
-            const meldNaScore = meldScore - sodio - (0.025 * meldScore * (140 - sodio)) + 140;
-
-            document.getElementById('meldScore').innerText = meldScore.toFixed(2);
-            document.getElementById('meldNaScore').innerText = meldNaScore.toFixed(2);
-
-            highlightMeldRow(meldScore);
-        }
-
-        function highlightMeldRow(meldScore) {
-            document.getElementById('meld40').classList.remove('highlight');
-            document.getElementById('meld30_39').classList.remove('highlight');
-            document.getElementById('meld20_29').classList.remove('highlight');
-            document.getElementById('meld10_19').classList.remove('highlight');
-            document.getElementById('meldMenor9').classList.remove('highlight');
-
-            if (meldScore >= 40) {
-                document.getElementById('meld40').classList.add('highlight');
-            } else if (meldScore >= 30) {
-                document.getElementById('meld30_39').classList.add('highlight');
-            } else if (meldScore >= 20) {
-                document.getElementById('meld20_29').classList.add('highlight');
-            } else if (meldScore >= 10) {
-                document.getElementById('meld10_19').classList.add('highlight');
-            } else {
-                document.getElementById('meldMenor9').classList.add('highlight');
-            }
-        }
-
-        function calculateHfaPeefIndex() {
-            const funcional  = parseInt(document.getElementById('funcional').value);
-            const morfologico = parseInt(document.getElementById('morfologico').value);
-            const biomarcador = parseInt(document.getElementById('biomarcador').value);
-            const biomarcadorFA = parseInt(document.getElementById('biomarcadorFA').value);
-            const indiceHfaPeef = funcional + morfologico + biomarcador + biomarcadorFA;
-            document.getElementById('indiceHfaPeef').innerText = indiceHfaPeef;
-
-            const resultado = document.getElementById('resultadoHfaPeef');
-            if (indiceHfaPeef >= 5) {
-                resultado.innerText = "Paciente con Insuficiencia cardiaca";
-                resultado.style.backgroundColor = "red";
-                resultado.style.color = "white";
-            } else if (indiceHfaPeef > 2 && indiceHfaPeef < 5) {
-                resultado.innerText = "Paciente con riesgo de insuficiencia cardiaca";
-                resultado.style.backgroundColor = "yellow";
-                resultado.style.color = "black";
-            } else {
-                resultado.innerText = "Paciente con bajo riesgo de insuficiencia cardiaca";
-                resultado.style.backgroundColor = "green";
-                resultado.style.color = "white";
-            }
-        }
-
-        function resetBiomarcadorFA() {
-            document.getElementById('biomarcadorFA').value = "0";
-        }
-
-        function resetBiomarcador() {
-            document.getElementById('biomarcador').value = "0";
-        }
-
-        document.getElementById('funcional').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('morfologico').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('biomarcador').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('biomarcadorFA').addEventListener('change', calculateHfaPeefIndex);
-
-        function evaluateStressEcho() {
-            const diabetes = document.getElementById('diabetes').checked;
-            const hipertension = document.getElementById('hipertension').checked;
-            const dislipidemia = document.getElementById('dislipidemia').checked;
-            const tabaquismo = document.getElementById('tabaquismo').checked;
-            const historiaPatologiaCoronaria = document.getElementById('historiaPatologiaCoronaria').checked;
-            const historiaFamiliarPatologiaCoronaria = document.getElementById('historiaFamiliarPatologiaCoronaria').checked;
-            const arteriopatiaPeriferica = document.getElementById('arteriopatiaPeriferica').checked;
-            const edad = parseInt(document.getElementById('edad').value) || 0;
-
-            let riesgoModerado = 0;
-            let mensaje = "No es necesario ecocardiograma de stress";
-            let color = "green";
-
-            if (diabetes || historiaPatologiaCoronaria) {
-                mensaje = "Es necesario ecocardiograma de stress";
-                color = "red";
-            } else {
-                if (hipertension) riesgoModerado++;
-                if (dislipidemia) riesgoModerado++;
-                if (tabaquismo) riesgoModerado++;
-                if (historiaFamiliarPatologiaCoronaria) riesgoModerado++;
-                if (arteriopatiaPeriferica) riesgoModerado++;
-
-                if (riesgoModerado >= 2 || (riesgoModerado >= 1 && edad >= 50)) {
-                    mensaje = "Es necesario ecocardiograma de stress";
-                    color = "red";
-                }
-            }
-
-            const stressEchoMessage = document.getElementById('stressEchoMessage');
-            stressEchoMessage.innerText = mensaje;
-            stressEchoMessage.style.backgroundColor = color;
-        }
-
-        function evaluateAngioTac() {
-            const resultadoStress = parseInt(document.getElementById('resultadoStress').value);
-            const angioTacMessage = document.getElementById('angioTacMessage');
-
-            if (resultadoStress === 1 || resultadoStress === 2) {
-                angioTacMessage.innerText = "Está indicado la realización de angioTAC";
-                angioTacMessage.style.backgroundColor = "red";
-            } else {
-                angioTacMessage.innerText = "No es necesario angioTAC";
-                angioTacMessage.style.backgroundColor = "green";
-            }
-        }
-
-        function evaluateCoronariografia() {
-            const estenosisDerecha = document.getElementById('estenosisDerecha').checked;
-            const estenosisIzquierda = document.getElementById('estenosisIzquierda').checked;
-            const scoreCalcico = document.getElementById('scoreCalcico').checked;
-            const resultadoStress = parseInt(document.getElementById('resultadoStress').value);
-            const historiaPatologiaCoronaria = document.getElementById('historiaPatologiaCoronaria').checked;
-
-            const coronariografiaMessage = document.getElementById('coronariografiaMessage');
-
-            if (estenosisDerecha || estenosisIzquierda || scoreCalcico || resultadoStress === 3 || historiaPatologiaCoronaria) {
-                coronariografiaMessage.innerText = "Está indicado la realización de coronariografía";
-                coronariografiaMessage.style.backgroundColor = "red";
-            } else {
-                coronariografiaMessage.innerText = "No es necesario realizar coronariografía";
-                coronariografiaMessage.style.backgroundColor = "green";
-            }
-        }
-
-        function evaluateCateterismoDerecho() {
-            const fraccionVD = parseInt(document.getElementById('fraccionVD').value);
-            const tapse = parseFloat(document.getElementById('Tapse').value) || 16;
-            const papsEstimada = parseFloat(document.getElementById('papsEstimada').value) || 44;
-
-            const cateterismoMessage = document.getElementById('cateterismoMessage');
-
-            if (fraccionVD === 1 && tapse > 14 && papsEstimada < 45) {
-                cateterismoMessage.innerText = "No está indicado la realización de cateterismo derecho";
-                cateterismoMessage.style.backgroundColor = "green";
-            } else {
-                cateterismoMessage.innerText = "Está indicada la realización de cateterismo derecho";
-                cateterismoMessage.style.backgroundColor = "red";
-            };
-        }
-
-
-        function evaluateAaGradient() {
-            const fio2 = parseFloat(document.getElementById('fio2').value) || 0.21;
-            const paco2 = parseFloat(document.getElementById('paco2').value) || 35;
-            const pao2 = parseFloat(document.getElementById('pao2').value) || 95;
-            const edad = parseInt(document.getElementById('edad').value) || 50;
-
-            const aaGradient = (713 * fio2) - (paco2 / 0.8) - pao2;
-            const aaGradientMessage = document.getElementById('aaGradientMessage');
-            const ecoContrasteMessage = document.getElementById('ecoContrasteMessage');
-
-            aaGradientMessage.innerText = "Gradiente A-a de oxígeno: " + aaGradient.toFixed(2);
-
-            if ((edad > 64 && aaGradient > 20) || (edad <= 64 && aaGradient > 15)) {
-                aaGradientMessage.style.backgroundColor = "red";
-                ecoContrasteMessage.innerText = "Se requiere realizar eco contraste para valorar shunt";
-                ecoContrasteMessage.style.backgroundColor = "red";
-            } else {
-                aaGradientMessage.style.backgroundColor = "green";
-                ecoContrasteMessage.innerText = "No se requiere ecografía de contraste";
-                ecoContrasteMessage.style.backgroundColor = "green";
-            }
-
-            highlightPaO2Row(pao2);
-        }
-
-        function evaluateEdad(){
-            evaluateAaGradient();
-            evaluateStressEcho();
-        }
-        function evaluateStress(){
-            evaluateAngioTac();
-            evaluateCoronariografia();
-        }
-        function highlightPaO2Row(pao2) {
-            document.getElementById('leve').style.backgroundColor = "";
-            document.getElementById('moderada').style.backgroundColor = "";
-            document.getElementById('severa').style.backgroundColor = "";
-            document.getElementById('muySevera').style.backgroundColor = "";
-
-            if (pao2 >= 80) {
-                document.getElementById('leve').style.backgroundColor = "red";
-            } else if (pao2 >= 60) {
-                document.getElementById('moderada').style.backgroundColor = "red";
-            } else if (pao2 >= 50) {
-                document.getElementById('severa').style.backgroundColor = "red";
-            } else {
-                document.getElementById('muySevera').style.backgroundColor = "red";
-            }
-        }
-
-        function evaluatePulmonaryFunction() {
-            const fev1 = parseFloat(document.getElementById('fev1').value) || 0;
-            const fvc = parseFloat(document.getElementById('fvc').value) || 0;
-            const fev1FvcRatio = fev1 / fvc;
-            const pulmonaryFunctionMessage = document.getElementById('pulmonaryFunctionMessage');
-
-            document.getElementById('fev1FvcRatio').innerText = fev1FvcRatio.toFixed(2);
-
-            if (fev1FvcRatio < 0.7) {
-                if (fvc <= 80) {
-                    if (fvc > 65) {
-                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo leve (FVC > 65%)";
-                    } else if (fvc >= 50) {
-                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo moderado (FVC 50-65%)";
-                    } else if (fvc >= 35) {
-                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo severo (FVC 35-49%)";
-                    } else {
-                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo muy severo (FVC >35%)";
-                    }
-                    pulmonaryFunctionMessage.style.backgroundColor = "red";
-                } else {
-                    pulmonaryFunctionMessage.innerText = "Patrón normal";
-                    pulmonaryFunctionMessage.style.backgroundColor = "green";
-                }
-            } else {
-                if (fvc <= 80) {
-                    pulmonaryFunctionMessage.innerText = "Patrón mixto";
-                    pulmonaryFunctionMessage.style.backgroundColor = "red";
-                } else {
-                    if (fev1 > 65) {
-                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo leve (FEV1 > 65%)";
-                    } else if (fev1 >= 50) {
-                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo moderado (FEV1 50-65%)";
-                    } else if (fev1 >= 35) {
-                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo severo (FEV1 35-49%)";
-                    } else {
-                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo muy severo (FEV1 <35%)";
-                    }
-                    pulmonaryFunctionMessage.style.backgroundColor = "red";
-                }
-            }
-        };
-
-        function calculateEGFR() {
-            const creatinine = parseFloat(document.getElementById('currentCreatinine').value || 0.5);
-            const sexo = parseInt(document.getElementById('sexo').value);
-            const edad = parseInt(document.getElementById('edad').value) || 45;
-            const k = sexo === 1 ? 0.9 : 0.7;
-            const a = sexo === 1 ? -0.411 : -0.329;
-            const min = Math.min(creatinine / k, 1);
-            const max = Math.max(creatinine / k, 1);
-            const eGFR = 141 * Math.pow(min, a) * Math.pow(max, -1.209) * Math.pow(0.993, edad) * (sexo === 2 ? 1.018 : 1);
-
-             document.getElementById('egfrValue').innerText = eGFR.toFixed(2);
-
-            // Reset table row backgrounds
-            const rows = document.querySelectorAll('#egfrTable tr');
-            rows.forEach(row => row.style.backgroundColor = '');
-
-            // Highlight the appropriate row
-            if (eGFR >= 90) {
-                document.getElementById('grado1').style.backgroundColor = 'red';
-            } else if (eGFR >= 60) {
-                document.getElementById('grado2').style.backgroundColor = 'red';
-            } else if (eGFR >= 45) {
-                document.getElementById('grado3a').style.backgroundColor = 'red';
-            } else if (eGFR >= 30) {
-                document.getElementById('grado3b').style.backgroundColor = 'red';
-            } else if (eGFR >= 15) {
-                document.getElementById('grado4').style.backgroundColor = 'red';
-            } else {
-                document.getElementById('grado5').style.backgroundColor = 'red';
-            }   
-            checkAKI();
-        }
-
-        function checkAKI() {
-            const currentCreatinine = parseFloat(document.getElementById('currentCreatinine').value|| 0.5);
-            const previousCreatinine = parseFloat(document.getElementById('previousCreatinine').value || 0.5);
-            const akiMessage = document.getElementById('akiMessage');
-
-            if (currentCreatinine >= previousCreatinine * 1.5 && currentCreatinine <= previousCreatinine * 2 ) {
-                akiMessage.style.backgroundColor = 'red';
-                akiMessage.innerText = "Posible AKI grado 1 (aumento en 0,3 mg/dl o incremento 1,5-2 veces valor previo)";
-            } else if (currentCreatinine > previousCreatinine * 2 && currentCreatinine <= previousCreatinine * 3) {
-                akiMessage.style.backgroundColor = 'red';
-                akiMessage.innerText = "Posible AKI grado 2 (incremento 2-3 veces valor previo)";
-            } else if (currentCreatinine > previousCreatinine * 3 || currentCreatinine >= 4) {
-                akiMessage.style.backgroundColor = 'red';
-                akiMessage.innerText = "Posible AKI grado 3 (incremento >3 veces valor previo o Cr >=4gr/dl)";
-            } else {
-                akiMessage.style.backgroundColor = 'green';
-                akiMessage.innerText = "AKI poco probable";
-            }
-}
-
-        function calculateCRRTScore() {
-            const falloHepatico = parseInt(document.getElementById('falloHepatico').value);
-            const donanteAsistolia = parseInt(document.getElementById('donanteAsistolia').value);
-            const retrasplante = parseInt(document.getElementById('retrasplante').value);
-            const vasopresoresPreop = parseInt(document.getElementById('vasopresoresPreop').value);
-            const crrtPreop = parseInt(document.getElementById('crrtPreop').value);
-            const kPreop = parseFloat(document.getElementById('kPreop').value) || 3.5;
-            //const isquemiaFrio = parseFloat(document.getElementById('isquemiaFrio').value) || 0.71;
-            const bilirrubina = parseFloat(document.getElementById('bilirrubina').value) || 5;
-
-            let score = 0;
-
-            if (falloHepatico === 1) { // Crónico
-                if (donanteAsistolia === 1) score += 10;
-                if (retrasplante === 1) score += 9;
-                if (vasopresoresPreop === 1) score += 7;
-                if (crrtPreop === 1) score += 6;
-                score += Math.floor((kPreop - 3.5) / 0.12);
-                //score += Math.floor(isquemiaFrio / 0.72);
-                score += Math.floor(bilirrubina / 6);
-            } else if (falloHepatico === 2) { // Agudo
-                if (donanteAsistolia === 1) score += 10;
-                if (vasopresoresPreop === 1) score += 7;
-                if (crrtPreop === 1) score += 28;
-                //score += Math.floor(isquemiaFrio / 0.72);
-                score += Math.floor(bilirrubina / 6);
-            }
-            let tiempo = 0;
-            let mensaje = "";
-            if (score >= 42 && falloHepatico===1){
-                mensaje = " .Riesgo elevado de requerir CRRT intraoperatoria";
-
-            }else if (score >=28 && falloHepatico ===2){
-                mensaje = " .Riesgo elevado de requerir CRRT intraoperatoria";
-            }else if (score <42  && falloHepatico ===1){
-                tiempo = (42 - score) * 0.72;
-                mensaje = " .Riesgo de necesitar CRRT si Tº isquemia frío > " + tiempo + " horas";
-            } else if (score <28 && falloHepatico ===2){
-                tiempo = (28 - score) * 0.72;
-                mensaje = " .Riesgo de necesitar CRRT si Tº isquemia frío > " + tiempo + " horas";
-            };
-            const crrtScoreMessage = document.getElementById('crrtScoreMessage');
-            crrtScoreMessage.innerText = "Score de CRRT: " + score + mensaje;
-        }
-        function calculateBleedingScore() {
-            let score = 0;
-
-            const retrasplante = document.getElementById('retrasplantehemato').value;
-            const sexo = document.getElementById('sexohemato').value;
-            const edad = parseFloat(document.getElementById('edadhemato').value);
-            const hemoglobina = parseFloat(document.getElementById('hemoglobina').value);
-            const protrombina = parseFloat(document.getElementById('protrombina').value);
-            const creatinina = parseFloat(document.getElementById('creatininahemato').value);
-            const albumina = parseFloat(document.getElementById('albumina').value);
-            const plaquetas = parseFloat(document.getElementById('plaquetas').value);
-            const messageDiv = document.getElementById('bleedingScoreMessage');
-            const cirugiaAbdominalPrevia = document.getElementById('cirugiaAbdominalPrevia').checked;
-            const peritonitisBacterianaEspontanea = document.getElementById('peritonitisBacterianaEspontanea').checked;
-
-            if (retrasplante == '1') score += 1;
-            if (hemoglobina < 10) score += 1;
-            if (edad > 40) score += 1;
-            if (protrombina >2) score += 2;
-            if (sexo == '1' && creatinina >= 1.36) score += 1;
-            if (sexo == '2' && creatinina >= 1.28) score += 1;
-            if (plaquetas < 70000) score += 1;
-            if (albumina < 24) score += 1;
-
-            
-            if (score >= 3 || cirugiaAbdominalPrevia || peritonitisBacterianaEspontanea) {
-                messageDiv.style.backgroundColor = 'red';
-                messageDiv.innerHTML = `Alto riesgo de sangrado. Score: ${score}`;
-            } else {
-                messageDiv.style.backgroundColor = 'green';
-                messageDiv.innerHTML = `Bajo riesgo de sangrado. Score: ${score}`;
-            }
-        }
-        function calculateScoreNPT() {
-            const isSobrecargaHidrica = document.getElementById('sobrecargaHidrica').value === '1';
-            let score = 0;
-
-            if (isSobrecargaHidrica) {
-                score += parseInt(document.getElementById('capacidadAlimentarse').value);
-                score += parseInt(document.getElementById('menosMitadDieta5Dias').value);
-                score += parseInt(document.getElementById('perdidaPeso3_6Meses').value);
-            } else {
-                score += parseInt(document.getElementById('imc').value);
-                score += parseInt(document.getElementById('perdidaPeso6Meses').value);
-                score += parseInt(document.getElementById('enfermedadAgudaSinAlimentacion').value);
-            }
-
-            score += parseInt(document.getElementById('hepatitisAlcoholicaAguda').value);
-            score += parseInt(document.getElementById('nutricionEnteral').value);
-
-            const messageDiv = document.getElementById('scoreMessageNPT');
-             if (score === 0) {
-                messageDiv.style.backgroundColor = 'green';
-                messageDiv.style.color = 'white';
-                messageDiv.innerHTML = `Bajo riesgo. Score Nutricional: ${score}`;
-             } else if (score === 1) {
-                messageDiv.style.backgroundColor = 'yellow';
-                messageDiv.style.color = 'black';
-                messageDiv.innerHTML = `Riesgo moderado. Score Nutricional: ${score}`;
-             } else {
-                messageDiv.style.backgroundColor = 'red';
-                messageDiv.style.color = 'white';
-                messageDiv.innerHTML = `Alto riesgo. Score Nutricional: ${score}`;
-            }
-        }
-
-        function habilitar(){
-            const isSobrecargaHidrica = this.value === '1';
-            document.getElementById('imc').disabled = isSobrecargaHidrica;
-            document.getElementById('perdidaPeso6Meses').disabled = isSobrecargaHidrica;
-            document.getElementById('enfermedadAgudaSinAlimentacion').disabled = isSobrecargaHidrica;
-
-            document.getElementById('capacidadAlimentarse').disabled = !isSobrecargaHidrica;
-            document.getElementById('menosMitadDieta5Dias').disabled = !isSobrecargaHidrica;
-            document.getElementById('perdidaPeso3_6Meses').disabled = !isSobrecargaHidrica;
-
-            calculateScoreNPT();
-        }
-
-        function calculateFrailScore() {
-            let score = 0;
-
-            score += parseInt(document.getElementById('fatigabilidad').value);
-            score += parseInt(document.getElementById('resistencia').value);
-            score += parseInt(document.getElementById('deambulacion').value);
-            score += parseInt(document.getElementById('pesofrail').value);
-
-            const comorbilidades = document.querySelectorAll('input[name="comorbilidad"]:checked');
-            if (comorbilidades.length > 4) {
-                score += 1;
-            }
-
-            const messageDiv = document.getElementById('frailScoreMessage');
-            if (score === 0) {
-                messageDiv.style.backgroundColor = 'green';
-                messageDiv.style.color = 'white';
-                messageDiv.innerHTML = `Bajo riesgo de fragilidad. Score Frail: ${score}`;
-            } else if (score === 1) {
-                messageDiv.style.backgroundColor = 'yellow';
-                messageDiv.style.color = 'black';
-                messageDiv.innerHTML = `Riesgo moderado de fragilidad. Score Frail: ${score}`;
-            } else {
-                messageDiv.style.backgroundColor = 'red';
-                messageDiv.style.color = 'white';
-                messageDiv.innerHTML = `Alto riesgo de fragilidad. Score Frail: ${score}`;
-            }
-        }
-        function calculateDukeScore() {
-                    let score = 0;
-                    score += parseFloat(document.getElementById('autocuidado').value);
-                    score += parseFloat(document.getElementById('caminarCasa').value);
-                    score += parseFloat(document.getElementById('caminar200m').value);
-                    score += parseFloat(document.getElementById('subirEscaleras').value);
-                    score += parseFloat(document.getElementById('correr').value);
-                    score += parseFloat(document.getElementById('trabajoLigero').value);
-                    score += parseFloat(document.getElementById('trabajoModerado').value);
-                    score += parseFloat(document.getElementById('trabajoFuerte').value);
-                    score += parseFloat(document.getElementById('trabajosJardin').value);
-                    score += parseFloat(document.getElementById('relacionesSexuales').value);
-                    score += parseFloat(document.getElementById('ejercicioModerado').value);
-                    score += parseFloat(document.getElementById('ejercicioIntenso').value);
-
-                    const messageDiv = document.getElementById('dukeScoreMessage');
-                    if (score < 15) {
-                        messageDiv.style.backgroundColor = 'red';
-                        messageDiv.style.color = 'white';
-                        messageDiv.innerHTML = `Baja capacidad funcional. Score: ${score}`;
-                    } else {
-                        messageDiv.style.backgroundColor = 'green';
-                        messageDiv.style.color = 'white';
-                        messageDiv.innerHTML = `Capacidad funcional aceptable. Score: ${score}`;
-                    }
-                }
-
-//listeners
-        document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
-        document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
-        document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
-        document.getElementById('scoreCalcico').addEventListener('change', evaluateCoronariografia);
-        document.getElementById('historiaPatologiaCoronaria').addEventListener('change', evaluateCoronariografia);
-        document.getElementById('fraccionVD').addEventListener('change', evaluateCateterismoDerecho);
-        document.getElementById('Tapse').addEventListener('input', evaluateCateterismoDerecho);
-        document.getElementById('papsEstimada').addEventListener('input', evaluateCateterismoDerecho);
-        document.getElementById('fio2').addEventListener('input', evaluateAaGradient);
-        document.getElementById('paco2').addEventListener('input', evaluateAaGradient);
-        document.getElementById('pao2').addEventListener('input', evaluateAaGradient);
-        document.getElementById('edad').addEventListener('input', evaluateEdad);
-        document.getElementById('fvc').addEventListener('input', evaluatePulmonaryFunction);
-        document.getElementById('falloHepatico').addEventListener('change', calculateCRRTScore);
-        document.getElementById('donanteAsistolia').addEventListener('change', calculateCRRTScore);
-        document.getElementById('retrasplante').addEventListener('change', calculateCRRTScore);
-        document.getElementById('vasopresoresPreop').addEventListener('change', calculateCRRTScore);
-        document.getElementById('crrtPreop').addEventListener('change', calculateCRRTScore);
-        document.getElementById('kPreop').addEventListener('input', calculateCRRTScore);
-        document.getElementById('bilirrubina').addEventListener('input', calculateCRRTScore);
-        
-        document.getElementById('retrasplantehemato').addEventListener('change', calculateBleedingScore);
-        document.getElementById('sexohemato').addEventListener('change', calculateBleedingScore);
-        document.getElementById('edadhemato').addEventListener('input', calculateBleedingScore);
-        document.getElementById('hemoglobina').addEventListener('input', calculateBleedingScore);
-        document.getElementById('protrombina').addEventListener('input', calculateBleedingScore);
-        document.getElementById('creatininahemato').addEventListener('input', calculateBleedingScore);
-        document.getElementById('albumina').addEventListener('input', calculateBleedingScore);
-        document.getElementById('plaquetas').addEventListener('input', calculateBleedingScore);
-        
-        document.getElementById('sobrecargaHidrica').addEventListener('change', habilitar);
-        document.getElementById('imc').addEventListener('change', calculateScoreNPT);
-        document.getElementById('perdidaPeso6Meses').addEventListener('change', calculateScoreNPT);
-        document.getElementById('enfermedadAgudaSinAlimentacion').addEventListener('change', calculateScoreNPT);
-        document.getElementById('capacidadAlimentarse').addEventListener('change', calculateScoreNPT);
-        document.getElementById('menosMitadDieta5Dias').addEventListener('change', calculateScoreNPT);
-        document.getElementById('perdidaPeso3_6Meses').addEventListener('change', calculateScoreNPT);
-        document.getElementById('hepatitisAlcoholicaAguda').addEventListener('change', calculateScoreNPT);
-        document.getElementById('nutricionEnteral').addEventListener('change', calculateScoreNPT);
-
-           // Añadir listeners para recalcular el score cuando cambien los valores relevantes
-        document.getElementById('fatigabilidad').addEventListener('change', calculateFrailScore);
-        document.getElementById('resistencia').addEventListener('change', calculateFrailScore);
-        document.getElementById('deambulacion').addEventListener('change', calculateFrailScore);
-        document.getElementById('pesofrail').addEventListener('change', calculateFrailScore);
-        document.querySelectorAll('input[name="comorbilidad"]').forEach(element => {
-            element.addEventListener('change', calculateFrailScore);
-        });
-
-        document.querySelectorAll('#autocuidado, #caminarCasa, #caminar200m, #subirEscaleras, #correr, #trabajoLigero, #trabajoModerado, #trabajoFuerte, #trabajosJardin, #relacionesSexuales, #ejercicioModerado, #ejercicioIntenso').forEach(element => {
-                    element.addEventListener('change', calculateDukeScore);
-                });
-    </script>
+    
 
 
 </body>
+<script src="funciones.js"></script>
 </html>

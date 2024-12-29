@@ -1,0 +1,682 @@
+
+        
+    //listeners
+
+        // seccion 1
+        document.getElementById('sexoinicio').addEventListener('change',modificarsexo);
+        document.getElementById('edadinicio').addEventListener('input', modificaredad);
+        document.getElementById('pesoinicio').addEventListener('input', modificarpeso);
+        document.getElementById('tallainicio').addEventListener('input', modificartalla);
+        
+        document.getElementById('ascitis').addEventListener('change', updateChildPughScore);
+        document.getElementById('bilirrubina').addEventListener('change', updateChildPughScore);
+        document.getElementById('inr').addEventListener('change', updateChildPughScore);
+        document.getElementById('encefalopatia').addEventListener('change', updateChildPughScore);
+
+        document.getElementById('creatininaMeld').addEventListener('input', modificarcreatinina);
+        document.getElementById('inrMeld').addEventListener('input', modificarinr);
+        document.getElementById('bilirrubinaMeld').addEventListener('input', modificarbilirrubina);
+        document.getElementById('sodioMeld').addEventListener('input', updateMeldScores);
+
+        document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
+        document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('scoreCalcico').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('historiaPatologiaCoronaria').addEventListener('change', evaluateCoronariografia);
+        document.getElementById('fraccionVD').addEventListener('change', evaluateCateterismoDerecho);
+        document.getElementById('Tapse').addEventListener('input', evaluateCateterismoDerecho);
+        document.getElementById('papsEstimada').addEventListener('input', evaluateCateterismoDerecho);
+        document.getElementById('fio2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('paco2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('pao2').addEventListener('input', evaluateAaGradient);
+        document.getElementById('fvc').addEventListener('input', evaluatePulmonaryFunction);
+        document.getElementById('falloHepatico').addEventListener('change', calculateCRRTScore);
+        document.getElementById('donanteAsistolia').addEventListener('change', calculateCRRTScore);
+        document.getElementById('retrasplante').addEventListener('change', calculateCRRTScore);
+        document.getElementById('vasopresoresPreop').addEventListener('change', calculateCRRTScore);
+        document.getElementById('crrtPreop').addEventListener('change', calculateCRRTScore);
+        document.getElementById('kPreop').addEventListener('input', calculateCRRTScore);
+        document.getElementById('bilirrubina').addEventListener('input', calculateCRRTScore);
+        
+        document.getElementById('retrasplantehemato').addEventListener('change', calculateBleedingScore);
+        document.getElementById('sexohemato').addEventListener('change', calculateBleedingScore);
+        document.getElementById('edadhemato').addEventListener('input', calculateBleedingScore);
+        document.getElementById('hemoglobina').addEventListener('input', calculateBleedingScore);
+        document.getElementById('protrombina').addEventListener('input', calculateBleedingScore);
+        document.getElementById('creatininahemato').addEventListener('input', calculateBleedingScore);
+        document.getElementById('albumina').addEventListener('input', calculateBleedingScore);
+        document.getElementById('plaquetas').addEventListener('input', calculateBleedingScore);
+        
+        document.getElementById('sobrecargaHidrica').addEventListener('change', habilitar);
+        document.getElementById('imc').addEventListener('change', calculateScoreNPT);
+        document.getElementById('perdidaPeso6Meses').addEventListener('change', calculateScoreNPT);
+        document.getElementById('enfermedadAgudaSinAlimentacion').addEventListener('change', calculateScoreNPT);
+        document.getElementById('capacidadAlimentarse').addEventListener('change', calculateScoreNPT);
+        document.getElementById('menosMitadDieta5Dias').addEventListener('change', calculateScoreNPT);
+        document.getElementById('perdidaPeso3_6Meses').addEventListener('change', calculateScoreNPT);
+        document.getElementById('hepatitisAlcoholicaAguda').addEventListener('change', calculateScoreNPT);
+        document.getElementById('nutricionEnteral').addEventListener('change', calculateScoreNPT);
+
+        document.getElementById('fatigabilidad').addEventListener('change', calculateFrailScore);
+        document.getElementById('resistencia').addEventListener('change', calculateFrailScore);
+        document.getElementById('deambulacion').addEventListener('change', calculateFrailScore);
+        document.getElementById('pesofrail').addEventListener('change', calculateFrailScore);
+        document.querySelectorAll('input[name="comorbilidad"]').forEach(element => {
+            element.addEventListener('change', calculateFrailScore);
+        });
+
+        document.querySelectorAll('#autocuidado, #caminarCasa, #caminar200m, #subirEscaleras, #correr, #trabajoLigero, #trabajoModerado, #trabajoFuerte, #trabajosJardin, #relacionesSexuales, #ejercicioModerado, #ejercicioIntenso').forEach(element => {
+                    element.addEventListener('change', calculateDukeScore);
+                });
+       
+       
+     // funciones
+        function showNextSection(currentSection) {
+            document.getElementById('section' + currentSection).classList.remove('active');
+            document.getElementById('section' + (currentSection + 1)).classList.add('active');
+        }
+
+        function showPreviousSection(currentSection) {
+            document.getElementById('section' + currentSection).classList.remove('active');
+            document.getElementById('section' + (currentSection - 1)).classList.add('active');
+        }
+
+        // seccion 1
+        function modificarsexo() {
+            const sexo = document.getElementById('sexoinicio').value;
+            document.getElementById('sexohemato').value = sexo;
+
+        }
+
+        function modificaredad() {
+            const edad = document.getElementById('edadinicio').value;
+            document.getElementById('edadhemato').value = edad;
+            document.getElementById('edadeco').value = edad;
+        }
+
+        function modificarpeso() {
+           // calculo IMC
+           const peso = parseFloat(document.getElementById('pesoinicio').value);
+           const talla = parseFloat(document.getElementById('tallainicio').value) / 100; // Convertir cm a metros
+       
+           if (peso && talla) {
+               const imc = peso / (talla * talla);
+               document.getElementById('imcinicio').value = imc.toFixed(2);
+           }
+
+        }
+
+        function modificartalla() {
+            // calculo IMC
+            const peso = parseFloat(document.getElementById('pesoinicio').value);
+            const talla = parseFloat(document.getElementById('tallainicio').value) / 100; // Convertir cm a metros
+        
+            if (peso && talla) {
+                const imc = peso / (talla * talla);
+                document.getElementById('imcinicio').value = imc.toFixed(2);
+            }
+        }
+
+        function modificarcreatinina() {
+            const creatinina = parseFloat(document.getElementById('creatininaMeld').value);
+            // cambia MELD
+            updateMeldScores();
+            // modifica valores de Cr en el resto del formulario
+            document.getElementById('currentCreatinine').value = creatinina;
+            document.getElementById('previousCreatinine').value = creatinina;
+            document.getElementById('creatininahemato').value = creatinina;
+
+        }
+
+        function modificarinr() {
+            const inr = parseFloat(document.getElementById('inrMeld').value);
+            // cambia MELD
+            updateMeldScores();
+            // modifica valores de INR en el resto del formulario
+            document.getElementById('protrombina').value = inr;
+            
+        }
+
+        function modificarbilirrubina() {   
+            const bilirrubina = parseFloat(document.getElementById('bilirrubinaMeld').value);
+            // cambia MELD
+            updateMeldScores();
+            // modifica valores de bilirrubina en el resto del formulario
+            document.getElementById('bilirrubinaCRRT').value = bilirrubina;
+        }
+
+
+        function updateChildPughScore() {
+            const ascitis = parseInt(document.getElementById('ascitis').value);
+            const bilirrubina = parseInt(document.getElementById('bilirrubina').value);
+            const inr = parseInt(document.getElementById('inr').value);
+            const encefalopatia = parseInt(document.getElementById('encefalopatia').value);
+
+            const totalScore = ascitis + bilirrubina + inr + encefalopatia;
+            document.getElementById('childPughScore').innerText = totalScore;
+
+            const escalaChild = document.getElementById('escalaChild');
+            if (totalScore >= 5 && totalScore <= 6) {
+                escalaChild.value = "1";
+                document.getElementById('childA').classList.add('highlight');
+                document.getElementById('childB').classList.remove('highlight');
+                document.getElementById('childC').classList.remove('highlight');
+            
+            } else if (totalScore >= 7 && totalScore <= 9) {
+                escalaChild.value = "2";
+                document.getElementById('childB').classList.add('highlight');
+                document.getElementById('childA').classList.remove('highlight');
+                document.getElementById('childC').classList.remove('highlight');
+            
+            } else if (totalScore >= 10 && totalScore <= 15) {
+                escalaChild.value = "3";
+                document.getElementById('childC').classList.add('highlight');
+                document.getElementById('childB').classList.remove('highlight');
+                document.getElementById('childA').classList.remove('highlight');
+            
+            }
+            
+        }
+
+
+        function updateMeldScores() {
+            let creatinina = parseFloat(document.getElementById('creatininaMeld').value) || 0;
+            if (creatinina > 4) {
+                creatinina = 4;
+            }
+            const bilirrubina = parseFloat(document.getElementById('bilirrubinaMeld').value) || 0;
+            const inr = parseFloat(document.getElementById('inrMeld').value) || 0;
+            const sodio = parseFloat(document.getElementById('sodioMeld').value) || 0;
+
+            const meldScore = 9.6 * Math.log(creatinina) + 3.8 * Math.log(bilirrubina) + 11.2 * Math.log(inr) + 6.4;
+            const meldNaScore = meldScore - sodio - (0.025 * meldScore * (140 - sodio)) + 140;
+
+            document.getElementById('meldScore').innerText = meldScore.toFixed(2);
+            document.getElementById('meldNaScore').innerText = meldNaScore.toFixed(2);
+
+            document.getElementById('meld40').classList.remove('highlight');
+            document.getElementById('meld30_39').classList.remove('highlight');
+            document.getElementById('meld20_29').classList.remove('highlight');
+            document.getElementById('meld10_19').classList.remove('highlight');
+            document.getElementById('meldMenor9').classList.remove('highlight');
+
+            if (meldScore >= 40) {
+                document.getElementById('meld40').classList.add('highlight');
+            } else if (meldScore >= 30) {
+                document.getElementById('meld30_39').classList.add('highlight');
+            } else if (meldScore >= 20) {
+                document.getElementById('meld20_29').classList.add('highlight');
+            } else if (meldScore >= 10) {
+                document.getElementById('meld10_19').classList.add('highlight');
+            } else {
+                document.getElementById('meldMenor9').classList.add('highlight');
+            }
+        }
+
+        
+
+        // seccion 2
+        function calculateHfaPeefIndex() {
+            const funcional  = parseInt(document.getElementById('funcional').value);
+            const morfologico = parseInt(document.getElementById('morfologico').value);
+            const biomarcador = parseInt(document.getElementById('biomarcador').value);
+            const biomarcadorFA = parseInt(document.getElementById('biomarcadorFA').value);
+            const indiceHfaPeef = funcional + morfologico + biomarcador + biomarcadorFA;
+            document.getElementById('indiceHfaPeef').innerText = indiceHfaPeef;
+
+            const resultado = document.getElementById('resultadoHfaPeef');
+            if (indiceHfaPeef >= 5) {
+                resultado.innerText = "Paciente con Insuficiencia cardiaca";
+                resultado.style.backgroundColor = "red";
+                resultado.style.color = "white";
+            } else if (indiceHfaPeef > 2 && indiceHfaPeef < 5) {
+                resultado.innerText = "Paciente con riesgo de insuficiencia cardiaca";
+                resultado.style.backgroundColor = "yellow";
+                resultado.style.color = "black";
+            } else {
+                resultado.innerText = "Paciente con bajo riesgo de insuficiencia cardiaca";
+                resultado.style.backgroundColor = "green";
+                resultado.style.color = "white";
+            }
+        }
+
+        function resetBiomarcadorFA() {
+            document.getElementById('biomarcadorFA').value = "0";
+        }
+
+        function resetBiomarcador() {
+            document.getElementById('biomarcador').value = "0";
+        }
+
+        document.getElementById('funcional').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('morfologico').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('biomarcador').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('biomarcadorFA').addEventListener('change', calculateHfaPeefIndex);
+
+        function evaluateStressEcho() {
+            const diabetes = document.getElementById('diabetes').checked;
+            const hipertension = document.getElementById('hipertension').checked;
+            const dislipidemia = document.getElementById('dislipidemia').checked;
+            const tabaquismo = document.getElementById('tabaquismo').checked;
+            const historiaPatologiaCoronaria = document.getElementById('historiaPatologiaCoronaria').checked;
+            const historiaFamiliarPatologiaCoronaria = document.getElementById('historiaFamiliarPatologiaCoronaria').checked;
+            const arteriopatiaPeriferica = document.getElementById('arteriopatiaPeriferica').checked;
+            const edad = parseInt(document.getElementById('edadinicio').value);
+
+            let riesgoModerado = 0;
+            let mensaje = "No es necesario ecocardiograma de stress";
+            let color = "green";
+
+            if (diabetes || historiaPatologiaCoronaria) {
+                mensaje = "Es necesario ecocardiograma de stress";
+                color = "red";
+            } else {
+                if (hipertension) riesgoModerado++;
+                if (dislipidemia) riesgoModerado++;
+                if (tabaquismo) riesgoModerado++;
+                if (historiaFamiliarPatologiaCoronaria) riesgoModerado++;
+                if (arteriopatiaPeriferica) riesgoModerado++;
+
+                if (riesgoModerado >= 2 || (riesgoModerado >= 1 && edad >= 50)) {
+                    mensaje = "Es necesario ecocardiograma de stress";
+                    color = "red";
+                }
+            }
+
+            const stressEchoMessage = document.getElementById('stressEchoMessage');
+            stressEchoMessage.innerText = mensaje;
+            stressEchoMessage.style.backgroundColor = color;
+        }
+
+        function evaluateAngioTac() {
+            const resultadoStress = parseInt(document.getElementById('resultadoStress').value);
+            const angioTacMessage = document.getElementById('angioTacMessage');
+
+            if (resultadoStress === 1 || resultadoStress === 2) {
+                angioTacMessage.innerText = "Está indicado la realización de angioTAC";
+                angioTacMessage.style.backgroundColor = "red";
+            } else {
+                angioTacMessage.innerText = "No es necesario angioTAC";
+                angioTacMessage.style.backgroundColor = "green";
+            }
+        }
+
+        function evaluateCoronariografia() {
+            const estenosisDerecha = document.getElementById('estenosisDerecha').checked;
+            const estenosisIzquierda = document.getElementById('estenosisIzquierda').checked;
+            const scoreCalcico = document.getElementById('scoreCalcico').checked;
+            const resultadoStress = parseInt(document.getElementById('resultadoStress').value);
+            const historiaPatologiaCoronaria = document.getElementById('historiaPatologiaCoronaria').checked;
+
+            const coronariografiaMessage = document.getElementById('coronariografiaMessage');
+
+            if (estenosisDerecha || estenosisIzquierda || scoreCalcico || resultadoStress === 3 || historiaPatologiaCoronaria) {
+                coronariografiaMessage.innerText = "Está indicado la realización de coronariografía";
+                coronariografiaMessage.style.backgroundColor = "red";
+            } else {
+                coronariografiaMessage.innerText = "No es necesario realizar coronariografía";
+                coronariografiaMessage.style.backgroundColor = "green";
+            }
+        }
+
+        function evaluateCateterismoDerecho() {
+            const fraccionVD = parseInt(document.getElementById('fraccionVD').value);
+            const tapse = parseFloat(document.getElementById('Tapse').value) || 16;
+            const papsEstimada = parseFloat(document.getElementById('papsEstimada').value) || 44;
+
+            const cateterismoMessage = document.getElementById('cateterismoMessage');
+
+            if (fraccionVD === 1 && tapse > 14 && papsEstimada < 45) {
+                cateterismoMessage.innerText = "No está indicado la realización de cateterismo derecho";
+                cateterismoMessage.style.backgroundColor = "green";
+            } else {
+                cateterismoMessage.innerText = "Está indicada la realización de cateterismo derecho";
+                cateterismoMessage.style.backgroundColor = "red";
+            };
+        }
+
+
+        function evaluateAaGradient() {
+            const fio2 = parseFloat(document.getElementById('fio2').value) || 0.21;
+            const paco2 = parseFloat(document.getElementById('paco2').value) || 35;
+            const pao2 = parseFloat(document.getElementById('pao2').value) || 95;
+            const edad = parseInt(document.getElementById('edadinicio').value) || 50;
+
+            const aaGradient = (713 * fio2) - (paco2 / 0.8) - pao2;
+            const aaGradientMessage = document.getElementById('aaGradientMessage');
+            const ecoContrasteMessage = document.getElementById('ecoContrasteMessage');
+
+            aaGradientMessage.innerText = "Gradiente A-a de oxígeno: " + aaGradient.toFixed(2);
+
+            if ((edad > 64 && aaGradient > 20) || (edad <= 64 && aaGradient > 15)) {
+                aaGradientMessage.style.backgroundColor = "red";
+                ecoContrasteMessage.innerText = "Se requiere realizar eco contraste para valorar shunt";
+                ecoContrasteMessage.style.backgroundColor = "red";
+            } else {
+                aaGradientMessage.style.backgroundColor = "green";
+                ecoContrasteMessage.innerText = "No se requiere ecografía de contraste";
+                ecoContrasteMessage.style.backgroundColor = "green";
+            }
+
+            document.getElementById('leve').style.backgroundColor = "";
+            document.getElementById('moderada').style.backgroundColor = "";
+            document.getElementById('severa').style.backgroundColor = "";
+            document.getElementById('muySevera').style.backgroundColor = "";
+
+            if (pao2 >= 80) {
+                document.getElementById('leve').style.backgroundColor = "red";
+            } else if (pao2 >= 60) {
+                document.getElementById('moderada').style.backgroundColor = "red";
+            } else if (pao2 >= 50) {
+                document.getElementById('severa').style.backgroundColor = "red";
+            } else {
+                document.getElementById('muySevera').style.backgroundColor = "red";
+            }
+        }
+
+        function evaluateEdad(){
+            evaluateAaGradient();
+            evaluateStressEcho();
+        }
+        function evaluateStress(){
+            evaluateAngioTac();
+            evaluateCoronariografia();
+        }
+        
+
+        function evaluatePulmonaryFunction() {
+            const fev1 = parseFloat(document.getElementById('fev1').value) || 0;
+            const fvc = parseFloat(document.getElementById('fvc').value) || 0;
+            const fev1FvcRatio = fev1 / fvc;
+            const pulmonaryFunctionMessage = document.getElementById('pulmonaryFunctionMessage');
+
+            document.getElementById('fev1FvcRatio').innerText = fev1FvcRatio.toFixed(2);
+
+            if (fev1FvcRatio < 0.7) {
+                if (fvc <= 80) {
+                    if (fvc > 65) {
+                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo leve (FVC > 65%)";
+                    } else if (fvc >= 50) {
+                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo moderado (FVC 50-65%)";
+                    } else if (fvc >= 35) {
+                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo severo (FVC 35-49%)";
+                    } else {
+                        pulmonaryFunctionMessage.innerText = "Patrón restrictivo muy severo (FVC >35%)";
+                    }
+                    pulmonaryFunctionMessage.style.backgroundColor = "red";
+                } else {
+                    pulmonaryFunctionMessage.innerText = "Patrón normal";
+                    pulmonaryFunctionMessage.style.backgroundColor = "green";
+                }
+            } else {
+                if (fvc <= 80) {
+                    pulmonaryFunctionMessage.innerText = "Patrón mixto";
+                    pulmonaryFunctionMessage.style.backgroundColor = "red";
+                } else {
+                    if (fev1 > 65) {
+                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo leve (FEV1 > 65%)";
+                    } else if (fev1 >= 50) {
+                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo moderado (FEV1 50-65%)";
+                    } else if (fev1 >= 35) {
+                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo severo (FEV1 35-49%)";
+                    } else {
+                        pulmonaryFunctionMessage.innerText = "Patrón obstructivo muy severo (FEV1 <35%)";
+                    }
+                    pulmonaryFunctionMessage.style.backgroundColor = "red";
+                }
+            }
+        };
+
+        function calculateEGFR() {
+            const creatinine = parseFloat(document.getElementById('currentCreatinine').value || 0.5);
+            const sexo = parseInt(document.getElementById('sexoinicio').value);
+            const edad = parseInt(document.getElementById('edadinicio').value) || 45;
+            const k = sexo === 1 ? 0.9 : 0.7;
+            const a = sexo === 1 ? -0.411 : -0.329;
+            const min = Math.min(creatinine / k, 1);
+            const max = Math.max(creatinine / k, 1);
+            const eGFR = 141 * Math.pow(min, a) * Math.pow(max, -1.209) * Math.pow(0.993, edad) * (sexo === 2 ? 1.018 : 1);
+
+             document.getElementById('egfrValue').innerText = eGFR.toFixed(2);
+
+            // Reset table row backgrounds
+            const rows = document.querySelectorAll('#egfrTable tr');
+            rows.forEach(row => row.style.backgroundColor = '');
+
+            // Highlight the appropriate row
+            if (eGFR >= 90) {
+                document.getElementById('grado1').style.backgroundColor = 'red';
+            } else if (eGFR >= 60) {
+                document.getElementById('grado2').style.backgroundColor = 'red';
+            } else if (eGFR >= 45) {
+                document.getElementById('grado3a').style.backgroundColor = 'red';
+            } else if (eGFR >= 30) {
+                document.getElementById('grado3b').style.backgroundColor = 'red';
+            } else if (eGFR >= 15) {
+                document.getElementById('grado4').style.backgroundColor = 'red';
+            } else {
+                document.getElementById('grado5').style.backgroundColor = 'red';
+            }   
+            checkAKI();
+        }
+
+        function checkAKI() {
+            const currentCreatinine = parseFloat(document.getElementById('currentCreatinine').value|| 0.5);
+            const previousCreatinine = parseFloat(document.getElementById('previousCreatinine').value || 0.5);
+            const akiMessage = document.getElementById('akiMessage');
+
+            if (currentCreatinine >= previousCreatinine * 1.5 && currentCreatinine <= previousCreatinine * 2 ) {
+                akiMessage.style.backgroundColor = 'red';
+                akiMessage.innerText = "Posible AKI grado 1 (aumento en 0,3 mg/dl o incremento 1,5-2 veces valor previo)";
+            } else if (currentCreatinine > previousCreatinine * 2 && currentCreatinine <= previousCreatinine * 3) {
+                akiMessage.style.backgroundColor = 'red';
+                akiMessage.innerText = "Posible AKI grado 2 (incremento 2-3 veces valor previo)";
+            } else if (currentCreatinine > previousCreatinine * 3 || currentCreatinine >= 4) {
+                akiMessage.style.backgroundColor = 'red';
+                akiMessage.innerText = "Posible AKI grado 3 (incremento >3 veces valor previo o Cr >=4gr/dl)";
+            } else {
+                akiMessage.style.backgroundColor = 'green';
+                akiMessage.innerText = "AKI poco probable";
+            }
+}
+
+        function calculateCRRTScore() {
+            const falloHepatico = parseInt(document.getElementById('falloHepatico').value);
+            const donanteAsistolia = parseInt(document.getElementById('donanteAsistolia').value);
+            const retrasplante = parseInt(document.getElementById('retrasplante').value);
+            const vasopresoresPreop = parseInt(document.getElementById('vasopresoresPreop').value);
+            const crrtPreop = parseInt(document.getElementById('crrtPreop').value);
+            const kPreop = parseFloat(document.getElementById('kPreop').value) || 3.5;
+            //const isquemiaFrio = parseFloat(document.getElementById('isquemiaFrio').value) || 0.71;
+            const bilirrubina = parseFloat(document.getElementById('bilirrubinaCRRT').value) || 5;
+
+            let score = 0;
+
+            if (falloHepatico === 1) { // Crónico
+                if (donanteAsistolia === 1) score += 10;
+                if (retrasplante === 1) score += 9;
+                if (vasopresoresPreop === 1) score += 7;
+                if (crrtPreop === 1) score += 6;
+                score += Math.floor((kPreop - 3.5) / 0.12);
+                //score += Math.floor(isquemiaFrio / 0.72);
+                score += Math.floor(bilirrubina / 6);
+            } else if (falloHepatico === 2) { // Agudo
+                if (donanteAsistolia === 1) score += 10;
+                if (vasopresoresPreop === 1) score += 7;
+                if (crrtPreop === 1) score += 28;
+                //score += Math.floor(isquemiaFrio / 0.72);
+                score += Math.floor(bilirrubina / 6);
+            }
+            let tiempo = 0;
+            let mensaje = "";
+            if (score >= 42 && falloHepatico===1){
+                mensaje = " .Riesgo elevado de requerir CRRT intraoperatoria";
+
+            }else if (score >=28 && falloHepatico ===2){
+                mensaje = " .Riesgo elevado de requerir CRRT intraoperatoria";
+            }else if (score <42  && falloHepatico ===1){
+                tiempo = (42 - score) * 0.72;
+                mensaje = " .Riesgo de necesitar CRRT si Tº isquemia frío > " + tiempo + " horas";
+            } else if (score <28 && falloHepatico ===2){
+                tiempo = (28 - score) * 0.72;
+                mensaje = " .Riesgo de necesitar CRRT si Tº isquemia frío > " + tiempo + " horas";
+            };
+            const crrtScoreMessage = document.getElementById('crrtScoreMessage');
+            crrtScoreMessage.innerText = "Score de CRRT: " + score + mensaje;
+        }
+        function calculateBleedingScore() {
+            let score = 0;
+
+            const retrasplante = document.getElementById('retrasplantehemato').value;
+            const sexo = document.getElementById('sexoinicio').value;
+            const edad = parseFloat(document.getElementById('edadinicio').value);
+            const hemoglobina = parseFloat(document.getElementById('hemoglobina').value);
+            const protrombina = parseFloat(document.getElementById('protrombina').value);
+            const creatinina = parseFloat(document.getElementById('creatininahemato').value);
+            const albumina = parseFloat(document.getElementById('albumina').value);
+            const plaquetas = parseFloat(document.getElementById('plaquetas').value);
+            const messageDiv = document.getElementById('bleedingScoreMessage');
+            const cirugiaAbdominalPrevia = document.getElementById('cirugiaAbdominalPrevia').checked;
+            const peritonitisBacterianaEspontanea = document.getElementById('peritonitisBacterianaEspontanea').checked;
+
+            if (retrasplante == '1') score += 1;
+            if (hemoglobina < 10) score += 1;
+            if (edad > 40) score += 1;
+            if (protrombina >2) score += 2;
+            if (sexo == '1' && creatinina >= 1.36) score += 1;
+            if (sexo == '2' && creatinina >= 1.28) score += 1;
+            if (plaquetas < 70000) score += 1;
+            if (albumina < 24) score += 1;
+
+            
+            if (score >= 3 || cirugiaAbdominalPrevia || peritonitisBacterianaEspontanea) {
+                messageDiv.style.backgroundColor = 'red';
+                messageDiv.innerHTML = `Alto riesgo de sangrado. Score: ${score}`;
+            } else {
+                messageDiv.style.backgroundColor = 'green';
+                messageDiv.innerHTML = `Bajo riesgo de sangrado. Score: ${score}`;
+            }
+        }
+        function calculateScoreNPT() {
+            const isSobrecargaHidrica = document.getElementById('sobrecargaHidrica').value === '1';
+            let score = 0;
+
+            if (isSobrecargaHidrica) {
+                score += parseInt(document.getElementById('capacidadAlimentarse').value);
+                score += parseInt(document.getElementById('menosMitadDieta5Dias').value);
+                score += parseInt(document.getElementById('perdidaPeso3_6Meses').value);
+            } else {
+                score += parseInt(document.getElementById('imc').value);
+                score += parseInt(document.getElementById('perdidaPeso6Meses').value);
+                score += parseInt(document.getElementById('enfermedadAgudaSinAlimentacion').value);
+            }
+
+            score += parseInt(document.getElementById('hepatitisAlcoholicaAguda').value);
+            score += parseInt(document.getElementById('nutricionEnteral').value);
+
+            const messageDiv = document.getElementById('scoreMessageNPT');
+             if (score === 0) {
+                messageDiv.style.backgroundColor = 'green';
+                messageDiv.style.color = 'white';
+                messageDiv.innerHTML = `Bajo riesgo. Score Nutricional: ${score}`;
+             } else if (score === 1) {
+                messageDiv.style.backgroundColor = 'yellow';
+                messageDiv.style.color = 'black';
+                messageDiv.innerHTML = `Riesgo moderado. Score Nutricional: ${score}`;
+             } else {
+                messageDiv.style.backgroundColor = 'red';
+                messageDiv.style.color = 'white';
+                messageDiv.innerHTML = `Alto riesgo. Score Nutricional: ${score}`;
+            }
+        }
+
+        function habilitar(){
+            const isSobrecargaHidrica = this.value === '1';
+            document.getElementById('imc').disabled = isSobrecargaHidrica;
+            document.getElementById('perdidaPeso6Meses').disabled = isSobrecargaHidrica;
+            document.getElementById('enfermedadAgudaSinAlimentacion').disabled = isSobrecargaHidrica;
+
+            document.getElementById('capacidadAlimentarse').disabled = !isSobrecargaHidrica;
+            document.getElementById('menosMitadDieta5Dias').disabled = !isSobrecargaHidrica;
+            document.getElementById('perdidaPeso3_6Meses').disabled = !isSobrecargaHidrica;
+
+            calculateScoreNPT();
+        }
+
+        function calculateFrailScore() {
+            let score = 0;
+
+            score += parseInt(document.getElementById('fatigabilidad').value);
+            score += parseInt(document.getElementById('resistencia').value);
+            score += parseInt(document.getElementById('deambulacion').value);
+            score += parseInt(document.getElementById('pesofrail').value);
+
+            const comorbilidades = document.querySelectorAll('input[name="comorbilidad"]:checked');
+            if (comorbilidades.length > 4) {
+                score += 1;
+            }
+
+            const messageDiv = document.getElementById('frailScoreMessage');
+            if (score === 0) {
+                messageDiv.style.backgroundColor = 'green';
+                messageDiv.style.color = 'white';
+                messageDiv.innerHTML = `Bajo riesgo de fragilidad. Score Frail: ${score}`;
+            } else if (score === 1) {
+                messageDiv.style.backgroundColor = 'yellow';
+                messageDiv.style.color = 'black';
+                messageDiv.innerHTML = `Riesgo moderado de fragilidad. Score Frail: ${score}`;
+            } else {
+                messageDiv.style.backgroundColor = 'red';
+                messageDiv.style.color = 'white';
+                messageDiv.innerHTML = `Alto riesgo de fragilidad. Score Frail: ${score}`;
+            }
+        }
+        function calculateDukeScore() {
+                    let score = 0;
+                    score += parseFloat(document.getElementById('autocuidado').value);
+                    score += parseFloat(document.getElementById('caminarCasa').value);
+                    score += parseFloat(document.getElementById('caminar200m').value);
+                    score += parseFloat(document.getElementById('subirEscaleras').value);
+                    score += parseFloat(document.getElementById('correr').value);
+                    score += parseFloat(document.getElementById('trabajoLigero').value);
+                    score += parseFloat(document.getElementById('trabajoModerado').value);
+                    score += parseFloat(document.getElementById('trabajoFuerte').value);
+                    score += parseFloat(document.getElementById('trabajosJardin').value);
+                    score += parseFloat(document.getElementById('relacionesSexuales').value);
+                    score += parseFloat(document.getElementById('ejercicioModerado').value);
+                    score += parseFloat(document.getElementById('ejercicioIntenso').value);
+
+                    const messageDiv = document.getElementById('dukeScoreMessage');
+                    if (score < 15) {
+                        messageDiv.style.backgroundColor = 'red';
+                        messageDiv.style.color = 'white';
+                        messageDiv.innerHTML = `Baja capacidad funcional. Score: ${score}`;
+                    } else {
+                        messageDiv.style.backgroundColor = 'green';
+                        messageDiv.style.color = 'white';
+                        messageDiv.innerHTML = `Capacidad funcional aceptable. Score: ${score}`;
+                    }
+                }
+
+                // comprueba requeridos
+               /* document.addEventListener('DOMContentLoaded', function() {
+                    const requiredFields = ['nhc', 'sexoinicio', 'edadinicio', 'pesoinicio', 'tallainicio','nombre','primerApellido','segundoApellido'];
+                    const nextButton = document.querySelector('button[onclick="showNextSection(1)"]');
+                
+                    function checkRequiredFields() {
+                        let allFilled = true;
+                        requiredFields.forEach(function(fieldId) {
+                            const field = document.getElementById(fieldId);
+                            if (!field.value) {
+                                allFilled = false;
+                            }
+                        });
+                        nextButton.disabled = !allFilled;
+                    }
+                
+                    requiredFields.forEach(function(fieldId) {
+                        document.getElementById(fieldId).addEventListener('input', checkRequiredFields);
+                    });
+                
+                    checkRequiredFields(); // Initial check
+                });*/
