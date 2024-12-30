@@ -793,7 +793,7 @@
             <h2>Valoración Renal</h2>
             <div class="form-row">
             <fieldset class="border p-4 col-md-6">
-                <legend class="w-auto">Analítica</legend>
+                <legend class="w-auto">Afectación renal</legend>
                 <div class="form-group">
                     <label for="currentCreatinine">Creatinina actual:</label>
                     <input type="number" id="currentCreatinine" value ="0.5" class="form-control" oninput="calculateEGFR()">
@@ -909,64 +909,80 @@
         <h2>Valoración Hematológica</h2>
         <fieldset class="border p-4">
             <legend class="w-auto">Riesgo de Sangrado</legend>
-            <div class="form-group">
+            <div class="form-row">
+            <div class="form-group col-md-2">
                 <label for="retrasplantehemato">Retrasplante:</label>
                 <select id="retrasplantehemato" name="retrasplantehemato" class="form-control">
                     <option value="0" selected>No</option>
                     <option value="1">Sí</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-2">
                 <label for="sexohemato">Sexo:</label>
                 <select id="sexohemato" name="sexohemato" class="form-control">
                     <option value="1">Hombre</option>
                     <option value="2">Mujer</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-2">
                 <label for="edadhemato">Edad:</label>
                 <input type="number" id="edadhemato" name="edadhemato" class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-2">
                 <label for="hemoglobina">Hemoglobina:</label>
                 <input type="number" id="hemoglobina" name="hemoglobina" class="form-control">
             </div>
-            <div class="form-group">
+            
+            <div class="form-group col-md-2">
+                <label for="cirugiaAbdominalPrevia">Cirugía abdominal previa:</label>
+                <select id="cirugiaAbdominalPrevia" name="cirugiaAbdominalPrevia" class="form-control">
+                    <option value="0" selected>No</option>
+                    <option value="1">Sí</option>
+                </select>
+            </div>
+            
+            </div>
+            <div class="form-row">
+            <div class="form-group col-md-2">
                 <label for="protrombina">INR:</label>
                 <input type="number" id="protrombina" name="protrombina" class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-2">
                 <label for="creatininahemato">Creatinina:</label>
                 <input type="number" id="creatininahemato" name="creatininahemato" class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group  col-md-2">
                 <label for="albumina">Albúmina:</label>
                 <input type="number" id="albumina" name="albumina" class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-2">
                 <label for="plaquetas">Plaquetas:</label>
                 <input type="number" id="plaquetas" name="plaquetas" class="form-control">
             </div>
-            <div class="form-check">
-                <input type="checkbox" id="cirugiaAbdominalPrevia" name="cirugiaAbdominalPrevia" class="form-check-input">
-                <label for="cirugiaAbdominalPrevia" class="form-check-label">Cirugía abdominal previa</label>
+            <div class="form-group col-md-2">
+                <label for="peritonitisBacterianaEspontanea">Peritonitis Bacteriana Espontanea:</label>
+                <select id="peritonitisBacterianaEspontanea" name="peritonitisBacterianaEspontanea" class="form-control">
+                    <option value="0" selected>No</option>
+                    <option value="1">Sí</option>
+                </select>
             </div>
-            <div class="form-check">
-                <input type="checkbox" id="peritonitisBacterianaEspontanea" name="peritonitisBacterianaEspontanea" class="form-check-input">
-                <label for="peritonitisBacterianaEspontanea" class="form-check-label">Peritonitis bacteriana espontánea</label>
+        
             </div>
+            
             <div id="bleedingScoreMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                 Bajo riesgo de sangrado. Score: 0
             </div>
         </fieldset>
+        <hr>
         <button type="button" class="btn btn-primary" onclick="showPreviousSection(5)">Anterior</button>
         <button type="button" class="btn btn-primary" onclick="showNextSection(5)">Siguiente</button>
+        <hr>
     </div>
 
         <div id="section6" class="section">
             <h2>Valoración Endocrinometabólica</h2>
-            <!-- Contenido de la sección -->
-            <fieldset class="border p-4">
+            <div class="form-row">
+            <fieldset class="border p-4 col-md-6">
                 <legend class="w-auto">Valoración nutricional. Escala RFH NPT</legend>
                 
                 <div class="form-group">
@@ -1049,12 +1065,116 @@
                 </div>
                 
             </fieldset>
+            <fieldset class="border p-4 col-md-6">
+                <legend class="w-auto">Valoración de Capacidad Funcional. Escala Duke</legend>
+                
+                <div class="form-group">
+                    <label for="autocuidado"> ¿Puede Usted realizar sus actividades de autocuidado, tales como alimentarse, vestirse, bañarse, o usar el baño? </label>
+                    <select id="autocuidado" name="autocuidado" class="form-control">
+                        <option value="2.75">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="caminarCasa"> ¿Puede Usted caminar dentro de su casa y alrededor de ésta? </label>
+                    <select id="caminarCasa" name="caminarCasa" class="form-control">
+                        <option value="1.75">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="caminar200m"> ¿Puede Usted caminar unos 200 metros, sin pendiente? </label>
+                    <select id="caminar200m" name="caminar200m" class="form-control">
+                        <option value="2.75">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="subirEscaleras"> ¿Puede subir un piso de escaleras? </label>
+                    <select id="subirEscaleras" name="subirEscaleras" class="form-control">
+                        <option value="5.5">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="correr"> ¿Puede correr una distancia corta? </label>
+                    <select id="correr" name="correr" class="form-control">
+                        <option value="8">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trabajoLigero"> ¿Puede hacer trabajo ligero en casa como lavar platos o limpiar el polvo? </label>
+                    <select id="trabajoLigero" name="trabajoLigero" class="form-control">
+                        <option value="2.7">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trabajoModerado"> ¿Puede hacer trabajo moderado en casa como barrer o hacer las camas? </label>
+                    <select id="trabajoModerado" name="trabajoModerado" class="form-control">
+                        <option value="3.5">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trabajoFuerte"> ¿Puede hacer trabajo fuerte en casa como mover muebles o fregar? </label>
+                    <select id="trabajoFuerte" name="trabajoFuerte" class="form-control">
+                        <option value="8">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trabajosJardin"> ¿Puede hacer trabajos de jardín como limpiar hojas, cortar plantas? </label>
+                    <select id="trabajosJardin" name="trabajosJardin" class="form-control">
+                        <option value="4.5">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="relacionesSexuales"> ¿Puede tener relaciones sexuales? </label>
+                    <select id="relacionesSexuales" name="relacionesSexuales" class="form-control">
+                        <option value="5.25">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ejercicioModerado"> ¿Puede hacer ejercicio moderado como bailar o lanzar una pelota? </label>
+                    <select id="ejercicioModerado" name="ejercicioModerado" class="form-control">
+                        <option value="6">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ejercicioIntenso"> ¿Puede hacer ejercicio intenso como jugar al fútbol o baloncesto? </label>
+                    <select id="ejercicioIntenso" name="ejercicioIntenso" class="form-control">
+                        <option value="7.5">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div id="dukeScoreMessage" class = "rounded-shadow" style="padding: 5px; margin-top: 10px;background-color: green;color: white;">
+                    Capacidad funcional aceptable.
+                </div>
+                         
+            </fieldset>
+            </div>
             <fieldset class="border p-4">
                 <legend class="w-auto">Valoración de Fragilidad. Escala Frail</legend>
                 
-                <strong>FATIGABILIDAD</strong><br>
                 <div class="form-group">
-                    <label for="fatigabilidad">¿Qué parte del tiempo durante las últimas 4 semanas se sintió cansado/a?</label>
+                    <label for="fatigabilidad">FATIGABILIDAD. ¿Qué parte del tiempo durante las últimas 4 semanas se sintió cansado/a?</label>
                     <select id="fatigabilidad" name="fatigabilidad" class="form-control">
                         <option value="1">Todo el tiempo</option>
                         <option value="1">La mayoría de las veces</option>
@@ -1064,26 +1184,26 @@
                     </select>
                 </div>
 
-                <strong>RESISTENCIA</strong><br>
+            
                 <div class="form-group">
-                    <label for="resistencia">¿Tiene alguna dificultad para subir 10 escalones sin descansar por usted mismo/a, sin ningún tipo de ayuda?</label>
+                    <label for="resistencia">RESISTENCIA. ¿Tiene alguna dificultad para subir 10 escalones sin descansar por usted mismo/a, sin ningún tipo de ayuda?</label>
                     <select id="resistencia" name="resistencia" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
 
-                <strong>DEAMBULACION</strong><br>
+                
                 <div class="form-group">
-                    <label for="deambulacion">Por sí mismo/a y sin el uso de ayudas, ¿tiene alguna dificultad para caminar varios cientos de metros?</label>
+                    <label for="deambulacion">DEAMBULACION. Por sí mismo/a y sin el uso de ayudas, ¿tiene alguna dificultad para caminar varios cientos de metros?</label>
                     <select id="deambulacion" name="deambulacion" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
 
-                <strong>COMORBILIDAD</strong><br>
-                <label>Comorbilidades:</label>
+                
+                <label>COMORBILIDAD</label>
                 <br>
                 <div class="form-check">
                     <input type="checkbox" id="hipertension" name="comorbilidad" value="hipertension" class="form-check-input">
@@ -1130,9 +1250,9 @@
                     <label for="enfermedadRenal" class="form-check-label">Enfermedad renal</label>
                 </div>
 
-                <strong>PESO</strong><br>
+                <br>
                 <div class="form-group">
-                    <label for="pesofrail">¿Cuánto peso ha perdido en un año?</label>
+                    <label for="pesofrail">PESO. ¿Cuánto peso ha perdido en un año?</label>
                     <select id="pesofrail" name="pesofrail" class="form-control">
                         <option value="0" selected>No he perdido o he perdido menos de 5%</option>
                         <option value="1">Más de un 5%</option> 
@@ -1144,112 +1264,10 @@
                 </div>
             </fieldset>
 
-            <fieldset class="border p-4">
-                <legend class="w-auto">Valoración de Capacidad Funcional. Escala Duke</legend>
-                
-                <div class="form-group">
-                    <label for="autocuidado"><strong>¿Puede Usted realizar sus actividades de autocuidado, tales como alimentarse, vestirse, bañarse, o usar el baño?</strong></label>
-                    <select id="autocuidado" name="autocuidado" class="form-control">
-                        <option value="2.75">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="caminarCasa"><strong>¿Puede Usted caminar dentro de su casa y alrededor de ésta?</strong></label>
-                    <select id="caminarCasa" name="caminarCasa" class="form-control">
-                        <option value="1.75">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="caminar200m"><strong>¿Puede Usted caminar unos 200 metros, sin pendiente?</strong></label>
-                    <select id="caminar200m" name="caminar200m" class="form-control">
-                        <option value="2.75">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="subirEscaleras"><strong>¿Puede subir un piso de escaleras?</strong></label>
-                    <select id="subirEscaleras" name="subirEscaleras" class="form-control">
-                        <option value="5.5">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="correr"><strong>¿Puede correr una distancia corta?</strong></label>
-                    <select id="correr" name="correr" class="form-control">
-                        <option value="8">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="trabajoLigero"><strong>¿Puede hacer trabajo ligero en casa como lavar platos o limpiar el polvo?</strong></label>
-                    <select id="trabajoLigero" name="trabajoLigero" class="form-control">
-                        <option value="2.7">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="trabajoModerado"><strong>¿Puede hacer trabajo moderado en casa como barrer o hacer las camas?</strong></label>
-                    <select id="trabajoModerado" name="trabajoModerado" class="form-control">
-                        <option value="3.5">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="trabajoFuerte"><strong>¿Puede hacer trabajo fuerte en casa como mover muebles o fregar?</strong></label>
-                    <select id="trabajoFuerte" name="trabajoFuerte" class="form-control">
-                        <option value="8">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="trabajosJardin"><strong>¿Puede hacer trabajos de jardín como limpiar hojas, cortar plantas?</strong></label>
-                    <select id="trabajosJardin" name="trabajosJardin" class="form-control">
-                        <option value="4.5">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="relacionesSexuales"><strong>¿Puede tener relaciones sexuales?</strong></label>
-                    <select id="relacionesSexuales" name="relacionesSexuales" class="form-control">
-                        <option value="5.25">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="ejercicioModerado"><strong>¿Puede hacer ejercicio moderado como bailar o lanzar una pelota?</strong></label>
-                    <select id="ejercicioModerado" name="ejercicioModerado" class="form-control">
-                        <option value="6">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="ejercicioIntenso"><strong>¿Puede hacer ejercicio intenso como jugar al fútbol o baloncesto?</strong></label>
-                    <select id="ejercicioIntenso" name="ejercicioIntenso" class="form-control">
-                        <option value="7.5">Sí</option>
-                        <option value="0">No</option>
-                    </select>
-                </div>
-
-                <div id="dukeScoreMessage" class = "rounded-shadow" style="padding: 5px; margin-top: 10px;background-color: green;color: white;">
-                    Capacidad funcional aceptable.
-                </div>
-                         
-            </fieldset>
+            <hr>
             <button type="button" class="btn btn-primary" onclick="showPreviousSection(6)">Anterior</button>
             <button type="button" class="btn btn-primary" onclick="showNextSection(6)">Siguiente</button>
+            <hr>
         </div>
 
         <div id="section7" class="section">
