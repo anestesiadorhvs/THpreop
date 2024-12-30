@@ -674,6 +674,7 @@
                 </div>
 
             </fieldset>
+
             <div class="form-row">
             <fieldset class="border p-4 col-md-6">
                 <legend class="w-auto">Valoración gasométrica</legend>
@@ -781,18 +782,17 @@
                     </tr>
                 </tbody>
             </table>    
-        
             </div>
-
             </div>
-                <hr>
+            <hr>
             <button type="button" class="btn btn-primary" onclick="showPreviousSection(3)">Anterior</button>
             <button type="button" class="btn btn-primary" onclick="showNextSection(3)">Siguiente</button>
-            <hr
+            <hr>
         </div>
         <div id="section4" class="section">
             <h2>Valoración Renal</h2>
-            <fieldset class="border p-4">
+            <div class="form-row">
+            <fieldset class="border p-4 col-md-6">
                 <legend class="w-auto">Analítica</legend>
                 <div class="form-group">
                     <label for="currentCreatinine">Creatinina actual:</label>
@@ -850,7 +850,7 @@
                     Bajo riesgo de AKI
                 </div>
             </fieldset>
-            <fieldset class="border p-4">
+            <fieldset class="border p-4 col-md-6">
                 <legend class="w-auto">Riesgo de CRRT intraoperatoria</legend>
                 <div class="form-group">
                     <label for="falloHepatico">Fallo Hepático:</label>
@@ -899,8 +899,11 @@
                     Score de CRRT: 0
                 </div>
             </fieldset>
+            </div>
+            <hr>
             <button type="button" class="btn btn-primary" onclick="showPreviousSection(4)">Anterior</button>
             <button type="button" class="btn btn-primary" onclick="showNextSection(4)">Siguiente</button>
+            <hr>
         </div>
         <div id="section5" class="section">
         <h2>Valoración Hematológica</h2>
