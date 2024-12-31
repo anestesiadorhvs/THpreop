@@ -2,7 +2,8 @@
         
     //listeners
 
-        // seccion 1
+        // seccion 1. Valoracion inicial
+        //----------------------------------------------------------
         document.getElementById('sexoinicio').addEventListener('change',modificarsexo);
         document.getElementById('edadinicio').addEventListener('input', modificaredad);
         document.getElementById('pesoinicio').addEventListener('input', modificarpeso);
@@ -18,18 +19,38 @@
         document.getElementById('bilirrubinaMeld').addEventListener('input', modificarbilirrubina);
         document.getElementById('sodioMeld').addEventListener('input', updateMeldScores);
 
-        document.getElementById('resultadoStress').addEventListener('change', evaluateStress);
+
+        // seccion 2. Valoracion cardiologica
+        //----------------------------------------------------------
+        document.getElementById('resultadoStress').addEventListener('change', evaluateResultadoStressEcho);
         document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
         document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
         document.getElementById('scoreCalcico').addEventListener('change', evaluateCoronariografia);
         document.getElementById('historiaPatologiaCoronaria').addEventListener('change', evaluateCoronariografia);
+        
         document.getElementById('fraccionVD').addEventListener('change', evaluateCateterismoDerecho);
         document.getElementById('Tapse').addEventListener('input', evaluateCateterismoDerecho);
         document.getElementById('papsEstimada').addEventListener('input', evaluateCateterismoDerecho);
+        
+        document.getElementById('pshl').addEventListener('input', updategpvh);
+        document.getElementById('pshe').addEventListener('input', updategpvh);
+
+        document.getElementById('funcional').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('morfologico').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('biomarcador').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('biomarcadorFA').addEventListener('change', calculateHfaPeefIndex);
+
+        // seccion 3. Pulmonar y via aérea
+        //----------------------------------------------------------
         document.getElementById('fio2').addEventListener('input', evaluateAaGradient);
         document.getElementById('paco2').addEventListener('input', evaluateAaGradient);
         document.getElementById('pao2').addEventListener('input', evaluateAaGradient);
+
+        document.getElementById('fev1').addEventListener('input', evaluatePulmonaryFunction);
         document.getElementById('fvc').addEventListener('input', evaluatePulmonaryFunction);
+        
+        // seccion 4. Renal
+        //----------------------------------------------------------
         document.getElementById('falloHepatico').addEventListener('change', calculateCRRTScore);
         document.getElementById('donanteAsistolia').addEventListener('change', calculateCRRTScore);
         document.getElementById('retrasplante').addEventListener('change', calculateCRRTScore);
@@ -38,6 +59,11 @@
         document.getElementById('kPreop').addEventListener('input', calculateCRRTScore);
         document.getElementById('bilirrubina').addEventListener('input', calculateCRRTScore);
         
+        document.getElementById('currentCreatinine').addEventListener('input', calculateEGFR);
+        document.getElementById('previousCreatinine').addEventListener('input', checkAKI);
+        
+        // seccion 5. Sangrado
+        //----------------------------------------------------------
         document.getElementById('retrasplantehemato').addEventListener('change', calculateBleedingScore);
         document.getElementById('sexohemato').addEventListener('change', calculateBleedingScore);
         document.getElementById('edadhemato').addEventListener('input', calculateBleedingScore);
@@ -47,6 +73,10 @@
         document.getElementById('albumina').addEventListener('input', calculateBleedingScore);
         document.getElementById('plaquetas').addEventListener('input', calculateBleedingScore);
         
+        // seccion 6. Nutricion
+        //----------------------------------------------------------
+        document.getElementById('hepatitisAlcoholicaAguda').addEventListener('change', calculateScoreNPT);
+        document.getElementById('nutricionEnteral').addEventListener('change', calculateScoreNPT);
         document.getElementById('sobrecargaHidrica').addEventListener('change', habilitar);
         document.getElementById('imc').addEventListener('change', calculateScoreNPT);
         document.getElementById('perdidaPeso6Meses').addEventListener('change', calculateScoreNPT);
@@ -54,9 +84,7 @@
         document.getElementById('capacidadAlimentarse').addEventListener('change', calculateScoreNPT);
         document.getElementById('menosMitadDieta5Dias').addEventListener('change', calculateScoreNPT);
         document.getElementById('perdidaPeso3_6Meses').addEventListener('change', calculateScoreNPT);
-        document.getElementById('hepatitisAlcoholicaAguda').addEventListener('change', calculateScoreNPT);
-        document.getElementById('nutricionEnteral').addEventListener('change', calculateScoreNPT);
-
+        
         document.getElementById('fatigabilidad').addEventListener('change', calculateFrailScore);
         document.getElementById('resistencia').addEventListener('change', calculateFrailScore);
         document.getElementById('deambulacion').addEventListener('change', calculateFrailScore);
@@ -71,6 +99,10 @@
        
        
      // funciones
+     //----------------------------------------------------------
+     //----------------------------------------------------------
+
+     // comunes
         function showNextSection(currentSection) {
             document.getElementById('section' + currentSection).classList.remove('active');
             document.getElementById('section' + (currentSection + 1)).classList.add('active');
@@ -81,7 +113,8 @@
             document.getElementById('section' + (currentSection - 1)).classList.add('active');
         }
 
-        // seccion 1
+    // seccion 1.Valoracion inicial
+    //----------------------------------------------------------
         function modificarsexo() {
             const sexo = document.getElementById('sexoinicio').value;
             document.getElementById('sexohemato').value = sexo;
@@ -92,6 +125,9 @@
             const edad = document.getElementById('edadinicio').value;
             document.getElementById('edadhemato').value = edad;
             document.getElementById('edadeco').value = edad;
+            evaluateAaGradient();
+            evaluateStressEcho();
+
         }
 
         function modificarpeso() {
@@ -103,6 +139,8 @@
                const imc = peso / (talla * talla);
                document.getElementById('imcinicio').value = imc.toFixed(2);
            }
+           // calculo requerimientos
+           calculoRequerimientos();
 
         }
 
@@ -115,16 +153,22 @@
                 const imc = peso / (talla * talla);
                 document.getElementById('imcinicio').value = imc.toFixed(2);
             }
+            // calculo requerimientos
+           calculoRequerimientos();
         }
 
         function modificarcreatinina() {
             const creatinina = parseFloat(document.getElementById('creatininaMeld').value);
-            // cambia MELD
-            updateMeldScores();
             // modifica valores de Cr en el resto del formulario
             document.getElementById('currentCreatinine').value = creatinina;
             document.getElementById('previousCreatinine').value = creatinina;
             document.getElementById('creatininahemato').value = creatinina;
+            // cambia MELD
+            updateMeldScores();
+            // cambia EFGr
+            calculateEGFR();
+            // cambia hemato
+            calculateBleedingScore();
 
         }
 
@@ -178,7 +222,6 @@
             
         }
 
-
         function updateMeldScores() {
             let creatinina = parseFloat(document.getElementById('creatininaMeld').value) || 0;
             if (creatinina > 4) {
@@ -213,9 +256,9 @@
             }
         }
 
-        
 
-        // seccion 2
+        // seccion 2. Cardiologica
+        //----------------------------------------------------------
         function calculateHfaPeefIndex() {
             const funcional  = parseInt(document.getElementById('funcional').value);
             const morfologico = parseInt(document.getElementById('morfologico').value);
@@ -240,19 +283,12 @@
             }
         }
 
-        function resetBiomarcadorFA() {
-            document.getElementById('biomarcadorFA').value = "0";
+         
+        function evaluateResultadoStressEcho(){
+            evaluateAngioTac();
+            evaluateCoronariografia();
         }
-
-        function resetBiomarcador() {
-            document.getElementById('biomarcador').value = "0";
-        }
-
-        document.getElementById('funcional').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('morfologico').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('biomarcador').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('biomarcadorFA').addEventListener('change', calculateHfaPeefIndex);
-
+        
         function evaluateStressEcho() {
             const diabetes = document.getElementById('diabetes').checked;
             const hipertension = document.getElementById('hipertension').checked;
@@ -335,7 +371,29 @@
             };
         }
 
+        function updategpvh() {
+            const pe= document.getElementById('pshe').value;
+            const pl= document.getElementById('pshl').value;
+            const gpvh = pe-pl;
+            document.getElementById('gpvh').value = gpvh;
+            document.getElementById('gpvh1').classList.remove('highlight');
+            document.getElementById('gpvh2').classList.remove('highlight');
+            document.getElementById('gpvh3').classList.remove('highlight');
+            document.getElementById('gpvh4').classList.remove('highlight');
 
+            if (gpvh > 12) {
+                document.getElementById('gpvh4').classList.add('highlight');
+            } else if (gpvh >9) {
+                document.getElementById('gpvh3').classList.add('highlight');
+            } else if (gpvh >5) {
+                document.getElementById('gpvh2').classList.add('highlight');
+            } else {
+                document.getElementById('gpvh1').classList.add('highlight');
+            } 
+        }
+
+        // seccion 3. Pulmonar
+        //----------------------------------------------------------
         function evaluateAaGradient() {
             const fio2 = parseFloat(document.getElementById('fio2').value) || 0.21;
             const paco2 = parseFloat(document.getElementById('paco2').value) || 35;
@@ -373,16 +431,6 @@
                 document.getElementById('muySevera').style.backgroundColor = "red";
             }
         }
-
-        function evaluateEdad(){
-            evaluateAaGradient();
-            evaluateStressEcho();
-        }
-        function evaluateStress(){
-            evaluateAngioTac();
-            evaluateCoronariografia();
-        }
-        
 
         function evaluatePulmonaryFunction() {
             const fev1 = parseFloat(document.getElementById('fev1').value) || 0;
@@ -427,6 +475,8 @@
             }
         };
 
+        // seccion 4. Renal
+        //----------------------------------------------------------
         function calculateEGFR() {
             const creatinine = parseFloat(document.getElementById('currentCreatinine').value || 0.5);
             const sexo = parseInt(document.getElementById('sexoinicio').value);
@@ -476,7 +526,7 @@
                 akiMessage.innerText = "Posible AKI grado 3 (incremento >3 veces valor previo o Cr >=4gr/dl)";
             } else {
                 akiMessage.style.backgroundColor = 'green';
-                akiMessage.innerText = "AKI poco probable";
+                akiMessage.innerText = "AKI / Sd Hepatorrenal poco probable";
             }
 }
 
@@ -524,6 +574,9 @@
             const crrtScoreMessage = document.getElementById('crrtScoreMessage');
             crrtScoreMessage.innerText = "Score de CRRT: " + score + mensaje;
         }
+        
+        // seccion 5. Sangrado
+        //----------------------------------------------------------
         function calculateBleedingScore() {
             let score = 0;
 
@@ -536,9 +589,7 @@
             const albumina = parseFloat(document.getElementById('albumina').value);
             const plaquetas = parseFloat(document.getElementById('plaquetas').value);
             const messageDiv = document.getElementById('bleedingScoreMessage');
-            const cirugiaAbdominalPrevia = document.getElementById('cirugiaAbdominalPrevia').checked;
-            const peritonitisBacterianaEspontanea = document.getElementById('peritonitisBacterianaEspontanea').checked;
-
+           
             if (retrasplante == '1') score += 1;
             if (hemoglobina < 10) score += 1;
             if (edad > 40) score += 1;
@@ -549,7 +600,7 @@
             if (albumina < 24) score += 1;
 
             
-            if (score >= 3 || cirugiaAbdominalPrevia || peritonitisBacterianaEspontanea) {
+            if (score >= 3 ) {
                 messageDiv.style.backgroundColor = 'red';
                 messageDiv.innerHTML = `Alto riesgo de sangrado. Score: ${score}`;
             } else {
@@ -557,6 +608,9 @@
                 messageDiv.innerHTML = `Bajo riesgo de sangrado. Score: ${score}`;
             }
         }
+        
+        // seccion 6. Nutricion
+        //----------------------------------------------------------
         function calculateScoreNPT() {
             const isSobrecargaHidrica = document.getElementById('sobrecargaHidrica').value === '1';
             let score = 0;
@@ -588,6 +642,7 @@
                 messageDiv.style.color = 'white';
                 messageDiv.innerHTML = `Alto riesgo. Score Nutricional: ${score}`;
             }
+            calculoRequerimientos();
         }
 
         function habilitar(){
@@ -656,11 +711,112 @@
                         messageDiv.style.color = 'white';
                         messageDiv.innerHTML = `Capacidad funcional aceptable. Score: ${score}`;
                     }
+                    calculoRequerimientos();
                 }
 
-                // comprueba requeridos
-               /* document.addEventListener('DOMContentLoaded', function() {
-                    const requiredFields = ['nhc', 'sexoinicio', 'edadinicio', 'pesoinicio', 'tallainicio','nombre','primerApellido','segundoApellido'];
+        function calculoRequerimientos(){
+            const peso = parseFloat(document.getElementById('pesoinicio').value);
+            const talla = parseFloat(document.getElementById('tallainicio').value) / 100; // Convertir cm a metros
+            const imc = parseFloat(document.getElementById('imcinicio').value);
+            const ascitis = parseInt(document.getElementById('ascitis').value);
+            
+            let pesoseco;
+            let calorias_total;
+            let proteinas_total;
+            let hidratos_total;
+            let lipidos_total;
+
+            let proteinas_gr;
+            let hidratos_gr;
+            let lipidos_gr;
+
+
+            // calcular peso seco
+            if (ascitis === 2) {
+                pesoseco = peso - (peso * 0.05); // ascitis leve
+            }  else if (ascitis === 3) {
+                pesoseco = peso - (peso * 0.1); // ascitis moderada
+            } else {
+                pesoseco = peso // sin ascitis
+            }
+            // calculo requerimientos
+            if (imc < 25){
+                calorias_total = 40 * pesoseco;
+            }else{
+                pesoseco = 25 * (talla * talla); // peso ideal
+                calorias_total = 30 * pesoseco;
+            }
+
+            // Hdc 4 kcl/gr. Prots 4 kcl/gr. Lipidos 9 kcl/gr.
+            // calcular prots en función de grado de desnutricion
+            // ajustar Hdc en funcion de actvidad. Lípidos el resto
+           
+            const colorNPT = document.getElementById('scoreMessageNPT').style.backgroundColor; //  red || green || yellow
+            const colorDuke = document.getElementById('dukeScoreMessage').style.backgroundColor; // red || green
+            
+            if (colorNPT === 'red'){
+                proteinas_gr = 1.5 * pesoseco;
+            } else if (colorNPT === 'yellow'){
+                proteinas_gr = 1.3 * pesoseco;
+            } else {
+                proteinas_gr = 1.2 * pesoseco;
+            }
+            proteinas_total = 4 * proteinas_gr; //cal aportan prots
+            
+            if (colorDuke === 'red'){
+                hidratos_total = 0.45 * calorias_total; //cal aportan hidratos
+            } else {
+                hidratos_total = 0.60 * calorias_total;
+            }
+            hidratos_gr = hidratos_total / 4; // gramos de hidratos
+            lipidos_total = calorias_total - proteinas_total - hidratos_total; // calorias que aportan los lipidos
+            lipidos_gr = lipidos_total / 9; // gramos de lipidos
+
+            // modifica tabla
+            document.getElementById('calorias_total').textContent = calorias_total.toFixed(2);
+            document.getElementById('proteinas_total').textContent = proteinas_total.toFixed(2);
+            document.getElementById('hidratos_total').textContent = hidratos_total.toFixed(2);
+            document.getElementById('lipidos_total').textContent = lipidos_total.toFixed(2);
+
+            document.getElementById('proteinas_gr').textContent = proteinas_gr.toFixed(2);
+            document.getElementById('hidratos_gr').textContent = hidratos_gr.toFixed(2);
+            document.getElementById('lipidos_gr').textContent = lipidos_gr.toFixed(2);
+
+            document.getElementById('proteinas_porcentaje').textContent = (proteinas_total/calorias_total * 100).toFixed(2);
+            document.getElementById('hidratos_porcentaje').textContent = (hidratos_total/calorias_total * 100).toFixed(2);  
+            document.getElementById('lipidos_porcentaje').textContent = (lipidos_total/calorias_total * 100).toFixed(2);    
+
+
+        }
+
+        // final
+        //
+        //----------------------------------------------------------
+        
+        // generar PDF
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'pt', 'a4');
+            pdf.setFontSize(12);
+            pdf.text(20, 20, 'Informe de valoración preoperatoria');
+            pdf.text(20, 40, 'Datos personales');
+            pdf.text(20, 60, 'Nombre: ' + document.getElementById('nombre').value);
+            pdf.text(20, 80, 'Primer apellido: ' + document.getElementById('primerApellido').value);
+            pdf.text(20, 100, 'Segundo apellido: ' + document.getElementById('segundoApellido').value);
+            pdf.text(20, 120, 'NHC: ' + document.getElementById('nhc').value);
+            pdf.text(20, 140, 'Sexo: ' + document.getElementById('sexoinicio').value);
+            pdf.text(20, 160, 'Edad: ' + document.getElementById('edadinicio').value);
+            pdf.text(20, 180, 'Peso: ' + document.getElementById('pesoinicio').value);
+            pdf.text(20, 200, 'Talla: ' + document.getElementById('tallainicio').value);
+            pdf.text(20, 220, 'IMC: ' + document.getElementById('imcinicio').value);
+            pdf.text(20, 240, 'Fecha de valoración: ' + new Date().toLocaleDateString());
+            pdf.save('formulario_valoracion.pdf');
+        }
+        
+        
+        // comprueba requeridos
+                document.addEventListener('DOMContentLoaded', function() {
+                    /*const requiredFields = ['nhc', 'sexoinicio', 'edadinicio', 'pesoinicio', 'tallainicio','nombre','primerApellido','segundoApellido'];
                     const nextButton = document.querySelector('button[onclick="showNextSection(1)"]');
                 
                     function checkRequiredFields() {
@@ -679,4 +835,9 @@
                     });
                 
                     checkRequiredFields(); // Initial check
-                });*/
+                    */
+                   updateChildPughScore();
+                   updateMeldScores();
+                   updategpvh();
+                   habilitar()
+                });
