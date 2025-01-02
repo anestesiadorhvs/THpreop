@@ -6,7 +6,7 @@
     <title>Formulario de Valoración</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .section {
             display: none;
@@ -1370,6 +1370,95 @@
         <div id="section7" class="section">
             <h2>Estimación de riesgos y recomendaciones</h2>
             <!-- Contenido de la sección -->
+            <fieldset class="border p-4">
+                <legend class="w-auto">Analítica Pretrasplante</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="hemoglobinaPRE">Hemoglobina:</label>
+                        <input type="number" id="hemoglobinaPRE" name="hemoglobinaPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="phPRE">Ph:</label>
+                        <input type="numberPRE" id="ph" name="phPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="pao2PRE">PaO2:</label>
+                        <input type="number" id="pao2PRE" name="pao2PREPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="paco2PRE">PaCO2:</label>
+                        <input type="number" id="paco2PRE" name="paco2PRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="ebPRE">EB:</label>
+                        <input type="number" id="ebPRE" name="ebPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="lacticoPRE">Láctico:</label>
+                        <input type="number" id="lacticoPRE" name="lacticoPRE" class="form-control" step="0.01">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="tProtrombinaPRE">T. Protrombina:</label>
+                        <input type="number" id="tProtrombinaPRE" name="tProtrombinaPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inrPRE">INR:</label>
+                        <input type="number" id="inrPRE" name="inrPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="ttpaPRE">TTPa:</label>
+                        <input type="number" id="ttpaPRE" name="ttpaPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="fibrinogenoPRE">Fibrinógeno:</label>
+                        <input type="number" id="fibrinogenoPRE" name="fibrinogenoPRE" class="form-control" step="0.01">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="naPRE">Na:</label>
+                        <input type="number" id="naPRE" name="naPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="kPRE">K:</label>
+                        <input type="number" id="kPRE" name="kPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="caPRE">Ca:</label>
+                        <input type="number" id="caPRE" name="caPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="mgPRE">Mg:</label>
+                        <input type="number" id="mgPRE" name="mgPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="procalcitoninaPRE">Procalcitonina:</label>
+                        <input type="number" id="procalcitoninaPRE" name="procalcitoninaPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="proBNPPRE">ProBNP:</label>
+                        <input type="number" id="proBNPPRE" name="proBNPPRE" class="form-control" step="0.01">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <canvas id="childGauge"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="meldGauge"></canvas>
+                </div>
+            </div>
+            <fieldset class="border p-4">
+                <legend class="w-auto">Recomendaciones</legend>
+                <div class="form-group">
+                    <label for="recomendaciones">Recomendaciones:</label>
+                    <textarea id="recomendaciones" name="recomendaciones" class="form-control" rows="5"></textarea>
+                </div>
+            </fieldset>
+
             <button type="button" class="btn btn-primary" onclick="showPreviousSection(7)">Anterior</button>
             <button type="button" class="btn btn-primary" onclick="generatePDF()">generar PDF</button>
             <button type="button" class="btn btn-primary" onclick="generateWord()">generar word</button>
