@@ -794,23 +794,38 @@
         //----------------------------------------------------------
         
         // generar PDF
+        //https://raw.githack.com/MrRio/jsPDF/master/index.html
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'pt', 'a4');
-            pdf.setFontSize(12);
+           
+           const pageHeight = pdf.internal.pageSize.height || pdf.internal.pageSize.getHeight();
+            const pageWidth =  pdf.internal.pageSize.width || pdf.internal.pageSize.getWidth();
+            
+            pdf.setLineWidth(0.5);
+            pdf.line(10, 5, pageWidth - 10, 5);
+            pdf.line(10, 35, pageWidth - 10, 35);
+            pdf.line(10, 250, pageWidth - 10, 250);
+            pdf.line(10, 5, 10, 250);
+            pdf.line(pageWidth - 10, 5, pageWidth - 10, 250);
+
+            pdf.setFontSize(10);
             pdf.text(20, 20, 'Informe de valoración preoperatoria');
-            pdf.text(20, 40, 'Datos personales');
+            pdf.text(400, 20, 'Fecha de valoración: ' + new Date().toLocaleDateString());
+           
+            pdf.text(20, 40, 'NHC: ' + document.getElementById('nhc').value);
+            pdf.text(50, 40, 'Sexo: ' + document.getElementById('sexoinicio').value);
+            pdf.text(110, 40, 'Edad: ' + document.getElementById('edadinicio').value);
+            pdf.text(170, 40, 'Peso: ' + document.getElementById('pesoinicio').value);
+            pdf.text(240, 40, 'Talla: ' + document.getElementById('tallainicio').value);
+            pdf.text(310, 40, 'IMC: ' + document.getElementById('imcinicio').value);
+
             pdf.text(20, 60, 'Nombre: ' + document.getElementById('nombre').value);
-            pdf.text(20, 80, 'Primer apellido: ' + document.getElementById('primerApellido').value);
-            pdf.text(20, 100, 'Segundo apellido: ' + document.getElementById('segundoApellido').value);
-            pdf.text(20, 120, 'NHC: ' + document.getElementById('nhc').value);
-            pdf.text(20, 140, 'Sexo: ' + document.getElementById('sexoinicio').value);
-            pdf.text(20, 160, 'Edad: ' + document.getElementById('edadinicio').value);
-            pdf.text(20, 180, 'Peso: ' + document.getElementById('pesoinicio').value);
-            pdf.text(20, 200, 'Talla: ' + document.getElementById('tallainicio').value);
-            pdf.text(20, 220, 'IMC: ' + document.getElementById('imcinicio').value);
-            pdf.text(20, 240, 'Fecha de valoración: ' + new Date().toLocaleDateString());
-            pdf.save('formulario_valoracion.pdf');
+            pdf.text(20, 200, 'Primer apellido: ' + document.getElementById('primerApellido').value);
+            pdf.text(20, 300, 'Segundo apellido: ' + document.getElementById('segundoApellido').value);
+           
+           
+           pdf.save('formulario_valoracion.pdf');
         }
         
         
