@@ -97,8 +97,51 @@
                     element.addEventListener('change', calculateDukeScore);
                 });
        
-       
-     // funciones
+    // graficos
+    //----------------------------------------------------------
+   function childgauge() {
+        var ctx = document.getElementById("childcanvas").getContext("2d");
+    new Chart(ctx, {
+        type: "tsgauge",
+        data: {
+            datasets: [{
+                backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
+                borderWidth: 0,
+                gaugeData: {
+                    value: 7,
+                    valueColor: "#ff7143"
+                },
+                gaugeLimits: [0, 6, 10, 15]
+            }]
+        },
+        options: {
+                events: [],
+                showMarkers: true
+        }
+    });
+   }
+   function meldgauge() {
+    var ctx = document.getElementById("meldcanvas").getContext("2d");
+        new Chart(ctx, {
+            type: "tsgauge",
+            data: {
+                datasets: [{
+                    backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
+                    borderWidth: 0,
+                    gaugeData: {
+                        value: 20,
+                        valueColor: "#ff7143"
+                    },
+                    gaugeLimits: [0, 10, 30, 50]
+                }]
+            },
+            options: {
+                    events: [],
+                    showMarkers: true
+            }
+        });
+   }
+    // funciones
      //----------------------------------------------------------
      //----------------------------------------------------------
 
@@ -107,7 +150,10 @@
             document.getElementById('section' + currentSection).classList.remove('active');
             document.getElementById('section' + (currentSection + 1)).classList.add('active');
             if (currentSection === 6) {
-                gaugesInicial();
+                childgauge();
+                meldgauge()
+                
+                
             }
         }
 
@@ -116,6 +162,8 @@
             document.getElementById('section' + (currentSection - 1)).classList.add('active');
         }
 
+        
+        
     // seccion 1.Valoracion inicial
     //----------------------------------------------------------
         function modificarsexo() {
@@ -794,64 +842,14 @@
 
 
         }
-        // grafico
-        //----------------------------------------------------------
+        
 
-        function gaugesInicial() {
-            const childGaugeCtx = document.getElementById('childGauge').getContext('2d');
-            const meldGaugeCtx = document.getElementById('meldGauge').getContext('2d');
+     
 
-    const childGauge = new Chart(childGaugeCtx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [0, 9],
-                backgroundColor: ['#4caf50', '#e0e0e0'],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            circumference: 180,
-            rotation: 270,
-            cutout: '80%',
-            plugins: {
-                tooltip: { enabled: false },
-                datalabels: { display: false }
-            }
-        }
-    });
+   
+    
 
-    const meldGauge = new Chart(meldGaugeCtx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [1, 49],
-                backgroundColor: ['#ff9800', '#e0e0e0'],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            circumference: 180,
-            rotation: 270,
-            cutout: '80%',
-            plugins: {
-                tooltip: { enabled: false },
-                datalabels: { display: false }
-            }
-        }
-    });
-
-    function updateGauge(chart, value, max) {
-        chart.data.datasets[0].data[0] = value;
-        chart.data.datasets[0].data[1] = max - value;
-        chart.update();
-    }
-
-    // Example usage:
-    updateGauge(childGauge, 5, 9); // Update with actual Child value
-    updateGauge(meldGauge, 25, 50); // Update with actual MELD value
-
-        }
+        
         // final
         //
         //----------------------------------------------------------
@@ -916,5 +914,6 @@
                    updateChildPughScore();
                    updateMeldScores();
                    updategpvh();
-                   habilitar()
+                   habilitar();
+                   
                 });

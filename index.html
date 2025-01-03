@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Valoración</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Chart.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Chart.min.js"></script>
+    <script src="Gauge.js"></script>
     <style>
         .section {
             display: none;
@@ -1444,12 +1446,19 @@
                 </div>
             </fieldset>
             <div class="form-row">
-                <div class="col-md-6">
-                    <canvas id="childGauge"></canvas>
+                <hr>
+                <div class="col-md-2">
+                    <h3>Child-Pugh</h3>
+                    <canvas id="childcanvas"></canvas>
                 </div>
-                <div class="col-md-6">
-                    <canvas id="meldGauge"></canvas>
+                <div class="col-md-2">
+                    <h3>MELD</h3>
+                    <canvas id="meldcanvas"></canvas>
                 </div>
+                <div class = "col-md-8">
+
+                </div>
+                <hr>
             </div>
             <fieldset class="border p-4">
                 <legend class="w-auto">Recomendaciones</legend>
