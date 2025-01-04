@@ -2,11 +2,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta  name="th.viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Valoración</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="Chart.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="form2js.js"></script>
+    <script src="js2form.js"></script>
+    <script src="json2.js"></script>
+
     <script src="Chart.min.js"></script>
     <script src="Gauge.js"></script>
     <style>
@@ -62,44 +66,44 @@
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="nhc">NHC:</label>
-                        <input type="text" id="nhc" name="nhc" class="form-control" step="1" required>
+                        <input type="text" id="nhc"  name="th.nhc" class="form-control" step="1" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="sexoinicio">Sexo:</label>
-                        <select id="sexoinicio" name="sexoinicio" class="form-control" required>
+                        <select id="sexoinicio"  name="th.sexoinicio" class="form-control" required>
                             <option value="1">Masculino</option>
                             <option value="2">Femenino</option>
                         </select>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="edadinicio">Edad:</label>
-                        <input type="number" id="edadinicio" name="edadinicio" class="form-control" step="1" required>
+                        <input type="number" id="edadinicio"  name="th.edadinicio" class="form-control" step="1" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="pesoinicio">Peso:</label>
-                        <input type="number" id="pesoinicio" name="pesoinicio" class="form-control" step="0.1" required>
+                        <input type="number" id="pesoinicio"  name="th.pesoinicio" class="form-control" step="0.1" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="tallainicio">Talla:</label>
-                        <input type="number" id="tallainicio" name="tallainicio" class="form-control" step="1" required>
+                        <input type="number" id="tallainicio"  name="th.tallainicio" class="form-control" step="1" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="imcinicio">IMC:</label>
-                        <input type="number" id="imcinicio" name="imcinicio" class="form-control" readonly>
+                        <input type="number" id="imcinicio"  name="th.imcinicio" class="form-control" readonly>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                        <input type="text" id="nombre"  name="th.nombre" class="form-control" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="primerApellido">1er Apellido:</label>
-                        <input type="text" id="primerApellido" name="primerApellido" class="form-control" required>
+                        <input type="text" id="primerApellido"  name="th.primerApellido" class="form-control" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="segundoApellido">2º Apellido:</label>
-                        <input type="text" id="segundoApellido" name="segundoApellido" class="form-control" required>
+                        <input type="text" id="segundoApellido"  name="th.segundoApellido" class="form-control" required>
                     </div>
                 </div>
                 Todos los campos de esta seccion son obligatorios, el botón "Siguiente" se habilitará una vez se completen todos los campos.
@@ -109,16 +113,16 @@
             <div class = "form-row">
                 <div class="form-group col-md-4">
                     <label for="antecedentesMedicos">Antecedentes médicos:</label>
-                    <textarea id="antecedentesMedicos" name="antecedentesMedicos" class="form-control" rows="4"></textarea>
+                    <textarea id="antecedentesMedicos"  name="th.antecedentesMedicos" class="form-control" rows="4"></textarea>
                 
                 </div>
                 <div class="form-group col-md-4">
                     <label for="antecedentesQcos">Antecedentes quirúrgicos:</label>
-                    <textarea id="antecedentesQcos" name="antecedentesQcos" class="form-control" rows="4"></textarea>   
+                    <textarea id="antecedentesQcos"  name="th.antecedentesQcos" class="form-control" rows="4"></textarea>   
                     </div>
                 <div class="form-group col-md-4">
                     <label for="medicacion">Medicación:</label>
-                    <textarea id="medicacion" name="medicacion" class="form-control" rows="4"></textarea>
+                    <textarea id="medicacion"  name="th.medicacion" class="form-control" rows="4"></textarea>
                 </div>
             </div>
             </fieldset>
@@ -126,7 +130,7 @@
                 <legend class="w-auto">Indicaciones</legend>
                 <div class="form-group">
                     <label for="tipoTrasplante">Tipo de Trasplante:</label>
-                    <select id="tipoTrasplante" name="tipoTrasplante" class="form-control">
+                    <select id="tipoTrasplante"  name="th.tipoTrasplante" class="form-control">
                         <option value="1">Trasplante</option>
                         <option value="2">Re-trasplante</option>
                     </select>
@@ -135,75 +139,75 @@
                    
                     <div class="form-row">
                         <div class="form-check col-md-4">
-                        <input type="checkbox" id="hepatocarcinoma" name="indicacion" value="Hepatocarcinoma" class="form-check-input">
+                        <input type="checkbox" id="hepatocarcinoma"  name="th.indicacion[]" value="Hepatocarcinoma" class="form-check-input">
                         <label for="hepatocarcinoma" class="form-check-label">Hepatocarcinoma</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="cirrosisAlcoholica" name="indicacion" value="Cirrosis Alcohólica" class="form-check-input">
+                        <input type="checkbox" id="cirrosisAlcoholica"  name="th.indicacion[]" value="Cirrosis Alcohólica" class="form-check-input">
                         <label for="cirrosisAlcoholica" class="form-check-label">Cirrosis Alcohólica</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="cirrosisVirusB" name="indicacion" value="Cirrosis por virus B" class="form-check-input">
+                        <input type="checkbox" id="cirrosisVirusB"  name="th.indicacion[]" value="Cirrosis por virus B" class="form-check-input">
                         <label for="cirrosisVirusB" class="form-check-label">Cirrosis por virus B</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="cirrosisVirusC" name="indicacion" value="Cirrosis por virus C" class="form-check-input">
+                        <input type="checkbox" id="cirrosisVirusC"  name="th.indicacion[]" value="Cirrosis por virus C" class="form-check-input">
                         <label for="cirrosisVirusC" class="form-check-label">Cirrosis por virus C</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="cirrosisNASH" name="indicacion" value="Cirrosis NASH" class="form-check-input">
+                        <input type="checkbox" id="cirrosisNASH"  name="th.indicacion[]" value="Cirrosis NASH" class="form-check-input">
                         <label for="cirrosisNASH" class="form-check-label">Cirrosis NASH</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="cirrosisAutoinmune" name="indicacion" value="Cirrosis Autoinmune" class="form-check-input">
+                        <input type="checkbox" id="cirrosisAutoinmune"  name="th.indicacion[]" value="Cirrosis Autoinmune" class="form-check-input">
                         <label for="cirrosisAutoinmune" class="form-check-label">Cirrosis Autoinmune</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="cirrosisCriptogenica" name="indicacion" value="Cirrosis Criptogénica" class="form-check-input">
+                        <input type="checkbox" id="cirrosisCriptogenica"  name="th.indicacion[]" value="Cirrosis Criptogénica" class="form-check-input">
                         <label for="cirrosisCriptogenica" class="form-check-label">Cirrosis Criptogénica</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="cirrosisBiliarPrimaria" name="indicacion" value="Cirrosis Biliar Primaria" class="form-check-input">
+                        <input type="checkbox" id="cirrosisBiliarPrimaria"  name="th.indicacion[]" value="Cirrosis Biliar Primaria" class="form-check-input">
                         <label for="cirrosisBiliarPrimaria" class="form-check-label">Cirrosis Biliar Primaria</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="colangitisEsclerosante" name="indicacion" value="Colangitis Esclerosante" class="form-check-input">
+                        <input type="checkbox" id="colangitisEsclerosante"  name="th.indicacion[]" value="Colangitis Esclerosante" class="form-check-input">
                         <label for="colangitisEsclerosante" class="form-check-label">Colangitis Esclerosante</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="hemangioma" name="indicacion" value="Hemangioma" class="form-check-input">
+                        <input type="checkbox" id="hemangioma"  name="th.indicacion[]" value="Hemangioma" class="form-check-input">
                         <label for="hemangioma" class="form-check-label">Hemangioma</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="poliquistosisOvarica" name="indicacion" value="Poliquistosis Ovárica" class="form-check-input">
+                        <input type="checkbox" id="poliquistosisOvarica"  name="th.indicacion[]" value="Poliquistosis Ovárica" class="form-check-input">
                         <label for="poliquistosisOvarica" class="form-check-label">Poliquistosis Ovárica</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="buddChiari" name="indicacion" value="Budd Chiari" class="form-check-input">
+                        <input type="checkbox" id="buddChiari"  name="th.indicacion[]" value="Budd Chiari" class="form-check-input">
                         <label for="buddChiari" class="form-check-label">Budd Chiari</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="falloHepaticoAgudo" name="indicacion" value="Fallo Hepático Agudo" class="form-check-input">
+                        <input type="checkbox" id="falloHepaticoAgudo"  name="th.indicacion[]" value="Fallo Hepático Agudo" class="form-check-input">
                         <label for="falloHepaticoAgudo" class="form-check-label">Fallo Hepático Agudo</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="falloHepaticoAgudoSobreCronico" name="indicacion" value="Fallo Hepático Agudo Sobre Crónico" class="form-check-input">
+                        <input type="checkbox" id="falloHepaticoAgudoSobreCronico"  name="th.indicacion[]" value="Fallo Hepático Agudo Sobre Crónico" class="form-check-input">
                         <label for="falloHepaticoAgudoSobreCronico" class="form-check-label">Fallo Hepático Agudo Sobre Crónico</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="hepatitisAgudaSubfulminante" name="indicacion" value="Hepatítis Aguda subfulminante" class="form-check-input">
+                        <input type="checkbox" id="hepatitisAgudaSubfulminante"  name="th.indicacion[]" value="Hepatítis Aguda subfulminante" class="form-check-input">
                         <label for="hepatitisAgudaSubfulminante" class="form-check-label">Hepatítis Aguda subfulminante</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="trombosisArteriaHepatica" name="indicacion" value="Trombosis de arteria Hepática" class="form-check-input">
+                        <input type="checkbox" id="trombosisArteriaHepatica"  name="th.indicacion[]" value="Trombosis de arteria Hepática" class="form-check-input">
                         <label for="trombosisArteriaHepatica" class="form-check-label">Trombosis de arteria Hepática</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="trombosisPortal" name="indicacion" value="Trombosis Portal" class="form-check-input">
+                        <input type="checkbox" id="trombosisPortal"  name="th.indicacion[]" value="Trombosis Portal" class="form-check-input">
                         <label for="trombosisPortal" class="form-check-label">Trombosis Portal</label>
                     </div>
                     <div class="form-check col-md-4">
-                        <input type="checkbox" id="malfuncionPrimaria" name="indicacion" value="Malfunción Primaria" class="form-check-input">
+                        <input type="checkbox" id="malfuncionPrimaria"  name="th.indicacion[]" value="Malfunción Primaria" class="form-check-input">
                         <label for="malfuncionPrimaria" class="form-check-label">Malfunción Primaria</label>
                     </div>
                     </div>
@@ -214,7 +218,7 @@
                 <legend class="w-auto">Clasificación Child Pugh</legend>
                 <div class="form-group">
                     <label for="ascitis">Ascitis:</label>
-                    <select id="ascitis" name="ascitis" class="form-control">
+                    <select id="ascitis"  name="th.ascitis" class="form-control">
                         <option value="1" selected>Ausente</option>
                         <option value="2">Leve</option>
                         <option value="3">Moderada</option>
@@ -222,7 +226,7 @@
                 </div>
                 <div class="form-group">
                     <label for="bilirrubina">Bilirrubina:</label>
-                    <select id="bilirrubina" name="bilirrubina" class="form-control">
+                    <select id="bilirrubina"  name="th.bilirrubina" class="form-control">
                         <option value="1" selected>&lt;=2</option>
                         <option value="2">2-3</option>
                         <option value="3">&gt;3</option>
@@ -230,7 +234,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inr">INR:</label>
-                    <select id="inr" name="inr" class="form-control">
+                    <select id="inr"  name="th.inr" class="form-control">
                         <option value="1" selected>&lt;1.8</option>
                         <option value="2">1.8-2.3</option>
                         <option value="3">&gt;2.3</option>
@@ -238,19 +242,19 @@
                 </div>
                 <div class="form-group">
                     <label for="encefalopatia">Encefalopatía:</label>
-                    <select id="encefalopatia" name="encefalopatia" class="form-control">
+                    <select id="encefalopatia"  name="th.encefalopatia" class="form-control">
                         <option value="1" selected>Ausente</option>
                         <option value="2">Grado 1-2 (Alteración mínima del comportamiento - Desorientación leve, asterixis)</option>
                         <option value="3">Grado 3-4 (Confusión severa, somnolencia - Coma)</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="rounded-shadow" style="background-color: darkseagreen;">
                     <label for="childPughScore">Puntuación Child Pugh:</label>
-                    <span id="childPughScore">4</span>
+                    <input id="childPughScore"  name="th.childPughScore" type="number" class="form-control" readonly>
                 </div>
                 <div class="form-group">
                     <label for="escalaChild">Escala Child:</label>
-                    <select id="escalaChild" name="escalaChild" class="form-control">
+                    <select id="escalaChild"  name="th.escalaChild" class="form-control">
                         <option value="1" selected>Child A: 5-6 puntos</option>
                         <option value="2">Child B: 7-9 puntos</option>
                         <option value="3">Child C: 10-15 puntos</option>
@@ -261,30 +265,30 @@
                 <legend class="w-auto">Puntuación MELD</legend>
                 <div class="form-group">
                     <label for="creatininaMeld">Creatinina (mg/dl):</label>
-                    <input type="number" id="creatininaMeld" name="creatininaMeld" step="0.01" value="0.6" class="form-control">
+                    <input type="number" id="creatininaMeld"  name="th.creatininaMeld" step="0.01" value="0.6" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="inrMeld">INR:</label>
-                    <input type="number" id="inrMeld" name="inrMeld" step="0.01" value="1" class="form-control">
+                    <input type="number" id="inrMeld"  name="th.inrMeld" step="0.01" value="1" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="bilirrubinaMeld">Bilirrubina (mg/dl):</label>
-                    <input type="number" id="bilirrubinaMeld" name="bilirrubinaMeld" step="0.01" value="1" class="form-control">
+                    <input type="number" id="bilirrubinaMeld"  name="th.bilirrubinaMeld" step="0.01" value="1" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="sodioMeld">Na (mmol/L):</label>
-                    <input type="number" id="sodioMeld" name="sodioMeld" step="0.01" value="140" class="form-control">
+                    <input type="number" id="sodioMeld"  name="th.sodioMeld" step="0.01" value="140" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Creatinina: Valor máximo 4. Si el paciente ha sido sometido a diálisis 2 veces en la semana previa, puntuar 4</label>
                 </div>
                 <div class="rounded-shadow" style="background-color: darkseagreen;">
                     <label for="meldScore">MELD Score:</label>
-                    <span id="meldScore">0</span>
-                </div>
+                    <input id="meldScore"  name="th.meldScore" type = "number" class="form-control" readonly>
+                </div> 
                 <div class="rounded-shadow" style="background-color: darkseagreen;">
                     <label for="meldNaScore">MELD-Na Score:</label>
-                    <span id="meldNaScore">0</span>
+                    <input id="meldNaScore" name = "th.meldNaScore" type = "number" class="form-control" readonly>
                 </div>
                 
             </fieldset>
@@ -362,11 +366,11 @@
                     <div class="col-md-6">
                     <h3>Criterios Mayores</h3>
                 <div class="form-check">
-                    <input type="checkbox" id="diabetes" name="diabetes" class="form-check-input" onchange="evaluateStressEcho()">
+                    <input type="checkbox" id="diabetes"  name="th.criterios.mayores[]" class="form-check-input" value="diabetes">
                     <label for="diabetes" class="form-check-label">Diabetes</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="historiaPatologiaCoronaria" name="historiaPatologiaCoronaria" class="form-check-input" onchange="evaluateStressEcho()">
+                    <input type="checkbox" id="historiaPatologiaCoronaria"  name="th.criterios.mayores[]" class="form-check-input" value="historiaPatologiaCoronaria">
                     <label for="historiaPatologiaCoronaria" class="form-check-label">Historia previa o clínica de patología coronaria</label>
                 </div>
                 <br>
@@ -376,31 +380,31 @@
                     <h3>Criterios Menores</h3>
                     <div class="form-group">
                         <label for="edadeco">Edad:</label>
-                        <input type="number" id="edadeco" name="edadeco" class="form-control" step="1" readonly>
+                        <input type="number" id="edadeco"  name="th.edadeco" class="form-control" step="1" readonly>
                     </div>
                 <div class="form-check">
-                    <input type="checkbox" id="hipertension" name="hipertension" class="form-check-input" onchange="evaluateStressEcho()">
+                    <input type="checkbox" id="hipertension"  name="th.criterios.menores[]" class="form-check-input" value="hipertension">
                     <label for="hipertension" class="form-check-label">Hipertensión</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="dislipidemia" name="dislipidemia" class="form-check-input" onchange="evaluateStressEcho()">
+                    <input type="checkbox" id="dislipidemia"  name="th.criterios.menores[]" class="form-check-input" value="dislipidemia">
                     <label for="dislipidemia" class="form-check-label">Dislipemia</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="tabaquismo" name="tabaquismo" class="form-check-input" onchange="evaluateStressEcho()">
+                    <input type="checkbox" id="tabaquismo"  name="th.criterios.menores[]" class="form-check-input" value="tabaquismo">
                     <label for="tabaquismo" class="form-check-label">Tabaquismo (actual o pasado)</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="obesidad" name="obesidad" class="form-check-input" onchange="evaluateStressEcho()">
+                    <input type="checkbox" id="obesidad"  name="th.criterios.menores[]" class="form-check-input" value="obesidad">
                     <label for="obesidad" class="form-check-label">Obesidad</label>
                 </div>
                 
                 <div class="form-check">
-                    <input type="checkbox" id="historiaFamiliarPatologiaCoronaria" name="historiaFamiliarPatologiaCoronaria" class="form-check-input" onchange="evaluateStressEcho()">
+                    <input type="checkbox" id="historiaFamiliarPatologiaCoronaria"  name="th.criterios.menores[]" class="form-check-input" value="historiaFamiliarPatologiaCoronaria">
                     <label for="historiaFamiliarPatologiaCoronaria" class="form-check-label">Historia familiar de patología coronaria</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="arteriopatiaPeriferica" name="arteriopatiaPeriferica" class="form-check-input" onchange="evaluateStressEcho()">
+                    <input type="checkbox" id="arteriopatiaPeriferica"  name="th.criterios.menores[]" class="form-check-input" value="arteriopatiaPeriferica">
                     <label for="arteriopatiaPeriferica" class="form-check-label">Presencia de arteriopatía periférica</label>
                 </div>
                 </div>
@@ -415,7 +419,7 @@
                 <div class="form-group col-md-4">
                 
                     <label for="ritmo">Ritmo:</label>
-                    <select id="ritmo" name="ritmo" class="form-control">
+                    <select id="ritmo"  name="th.ritmo" class="form-control">
                         <option value="1" selected>Sinusal</option>
                         <option value="2">Fibrilación Auricular</option>
                         <option value="3">Flutter Auricular</option>
@@ -428,13 +432,13 @@
                 <div class="form-group col-md-2">
                 
                     <label for="qtc">QTc (miliseg.):</label>
-                    <input type="number" id="qtc" name="qtc" step="1" value = "440" class="form-control">
+                    <input type="number" id="qtc"  name="th.qtc" step="1" value = "440" class="form-control">
                 
                 </div>
                 <div class="form-group col-md-6">
                 
                     <label for="descripcionEcg">Descripción:</label>
-                    <textarea id="descripcionEcg" name="descripcionEcg" class="form-control"></textarea>
+                    <textarea id="descripcionEcg"  name="th.descripcionEcg" class="form-control"></textarea>
                 </div>
                 </div>
             </fieldset>
@@ -446,7 +450,7 @@
                 <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="fraccionEyeccion">Fracción de Eyección VI:</label>
-                    <select id="fraccionEyeccion" name="fraccionEyeccion" class="form-control">
+                    <select id="fraccionEyeccion"  name="th.fraccionEyeccion" class="form-control">
                         <option value="1" selected>Normal (&gt;50%)</option>
                         <option value="2">Levemente Disminuida (40-49%)</option>
                         <option value="3">Moderadamente disminuida (30-39%)</option>
@@ -455,24 +459,24 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="fraccionVD">Función VD:</label>
-                    <select id="fraccionVD" name="fraccionVD" class="form-control">
+                    <select id="fraccionVD"  name="th.fraccionVD" class="form-control">
                         <option value="1" selected>Normal</option>
                         <option value="2">Deprimida</option>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="papsEstimada">PAPs estimada (mmHg):</label>
-                    <input type="number" id="papsEstimada" name="papsEstimada"  step="1" value="35" class="form-control">
+                    <input type="number" id="papsEstimada"  name="th.papsEstimada"  step="1" value="35" class="form-control">
                 </div>
                 <div class="form-group col-md-2">
                     <label for="Tapse">TAPSE (mm):</label>
-                    <input type="number" id="Tapse" name="Tapse"  step="1" value="18" class="form-control">
+                    <input type="number" id="Tapse"  name="th.Tapse"  step="1" value="18" class="form-control">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
                     <label for="descripcionCardiologica">Descripción:</label>
-                    <textarea id="descripcionCardiologica" name="descripcionCardiologica" class="form-control"></textarea>
+                    <textarea id="descripcionCardiologica"  name="th.descripcionCardiologica" class="form-control"></textarea>
                 </div>
             </div>
             </fieldset>
@@ -492,7 +496,7 @@
                 <div class = "form-row">
                 <div class="form-group col-md-4">
                     <label for="resultadoStress">Resultado:</label>
-                    <select id="resultadoStress" name="resultadoStress" class="form-control">
+                    <select id="resultadoStress"  name="th.resultadoStress" class="form-control">
                         <option value="0" selected>No indicado</option>
                         <option value="1">No puede realizarse</option>
                         <option value="2">No concluyente</option>
@@ -502,7 +506,7 @@
                 </div>
                 <div class="form-group col-md-8">
                     <label for="comentarioStress">Comentario:</label>
-                    <textarea id="comentarioStress" name="comentarioStress" class="form-control"></textarea>
+                    <textarea id="comentarioStress"  name="th.comentarioStress" class="form-control"></textarea>
                 </div>
                 </div>
             </fieldset>
@@ -514,21 +518,21 @@
                         No es necesario angioTAC
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" id="estenosisDerecha" name="estenosisDerecha" class="form-check-input">
+                        <input type="checkbox" id="estenosisDerecha"  name="th.angioTAC[]" class="form-check-input" value="estenosisDerecha">
                         <label for="estenosisDerecha" class="form-check-label">Estenosis coronaria derecha &gt;70%</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" id="estenosisIzquierda" name="estenosisIzquierda" class="form-check-input">
+                        <input type="checkbox" id="estenosisIzquierda"  name="th.angioTAC[]" class="form-check-input" value="estenosisIzquierda">
                         <label for="estenosisIzquierda" class="form-check-label">Estenosis coronaria izquierda &gt;50%</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" id="scoreCalcico" name="scoreCalcico" class="form-check-input">
+                        <input type="checkbox" id="scoreCalcico"  name="th.angioTAC[]" class="form-check-input" value = "scoreCalcico">
                         <label for="scoreCalcico" class="form-check-label">Score calcico por encima de 100</label>
                     </div>
                     <br>
                     <div class="form-group col">
                         <label for="comentarioAngioTac">Comentario:</label>
-                        <textarea id="comentarioAngioTac" name="comentarioAngioTac" class="form-control"></textarea>
+                        <textarea id="comentarioAngioTac"  name="th.comentarioAngioTac" class="form-control"></textarea>
                     </div>
                 </fieldset>
                 <fieldset class="border p-4 col-md-6">
@@ -538,7 +542,7 @@
                     </div>
                     <div class="form-group">
                         <label for="resultadoCoronariografia">Revascularizado:</label>
-                        <select id="resultadoCoronariografia" name="resultadoCoronariografia" class="form-control">
+                        <select id="resultadoCoronariografia"  name="th.resultadoCoronariografia" class="form-control">
                             <option value="0">No indicado</option>
                             <option value="1">No puede realizarse</option>
                             <option value="2">Revascularizado</option>
@@ -546,7 +550,7 @@
                     </div>
                     <div class="form-group col">
                         <label for="comentarioCoronariografia">Comentario:</label>
-                        <textarea id="comentarioCoronariografia" name="comentarioCoronariografia" class="form-control"></textarea>
+                        <textarea id="comentarioCoronariografia"  name="th.comentarioCoronariografia" class="form-control"></textarea>
                     </div>
                 </fieldset>
                 </div>
@@ -558,53 +562,53 @@
                     <!-- Sección Funcional -->
                     <div class="form-group">
                         <label for="funcional">Funcional</label>
-                        <select id="funcional" required class="form-control" onchange="calculateHfaPeefIndex()">
-                            <option value="0" selected>Normal (0 puntos)</option>
+                        <select id="funcional" required class="form-control" >
+                            <option value="1" selected>Normal (0 puntos)</option>
                             <option value="2">e' Septal &lt; 7 cm/seg ó e' Lateral &lt; 10 cm/seg (2 puntos)</option>
-                            <option value="2">Relación E/e' ≥ 15 (2 puntos)</option>
-                            <option value="2">PASP &gt; 35 mmHg (2 puntos)</option>
-                            <option value="1">Relación E/e' 9-14 (1 punto)</option>
-                            <option value="1">Global Strain &lt; 16% (1 punto)</option>
+                            <option value="3">Relación E/e' ≥ 15 (2 puntos)</option>
+                            <option value="4">PASP &gt; 35 mmHg (2 puntos)</option>
+                            <option value="5">Relación E/e' 9-14 (1 punto)</option>
+                            <option value="6">Global Strain &lt; 16% (1 punto)</option>
                         </select>
                     </div>
     
                     <!-- Sección Morfológico -->
                     <div class="form-group">
                         <label for="morfologico">Morfológico</label>
-                        <select id="morfologico" required class="form-control" onchange="calculateHfaPeefIndex()">
-                            <option value="0" selected>Normal (0 puntos)</option>
+                        <select id="morfologico" required class="form-control" >
+                            <option value="1" selected>Normal (0 puntos)</option>
                             <option value="2">Vol. Aurícula izquierda &gt; 34 ml/m<sup>2</sup> (2 puntos)</option>
-                            <option value="2">Masa VI &gt; 149/122 m<sup>2</sup> + Grosor relativo pared &gt; 0.42 (2 puntos)</option>
-                            <option value="1">Vol. Aurícula izquierda 29-34 ml/m<sup>2</sup> (1 punto)</option>
-                            <option value="1">Masa VI &gt; 115/95 gr/m<sup>2</sup> (1 punto)</option>
-                            <option value="1">Grosor pared VI &ge; 12 mm (1 punto)</option>
+                            <option value="3">Masa VI &gt; 149/122 m<sup>2</sup> + Grosor relativo pared &gt; 0.42 (2 puntos)</option>
+                            <option value="4">Vol. Aurícula izquierda 29-34 ml/m<sup>2</sup> (1 punto)</option>
+                            <option value="5">Masa VI &gt; 115/95 gr/m<sup>2</sup> (1 punto)</option>
+                            <option value="6">Grosor pared VI &ge; 12 mm (1 punto)</option>
                         </select>
                     </div>
     
                     <!-- Sección Biomarcador en ritmo sinusal -->
                     <div class="form-group">
                         <label for="biomarcador">Biomarcador en ritmo sinusal</label>
-                        <select id="biomarcador" class="form-control" onchange="calculateHfaPeefIndex(); resetBiomarcadorFA()">
-                            <option value="0" selected>Normal (0 puntos)</option>
+                        <select id="biomarcador" class="form-control" >
+                            <option value="1" selected>Normal (0 puntos)</option>
                             <option value="2">NT-proBNP &gt; 220 pg/ml (2 puntos)</option>
-                            <option value="1">NT-proBNP 115-220 pg/ml (1 punto)</option>
+                            <option value="3">NT-proBNP 115-220 pg/ml (1 punto)</option>
                         </select>
                     </div>
     
                     <!-- Sección Biomarcador en FA -->
                     <div class="form-group">
                         <label for="biomarcadorFA">Biomarcador en FA</label>
-                        <select id="biomarcadorFA" class="form-control" onchange="calculateHfaPeefIndex(); resetBiomarcador()">
-                            <option value="0" selected>Normal (0 puntos)</option>
+                        <select id="biomarcadorFA" class="form-control" >
+                            <option value="1" selected>Normal (0 puntos)</option>
                             <option value="2">NT-proBNP &gt; 660 pg/ml (2 puntos)</option>
-                            <option value="1">NT-proBNP 365-660 pg/ml (1 punto)</option>
+                            <option value="3">NT-proBNP 365-660 pg/ml (1 punto)</option>
                         </select>
                     </div>
     
                    
                     <div class="form group rounded-shadow" style="background-color: darkseagreen;">
                         <label for="indiceHfaPeef">Índice HFA PEEF:</label>
-                        <span id="indiceHfaPeef">0</span>
+                        <input id="indiceHfaPeef" name = "indiceHfaPeef" type = "number" class="form-control" readonly>
                     </div>
                     <div id="resultadoHfaPeef" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                         Bajo riesgo de insuficiencia cardiaca
@@ -651,11 +655,11 @@
                     </div>
                     <div class="form-group">
                         <label for="paps">PAPs (mmHg):</label>
-                        <input type="number" id="paps" name="paps"  value="35" step="1" class="form-control">
+                        <input type="number" id="paps"  name="th.paps"  value="35" step="1" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="papmSelect">PAPm (mmHg):</label>
-                        <select id="papmSelect" name="papmSelect" class="form-control">
+                        <select id="papmSelect"  name="th.papmSelect" class="form-control">
                             <option value="0" selected>Normal (PAPm &lt; 25)</option>
                             <option value="1">HTP leve (PAPm 25-34)</option>
                             <option value="2">HTP moderada (PAPm 35-44)</option>
@@ -664,23 +668,23 @@
                     </div>
                     <div class="form-group">
                         <label for="irvp">IRVP (dyn·s·cm-5):</label>
-                        <input type="number" id="irvp" name="irvp" step="1" value="100" class="form-control">
+                        <input type="number" id="irvp"  name="th.irvp" step="1" value="100" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="pshl">PSHL (mmHg):</label>
-                        <input type="number" id="pshl" name="pshl" step="1" value="5" class="form-control">
+                        <input type="number" id="pshl"  name="th.pshl" step="1" value="5" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="pshe">PSHE (mmHg):</label>
-                        <input type="number" id="pshe" name="pshe" step="1" value ="8" class="form-control">
+                        <input type="number" id="pshe"  name="th.pshe" step="1" value ="8" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="gpvh">GPVH:</label>
-                        <input type="number" id="gpvh" name="gpvh" step="1" value = "3" class="form-control" readonly>
+                        <input type="number" id="gpvh"  name="th.gpvh" step="1" value = "3" class="form-control" readonly>
                     </div>
                     <div class="form-group col">
                         <label for="comentarioCateterismo">Comentario:</label>
-                        <textarea id="comentarioCateterismo" name="comentarioCateterismo" class="form-control"></textarea>
+                        <textarea id="comentarioCateterismo"  name="th.comentarioCateterismo" class="form-control"></textarea>
                     </div>
 
                 </fieldset>
@@ -697,7 +701,7 @@
                 <legend class="w-auto">Vía aérea</legend>
                 <div class="form-group">
                     <label for="mallampati">Mallampatti</label>
-                    <select id="mallampati" name="mallampati" class="form-control">
+                    <select id="mallampati"  name="th.mallampati" class="form-control">
                         <option value="1" selected>I. Se observan el paladar blando, la úvula completa y los pilares amigdalinos.</option>
                         <option value="2">II. Se visualizan el paladar blando y la úvula, pero no los pilares amigdalinos.</option>
                         <option value="3">III. Solo se aprecia el paladar blando y la base de la úvula.</option>
@@ -706,7 +710,7 @@
                 </div>
                 <div class="form-group">
                     <label for="mordida">Test Mordida Labio superior</label>
-                    <select id="mordida" name="mordida" class="form-control">
+                    <select id="mordida"  name="th.mordida" class="form-control">
                         <option value="1" selected>I. Los incisivos inferiores pueden morder completamente el labio superior, ocultando la mucosa del labio.</option>
                         <option value="2">II. Los incisivos inferiores pueden morder completamente el labio superior, ocultando la mucosa del labio.</option>
                         <option value="3">III. Los incisivos inferiores no pueden morder el labio superior. </option>
@@ -714,7 +718,7 @@
                 </div>
                 <div class="form-group">
                     <label for="distancia">Distancia Tiro-Mentoniana</label>
-                    <select id="distancia" name="distancia" class="form-control">
+                    <select id="distancia"  name="th.distancia" class="form-control">
                         <option value="1" selected>Distancia superior a 6 cm o 3 traveses de dedo</option>
                         <option value="2">Distancia inferior a 6 cm o 3 traveses de dedo</option>
                     </select>
@@ -722,14 +726,14 @@
 
                 <div class="form-group">
                     <label for="movilidadcolumna">Extensión col. cervical</label>
-                    <select id="movilidadcolumna" name="movilidadcolumna" class="form-control">
+                    <select id="movilidadcolumna"  name="th.movilidadcolumna" class="form-control">
                         <option value="1" selected>Normal</option>
                         <option value="2">Limitación en la extensión</option>
                     </select>
                 </div>
                 <div class="form-group col">
                     <label for="comentarioVia">Comentario:</label>
-                    <textarea id="comentarioVia" name="comentarioVia" class="form-control"></textarea>
+                    <textarea id="comentarioVia"  name="th.comentarioVia" class="form-control"></textarea>
                 </div>
 
             </fieldset>
@@ -739,42 +743,42 @@
                 <legend class="w-auto">Valoración gasométrica</legend>
                 <div class="form-group">
                     <label for="rxTorax">Hidrotórax</label>
-                    <select id="rxTorax" name="rxTorax" class="form-control">
+                    <select id="rxTorax"  name="th.rxTorax" class="form-control">
                         <option value="no" selected>No</option>
                         <option value="si">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="ph">Ph:</label>
-                    <input type="number" id="ph" name="ph" step="0.01" class="form-control" value ="7.4">
+                    <input type="number" id="ph"  name="th.ph" step="0.01" class="form-control" value ="7.4">
                 </div>
                 <div class="form-group">
                     <label for="pao2">PaO2:</label>
-                    <input type="number" id="pao2" name="pao2" step="0.01" class="form-control" value="80">
+                    <input type="number" id="pao2"  name="th.pao2" step="0.01" class="form-control" value="80">
                 </div>
                 <div class="form-group">
                     <label for="paco2">PaCO2:</label>
-                    <input type="number" id="paco2" name="paco2" step="0.01" class="form-control" value="40">
+                    <input type="number" id="paco2"  name="th.paco2" step="0.01" class="form-control" value="40">
                 </div>
                 <div class="form-group">
                     <label for="hco3">HCO3:</label>
-                    <input type="number" id="hco3" name="hco3" step="0.01" class="form-control" value="24">
+                    <input type="number" id="hco3"  name="th.hco3" step="0.01" class="form-control" value="24">
                 </div>
                 <div class="form-group">
                     <label for="eb">EB:</label>
-                    <input type="number" id="eb" name="eb" step="0.01" class="form-control" value="0">
+                    <input type="number" id="eb"  name="th.eb" step="0.01" class="form-control" value="0">
                 </div>
                 <div class="form-group">
                     <label for="cl">Cl:</label>
-                    <input type="number" id="cl" name="cl" step="0.01" class="form-control" value="100">
+                    <input type="number" id="cl"  name="th.cl" step="0.01" class="form-control" value="100">
                 </div>
                 <div class="form-group">
                     <label for="na">Na:</label>
-                    <input type="number" id="na" name="na" step="0.01" class="form-control" value="140">
+                    <input type="number" id="na"  name="th.na" step="0.01" class="form-control" value="140">
                 </div>
                 <div class="form-group">
                     <label for="fio2">FiO2:</label>
-                    <input type="number" id="fio2" name="fio2" step="0.01" min="0" max="1" value="0.21" class="form-control" readonly>
+                    <input type="number" id="fio2"  name="th.fio2" step="0.01" min="0" max="1" value="0.21" class="form-control" readonly>
                 </div>
     
                 <div id="aaGradientMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
@@ -786,11 +790,11 @@
                 <legend class="w-auto">Pruebas de Función Respiratoria</legend>
                 <div class="form-group">
                     <label for="fev1">FEV1 (% predicho):</label>
-                    <input type="number" id="fev1" name="fev1" step="0.01" class="form-control">
+                    <input type="number" id="fev1"  name="th.fev1" step="0.01" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="fvc">FVC (% predicho):</label>
-                    <input type="number" id="fvc" name="fvc" step="0.01" class="form-control" >
+                    <input type="number" id="fvc"  name="th.fvc" step="0.01" class="form-control" >
                 </div>
                 <div class="form-group">
                     <label for="fev1FvcRatio">FEV1/FVC:</label>
@@ -807,7 +811,7 @@
                 </div>
                 <div class="form-group">
                     <label for="shunt">Shunt:</label>
-                    <select id="shunt" name="shunt" class="form-control">
+                    <select id="shunt"  name="th.shunt" class="form-control">
                         <option value="0">No indicado</option>
                         <option value="1">&lt;10%</option>
                         <option value="2">10-20%</option>
@@ -913,46 +917,46 @@
                 <legend class="w-auto">Riesgo de CRRT intraoperatoria</legend>
                 <div class="form-group">
                     <label for="falloHepatico">Fallo Hepático:</label>
-                    <select id="falloHepatico" name="falloHepatico" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="falloHepatico"  name="th.falloHepatico" class="form-control" onchange="calculateCRRTScore()">
                         <option value="1" selected>Crónico</option>
                         <option value="2">Agudo</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="donanteAsistolia">Donante en asistolia:</label>
-                    <select id="donanteAsistolia" name="donanteAsistolia" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="donanteAsistolia"  name="th.donanteAsistolia" class="form-control" onchange="calculateCRRTScore()">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="retrasplante">Retrasplante:</label>
-                    <select id="retrasplante" name="retrasplante" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="retrasplante"  name="th.retrasplante" class="form-control" onchange="calculateCRRTScore()">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="vasopresoresPreop">Vasopresores preop:</label>
-                    <select id="vasopresoresPreop" name="vasopresoresPreop" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="vasopresoresPreop"  name="th.vasopresoresPreop" class="form-control" onchange="calculateCRRTScore()">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="crrtPreop">CRRT preop:</label>
-                    <select id="crrtPreop" name="crrtPreop" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="crrtPreop"  name="th.crrtPreop" class="form-control" onchange="calculateCRRTScore()">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="kPreop">K+ preop:</label>
-                    <input type="number" id="kPreop" name="kPreop" step="0.01" class="form-control" onchange="calculateCRRTScore()">
+                    <input type="number" id="kPreop"  name="th.kPreop" step="0.01" class="form-control" onchange="calculateCRRTScore()">
                 </div>
                 <div class="form-group">
                     <label for="bilirrubinaCRRT">Bilirrubina:</label>
-                    <input type="number" id="bilirrubinaCRRT" name="bilirrubinaCRRT" step="0.01" class="form-control" onchange="calculateCRRTScore()">
+                    <input type="number" id="bilirrubinaCRRT"  name="th.bilirrubinaCRRT" step="0.01" class="form-control" onchange="calculateCRRTScore()">
                 </div>
                 <div id="crrtScoreMessage" class = "rounded-shadow" style="padding: 5px; background-color:darkseagreen; color:black;">
                     Score de CRRT: 0
@@ -971,30 +975,30 @@
             <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="retrasplantehemato">Retrasplante:</label>
-                <select id="retrasplantehemato" name="retrasplantehemato" class="form-control">
+                <select id="retrasplantehemato"  name="th.retrasplantehemato" class="form-control">
                     <option value="0" selected>No</option>
                     <option value="1">Sí</option>
                 </select>
             </div>
             <div class="form-group col-md-2">
                 <label for="sexohemato">Sexo:</label>
-                <select id="sexohemato" name="sexohemato" class="form-control">
+                <select id="sexohemato"  name="th.sexohemato" class="form-control">
                     <option value="1">Hombre</option>
                     <option value="2">Mujer</option>
                 </select>
             </div>
             <div class="form-group col-md-2">
                 <label for="edadhemato">Edad:</label>
-                <input type="number" id="edadhemato" name="edadhemato" class="form-control">
+                <input type="number" id="edadhemato"  name="th.edadhemato" class="form-control">
             </div>
             <div class="form-group col-md-2">
                 <label for="hemoglobina">Hemoglobina:</label>
-                <input type="number" id="hemoglobina" name="hemoglobina" class="form-control">
+                <input type="number" id="hemoglobina"  name="th.hemoglobina" class="form-control">
             </div>
             
             <div class="form-group col-md-4">
                 <label for="cirugiaAbdominalPrevia">Cirugía abdominal previa:</label>
-                <select id="cirugiaAbdominalPrevia" name="cirugiaAbdominalPrevia" class="form-control">
+                <select id="cirugiaAbdominalPrevia"  name="th.cirugiaAbdominalPrevia" class="form-control">
                     <option value="0" selected>No</option>
                     <option value="1">Sí</option>
                 </select>
@@ -1004,23 +1008,23 @@
             <div class="form-row">
             <div class="form-group col-md-2">
                 <label for="protrombina">INR:</label>
-                <input type="number" id="protrombina" name="protrombina" class="form-control">
+                <input type="number" id="protrombina"  name="th.protrombina" class="form-control">
             </div>
             <div class="form-group col-md-2">
                 <label for="creatininahemato">Creatinina:</label>
-                <input type="number" id="creatininahemato" name="creatininahemato" class="form-control">
+                <input type="number" id="creatininahemato"  name="th.creatininahemato" class="form-control">
             </div>
             <div class="form-group  col-md-2">
                 <label for="albumina">Albúmina:</label>
-                <input type="number" id="albumina" name="albumina" class="form-control">
+                <input type="number" id="albumina"  name="th.albumina" class="form-control">
             </div>
             <div class="form-group col-md-2">
                 <label for="plaquetas">Plaquetas:</label>
-                <input type="number" id="plaquetas" name="plaquetas" class="form-control">
+                <input type="number" id="plaquetas"  name="th.plaquetas" class="form-control">
             </div>
             <div class="form-group col-md-4">
                 <label for="peritonitisBacterianaEspontanea">Peritonitis Bacteriana Espontanea:</label>
-                <select id="peritonitisBacterianaEspontanea" name="peritonitisBacterianaEspontanea" class="form-control">
+                <select id="peritonitisBacterianaEspontanea"  name="th.peritonitisBacterianaEspontanea" class="form-control">
                     <option value="0" selected>No</option>
                     <option value="1">Sí</option>
                 </select>
@@ -1047,7 +1051,7 @@
                 
                 <div class="form-group">
                     <label for="hepatitisAlcoholicaAguda">Hepatitis alcohólica aguda:</label>
-                    <select id="hepatitisAlcoholicaAguda" name="hepatitisAlcoholicaAguda" class="form-control">
+                    <select id="hepatitisAlcoholicaAguda"  name="th.hepatitisAlcoholicaAguda" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="6">Sí</option>
                     </select>
@@ -1055,7 +1059,7 @@
 
                 <div class="form-group">
                     <label for="nutricionEnteral">Nutrición enteral:</label>
-                    <select id="nutricionEnteral" name="nutricionEnteral" class="form-control">
+                    <select id="nutricionEnteral"  name="th.nutricionEnteral" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="6">Sí</option>
                     </select>
@@ -1063,7 +1067,7 @@
 
                 <div class="form-group">
                     <label for="sobrecargaHidrica">Sobrecarga hídrica:</label>
-                    <select id="sobrecargaHidrica" name="sobrecargaHidrica" class="form-control">
+                    <select id="sobrecargaHidrica"  name="th.sobrecargaHidrica" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
@@ -1071,7 +1075,7 @@
 
                 <div class="form-group">
                     <label for="imc">IMC:</label>
-                    <select id="imc" name="imc" class="form-control">
+                    <select id="imc"  name="th.imc" class="form-control">
                         <option value="0" selected>>20%</option>
                         <option value="1">18.5-20%</option>
                         <option value="2"><18.5%</option>
@@ -1080,7 +1084,7 @@
 
                 <div class="form-group">
                     <label for="perdidaPeso6Meses">Pérdida de peso en los últimos 6 meses:</label>
-                    <select id="perdidaPeso6Meses" name="perdidaPeso6Meses" class="form-control">
+                    <select id="perdidaPeso6Meses"  name="th.perdidaPeso6Meses" class="form-control">
                         <option value="0" selected><5%</option>
                         <option value="1">5-10%</option>
                         <option value="2">>10%</option>
@@ -1089,7 +1093,7 @@
 
                 <div class="form-group">
                     <label for="enfermedadAgudaSinAlimentacion">Enfermedad aguda sin alimentación en 5 días:</label>
-                    <select id="enfermedadAgudaSinAlimentacion" name="enfermedadAgudaSinAlimentacion" class="form-control">
+                    <select id="enfermedadAgudaSinAlimentacion"  name="th.enfermedadAgudaSinAlimentacion" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="2">Sí</option>
                     </select>
@@ -1097,7 +1101,7 @@
 
                 <div class="form-group">
                     <label for="capacidadAlimentarse">Interferida capacidad de alimentarse:</label>
-                    <select id="capacidadAlimentarse" name="capacidadAlimentarse" class="form-control">
+                    <select id="capacidadAlimentarse"  name="th.capacidadAlimentarse" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Ocasionalmente</option>
                         <option value="2">Sí</option>
@@ -1106,7 +1110,7 @@
 
                 <div class="form-group">
                     <label for="menosMitadDieta5Dias">Menos de la mitad de la dieta en los últimos 5 días:</label>
-                    <select id="menosMitadDieta5Dias" name="menosMitadDieta5Dias" class="form-control">
+                    <select id="menosMitadDieta5Dias"  name="th.menosMitadDieta5Dias" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="2">Sí</option>
                     </select>
@@ -1114,7 +1118,7 @@
 
                 <div class="form-group">
                     <label for="perdidaPeso3_6Meses">Pérdida de peso en los últimos 3-6 meses:</label>
-                    <select id="perdidaPeso3_6Meses" name="perdidaPeso3_6Meses" class="form-control">
+                    <select id="perdidaPeso3_6Meses"  name="th.perdidaPeso3_6Meses" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">No valorable</option>
                         <option value="2">Sí</option>
@@ -1169,7 +1173,7 @@
                 
                 <div class="form-group">
                     <label for="autocuidado"> ¿Puede Usted realizar sus actividades de autocuidado, tales como alimentarse, vestirse, bañarse, o usar el baño? </label>
-                    <select id="autocuidado" name="autocuidado" class="form-control">
+                    <select id="autocuidado"  name="th.autocuidado" class="form-control">
                         <option value="2.75" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1177,7 +1181,7 @@
 
                 <div class="form-group">
                     <label for="caminarCasa"> ¿Puede Usted caminar dentro de su casa y alrededor de ésta? </label>
-                    <select id="caminarCasa" name="caminarCasa" class="form-control">
+                    <select id="caminarCasa"  name="th.caminarCasa" class="form-control">
                         <option value="1.75" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1185,7 +1189,7 @@
 
                 <div class="form-group">
                     <label for="caminar200m"> ¿Puede Usted caminar unos 200 metros, sin pendiente? </label>
-                    <select id="caminar200m" name="caminar200m" class="form-control">
+                    <select id="caminar200m"  name="th.caminar200m" class="form-control">
                         <option value="2.75" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1193,7 +1197,7 @@
 
                 <div class="form-group">
                     <label for="subirEscaleras"> ¿Puede subir un piso de escaleras? </label>
-                    <select id="subirEscaleras" name="subirEscaleras" class="form-control">
+                    <select id="subirEscaleras"  name="th.subirEscaleras" class="form-control">
                         <option value="5.5" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1201,7 +1205,7 @@
 
                 <div class="form-group">
                     <label for="correr"> ¿Puede correr una distancia corta? </label>
-                    <select id="correr" name="correr" class="form-control">
+                    <select id="correr"  name="th.correr" class="form-control">
                         <option value="8" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1209,7 +1213,7 @@
 
                 <div class="form-group">
                     <label for="trabajoLigero"> ¿Puede hacer trabajo ligero en casa como lavar platos o limpiar el polvo? </label>
-                    <select id="trabajoLigero" name="trabajoLigero" class="form-control">
+                    <select id="trabajoLigero"  name="th.trabajoLigero" class="form-control">
                         <option value="2.7" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1217,7 +1221,7 @@
 
                 <div class="form-group">
                     <label for="trabajoModerado"> ¿Puede hacer trabajo moderado en casa como barrer o hacer las camas? </label>
-                    <select id="trabajoModerado" name="trabajoModerado" class="form-control">
+                    <select id="trabajoModerado"  name="th.trabajoModerado" class="form-control">
                         <option value="3.5" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1225,7 +1229,7 @@
 
                 <div class="form-group">
                     <label for="trabajoFuerte"> ¿Puede hacer trabajo fuerte en casa como mover muebles o fregar? </label>
-                    <select id="trabajoFuerte" name="trabajoFuerte" class="form-control">
+                    <select id="trabajoFuerte"  name="th.trabajoFuerte" class="form-control">
                         <option value="8" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1233,7 +1237,7 @@
 
                 <div class="form-group">
                     <label for="trabajosJardin"> ¿Puede hacer trabajos de jardín como limpiar hojas, cortar plantas? </label>
-                    <select id="trabajosJardin" name="trabajosJardin" class="form-control">
+                    <select id="trabajosJardin"  name="th.trabajosJardin" class="form-control">
                         <option value="4.5" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1241,7 +1245,7 @@
 
                 <div class="form-group">
                     <label for="relacionesSexuales"> ¿Puede tener relaciones sexuales? </label>
-                    <select id="relacionesSexuales" name="relacionesSexuales" class="form-control">
+                    <select id="relacionesSexuales"  name="th.relacionesSexuales" class="form-control">
                         <option value="5.25" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1249,7 +1253,7 @@
 
                 <div class="form-group">
                     <label for="ejercicioModerado"> ¿Puede hacer ejercicio moderado como bailar o lanzar una pelota? </label>
-                    <select id="ejercicioModerado" name="ejercicioModerado" class="form-control">
+                    <select id="ejercicioModerado"  name="th.ejercicioModerado" class="form-control">
                         <option value="6" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1257,7 +1261,7 @@
 
                 <div class="form-group">
                     <label for="ejercicioIntenso"> ¿Puede hacer ejercicio intenso como jugar al fútbol o baloncesto? </label>
-                    <select id="ejercicioIntenso" name="ejercicioIntenso" class="form-control">
+                    <select id="ejercicioIntenso"  name="th.ejercicioIntenso" class="form-control">
                         <option value="7.5" selected>Sí</option>
                         <option value="0">No</option>
                     </select>
@@ -1274,19 +1278,16 @@
                 
                 <div class="form-group">
                     <label for="fatigabilidad">FATIGABILIDAD. ¿Qué parte del tiempo durante las últimas 4 semanas se sintió cansado/a?</label>
-                    <select id="fatigabilidad" name="fatigabilidad" class="form-control">
-                        <option value="1">Todo el tiempo</option>
-                        <option value="1">La mayoría de las veces</option>
-                        <option value="0">Parte del tiempo</option>
-                        <option value="0">Un poco del tiempo</option>
-                        <option value="0" selected>En ningún momento</option>
+                    <select id="fatigabilidad"  name="th.fatigabilidad" class="form-control">
+                        <option value="1">La mayoría de las veces o todo el tiempo</option>
+                        <option value="0" selected>En ningún momento o un algo del tiempo</option>
                     </select>
                 </div>
 
             
                 <div class="form-group">
                     <label for="resistencia">RESISTENCIA. ¿Tiene alguna dificultad para subir 10 escalones sin descansar por usted mismo/a, sin ningún tipo de ayuda?</label>
-                    <select id="resistencia" name="resistencia" class="form-control">
+                    <select id="resistencia"  name="th.resistencia" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
@@ -1295,7 +1296,7 @@
                 
                 <div class="form-group">
                     <label for="deambulacion">DEAMBULACION. Por sí mismo/a y sin el uso de ayudas, ¿tiene alguna dificultad para caminar varios cientos de metros?</label>
-                    <select id="deambulacion" name="deambulacion" class="form-control">
+                    <select id="deambulacion"  name="th.deambulacion" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
@@ -1305,54 +1306,54 @@
                 <label>COMORBILIDAD</label>
                 <br>
                 <div class="form-check">
-                    <input type="checkbox" id="hipertension" name="comorbilidad" value="hipertension" class="form-check-input">
+                    <input type="checkbox" id="hipertension"  name="th.comorbilidad[]" value="hipertension" class="form-check-input">
                     <label for="hipertension" class="form-check-label">Hipertensión</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="diabetes" name="comorbilidad" value="diabetes" class="form-check-input">
+                    <input type="checkbox" id="diabetes"  name="th.comorbilidad[]" value="diabetes" class="form-check-input">
                     <label for="diabetes" class="form-check-label">Diabetes</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="cancer" name="comorbilidad" value="cancer" class="form-check-input">
+                    <input type="checkbox" id="cancer"  name="th.comorbilidad[]" value="cancer" class="form-check-input">
                     <label for="cancer" class="form-check-label">Cáncer (excepto piel de baja importancia)</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="enfermedadPulmonar" name="comorbilidad" value="enfermedadPulmonar" class="form-check-input">
+                    <input type="checkbox" id="enfermedadPulmonar"  name="th.comorbilidad[]" value="enfermedadPulmonar" class="form-check-input">
                     <label for="enfermedadPulmonar" class="form-check-label">Enfermedad pulmonar crónica</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="infarto" name="comorbilidad" value="infarto" class="form-check-input">
+                    <input type="checkbox" id="infarto"  name="th.comorbilidad[]" value="infarto" class="form-check-input">
                     <label for="infarto" class="form-check-label">Infarto de miocardio</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="insuficienciaCardiaca" name="comorbilidad" value="insuficienciaCardiaca" class="form-check-input">
+                    <input type="checkbox" id="insuficienciaCardiaca"  name="th.comorbilidad[]" value="insuficienciaCardiaca" class="form-check-input">
                     <label for="insuficienciaCardiaca" class="form-check-label">Insuficiencia cardíaca congestiva</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="angina" name="comorbilidad" value="angina" class="form-check-input">
+                    <input type="checkbox" id="angina"  name="th.comorbilidad[]" value="angina" class="form-check-input">
                     <label for="angina" class="form-check-label">Angina de pecho</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="asma" name="comorbilidad" value="asma" class="form-check-input">
+                    <input type="checkbox" id="asma"  name="th.comorbilidad[]" value="asma" class="form-check-input">
                     <label for="asma" class="form-check-label">Asma</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="artritis" name="comorbilidad" value="artritis" class="form-check-input">
+                    <input type="checkbox" id="artritis"  name="th.comorbilidad[]" value="artritis" class="form-check-input">
                     <label for="artritis" class="form-check-label">Artritis</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="ictus" name="comorbilidad" value="ictus" class="form-check-input">
+                    <input type="checkbox" id="ictus"  name="th.comorbilidad[]" value="ictus" class="form-check-input">
                     <label for="ictus" class="form-check-label">Ictus</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="enfermedadRenal" name="comorbilidad" value="enfermedadRenal" class="form-check-input">
+                    <input type="checkbox" id="enfermedadRenal"  name="th.comorbilidad[]" value="enfermedadRenal" class="form-check-input">
                     <label for="enfermedadRenal" class="form-check-label">Enfermedad renal</label>
                 </div>
 
                 <br>
                 <div class="form-group">
                     <label for="pesofrail">PESO. ¿Cuánto peso ha perdido en un año?</label>
-                    <select id="pesofrail" name="pesofrail" class="form-control">
+                    <select id="pesofrail"  name="th.pesofrail" class="form-control">
                         <option value="0" selected>No he perdido o he perdido menos de 5%</option>
                         <option value="1">Más de un 5%</option> 
                     </select>
@@ -1377,71 +1378,71 @@
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="hemoglobinaPRE">Hemoglobina:</label>
-                        <input type="number" id="hemoglobinaPRE" name="hemoglobinaPRE" class="form-control" step="0.01">
+                        <input type="number" id="hemoglobinaPRE"  name="th.hemoglobinaPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="phPRE">Ph:</label>
-                        <input type="numberPRE" id="ph" name="phPRE" class="form-control" step="0.01">
+                        <input type="numberPRE" id="ph"  name="th.phPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="pao2PRE">PaO2:</label>
-                        <input type="number" id="pao2PRE" name="pao2PREPRE" class="form-control" step="0.01">
+                        <input type="number" id="pao2PRE"  name="th.pao2PREPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="paco2PRE">PaCO2:</label>
-                        <input type="number" id="paco2PRE" name="paco2PRE" class="form-control" step="0.01">
+                        <input type="number" id="paco2PRE"  name="th.paco2PRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="ebPRE">EB:</label>
-                        <input type="number" id="ebPRE" name="ebPRE" class="form-control" step="0.01">
+                        <input type="number" id="ebPRE"  name="th.ebPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="lacticoPRE">Láctico:</label>
-                        <input type="number" id="lacticoPRE" name="lacticoPRE" class="form-control" step="0.01">
+                        <input type="number" id="lacticoPRE"  name="th.lacticoPRE" class="form-control" step="0.01">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="tProtrombinaPRE">T. Protrombina:</label>
-                        <input type="number" id="tProtrombinaPRE" name="tProtrombinaPRE" class="form-control" step="0.01">
+                        <input type="number" id="tProtrombinaPRE"  name="th.tProtrombinaPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inrPRE">INR:</label>
-                        <input type="number" id="inrPRE" name="inrPRE" class="form-control" step="0.01">
+                        <input type="number" id="inrPRE"  name="th.inrPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="ttpaPRE">TTPa:</label>
-                        <input type="number" id="ttpaPRE" name="ttpaPRE" class="form-control" step="0.01">
+                        <input type="number" id="ttpaPRE"  name="th.ttpaPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="fibrinogenoPRE">Fibrinógeno:</label>
-                        <input type="number" id="fibrinogenoPRE" name="fibrinogenoPRE" class="form-control" step="0.01">
+                        <input type="number" id="fibrinogenoPRE"  name="th.fibrinogenoPRE" class="form-control" step="0.01">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="naPRE">Na:</label>
-                        <input type="number" id="naPRE" name="naPRE" class="form-control" step="0.01">
+                        <input type="number" id="naPRE"  name="th.naPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="kPRE">K:</label>
-                        <input type="number" id="kPRE" name="kPRE" class="form-control" step="0.01">
+                        <input type="number" id="kPRE"  name="th.kPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="caPRE">Ca:</label>
-                        <input type="number" id="caPRE" name="caPRE" class="form-control" step="0.01">
+                        <input type="number" id="caPRE"  name="th.caPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="mgPRE">Mg:</label>
-                        <input type="number" id="mgPRE" name="mgPRE" class="form-control" step="0.01">
+                        <input type="number" id="mgPRE"  name="th.mgPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="procalcitoninaPRE">Procalcitonina:</label>
-                        <input type="number" id="procalcitoninaPRE" name="procalcitoninaPRE" class="form-control" step="0.01">
+                        <input type="number" id="procalcitoninaPRE"  name="th.procalcitoninaPRE" class="form-control" step="0.01">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="proBNPPRE">ProBNP:</label>
-                        <input type="number" id="proBNPPRE" name="proBNPPRE" class="form-control" step="0.01">
+                        <input type="number" id="proBNPPRE"  name="th.proBNPPRE" class="form-control" step="0.01">
                     </div>
                 </div>
             </fieldset>
@@ -1461,16 +1462,19 @@
                 <hr>
             </div>
             <fieldset class="border p-4">
-                <legend class="w-auto">Recomendaciones</legend>
+                <legend class="w-auto">test</legend>
                 <div class="form-group">
-                    <label for="recomendaciones">Recomendaciones:</label>
-                    <textarea id="recomendaciones" name="recomendaciones" class="form-control" rows="5"></textarea>
+                    <label for="testArea">test:</label>
+                    <textarea id="testArea"  name="th.testArea" class="form-control" rows="5"></textarea>
                 </div>
             </fieldset>
 
+            <hr>
             <button type="button" class="btn btn-primary" onclick="showPreviousSection(7)">Anterior</button>
-            <button type="button" class="btn btn-primary" onclick="generatePDF()">generar PDF</button>
-            <button type="button" class="btn btn-primary" onclick="generateWord()">generar word</button>
+            <button type="button" class="btn btn-primary" onclick="saveJSON()">Guardar JSON</button>
+            <button type="button" class="btn btn-primary" onclick="loadJSON()">Cargar JSON</button>
+            <button type="button" class="btn btn-primary" onclick="generatePDF()">Generar PDF</button>
+            <hr>
         </div>
     </form>
 

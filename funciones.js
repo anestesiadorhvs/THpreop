@@ -22,6 +22,19 @@
 
         // seccion 2. Valoracion cardiologica
         //----------------------------------------------------------
+        document.getElementById('funcional').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('morfologico').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('biomarcador').addEventListener('change', calculateHfaPeefIndex);
+        document.getElementById('biomarcadorFA').addEventListener('change', calculateHfaPeefIndex);
+
+        document.getElementById('diabetes').addEventListener('change', evaluateStressEcho);
+        document.getElementById('hipertension').addEventListener('change', evaluateStressEcho);
+        document.getElementById('dislipidemia').addEventListener('change', evaluateStressEcho);
+        document.getElementById('tabaquismo').addEventListener('change', evaluateStressEcho);
+        document.getElementById('historiaPatologiaCoronaria').addEventListener('change', evaluateStressEcho);
+        document.getElementById('historiaFamiliarPatologiaCoronaria').addEventListener('change', evaluateStressEcho);
+        document.getElementById('arteriopatiaPeriferica').addEventListener('change', evaluateStressEcho);
+       
         document.getElementById('resultadoStress').addEventListener('change', evaluateResultadoStressEcho);
         document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
         document.getElementById('estenosisIzquierda').addEventListener('change', evaluateCoronariografia);
@@ -35,11 +48,7 @@
         document.getElementById('pshl').addEventListener('input', updategpvh);
         document.getElementById('pshe').addEventListener('input', updategpvh);
 
-        document.getElementById('funcional').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('morfologico').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('biomarcador').addEventListener('change', calculateHfaPeefIndex);
-        document.getElementById('biomarcadorFA').addEventListener('change', calculateHfaPeefIndex);
-
+        
         // seccion 3. Pulmonar y via aérea
         //----------------------------------------------------------
         document.getElementById('fio2').addEventListener('input', evaluateAaGradient);
@@ -162,7 +171,57 @@
             document.getElementById('section' + (currentSection - 1)).classList.add('active');
         }
 
-        
+        function saveJSON() {
+            var formData = form2js('valoracionForm', '.', true,
+				function(node)
+				{
+					if (node.id && node.id.match(/callbackTest/))
+					{
+						return { name: node.id, value: node.innerHTML };
+					}
+				});
+
+		document.getElementById('testArea').innerHTML = JSON.stringify(formData, null, '\t');
+
+        }
+
+        function loadJSON() {
+
+        }
+        // generar PDF
+        //https://raw.githack.com/MrRio/jsPDF/master/index.html
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'pt', 'a4');
+           
+           const pageHeight = pdf.internal.pageSize.height || pdf.internal.pageSize.getHeight();
+            const pageWidth =  pdf.internal.pageSize.width || pdf.internal.pageSize.getWidth();
+            
+            pdf.setLineWidth(0.5);
+            pdf.line(10, 5, pageWidth - 10, 5);
+            pdf.line(10, 35, pageWidth - 10, 35);
+            pdf.line(10, 250, pageWidth - 10, 250);
+            pdf.line(10, 5, 10, 250);
+            pdf.line(pageWidth - 10, 5, pageWidth - 10, 250);
+
+            pdf.setFontSize(10);
+            pdf.text(20, 20, 'Informe de valoración preoperatoria');
+            pdf.text(400, 20, 'Fecha de valoración: ' + new Date().toLocaleDateString());
+           
+            pdf.text(20, 40, 'NHC: ' + document.getElementById('nhc').value);
+            pdf.text(50, 40, 'Sexo: ' + document.getElementById('sexoinicio').value);
+            pdf.text(110, 40, 'Edad: ' + document.getElementById('edadinicio').value);
+            pdf.text(170, 40, 'Peso: ' + document.getElementById('pesoinicio').value);
+            pdf.text(240, 40, 'Talla: ' + document.getElementById('tallainicio').value);
+            pdf.text(310, 40, 'IMC: ' + document.getElementById('imcinicio').value);
+
+            pdf.text(20, 60, 'Nombre: ' + document.getElementById('nombre').value);
+            pdf.text(20, 200, 'Primer apellido: ' + document.getElementById('primerApellido').value);
+            pdf.text(20, 300, 'Segundo apellido: ' + document.getElementById('segundoApellido').value);
+           
+           
+           pdf.save('formulario_valoracion.pdf');
+        }
         
     // seccion 1.Valoracion inicial
     //----------------------------------------------------------
@@ -248,7 +307,7 @@
             const encefalopatia = parseInt(document.getElementById('encefalopatia').value);
 
             const totalScore = ascitis + bilirrubina + inr + encefalopatia;
-            document.getElementById('childPughScore').innerText = totalScore;
+            document.getElementById('childPughScore').value= totalScore;
 
             const escalaChild = document.getElementById('escalaChild');
             if (totalScore >= 5 && totalScore <= 6) {
@@ -287,8 +346,8 @@
             const meldScore = 9.6 * Math.log(creatinina) + 3.8 * Math.log(bilirrubina) + 11.2 * Math.log(inr) + 6.4;
             const meldNaScore = meldScore - sodio - (0.025 * meldScore * (140 - sodio)) + 140;
 
-            document.getElementById('meldScore').innerText = meldScore.toFixed(2);
-            document.getElementById('meldNaScore').innerText = meldNaScore.toFixed(2);
+            document.getElementById('meldScore').value = meldScore.toFixed(2);
+            document.getElementById('meldNaScore').value = meldNaScore.toFixed(2);
 
             document.getElementById('meld40').classList.remove('highlight');
             document.getElementById('meld30_39').classList.remove('highlight');
@@ -314,12 +373,87 @@
         // seccion 2. Cardiologica
         //----------------------------------------------------------
         function calculateHfaPeefIndex() {
+            
+           
             const funcional  = parseInt(document.getElementById('funcional').value);
             const morfologico = parseInt(document.getElementById('morfologico').value);
             const biomarcador = parseInt(document.getElementById('biomarcador').value);
             const biomarcadorFA = parseInt(document.getElementById('biomarcadorFA').value);
-            const indiceHfaPeef = funcional + morfologico + biomarcador + biomarcadorFA;
-            document.getElementById('indiceHfaPeef').innerText = indiceHfaPeef;
+            
+            let biomarcadorI=0;
+            let biomarcadorFAI=0;
+            let funcionalI = 0;
+            let morfologicoI = 0;
+
+            switch (funcional) {
+                case 1:
+                    funcionalI = 0;
+                    break;
+                case 2:
+                    funcionalI = 2;
+                    break;
+                case 3:
+                    funcionalI = 2;
+                    break;
+                case 4:
+                    funcionalI = 2;
+                    break;
+                case 5:
+                    funcionalI = 1;
+                    break;
+                case 6:
+                    funcionalI = 1;
+                    break;
+            };
+            
+            switch (morfologico) {
+
+                case 1:
+                    morfologicoI = 0;
+                    break;
+                case 2:
+                    morfologicoI = 2;
+                    break;
+                case 3:
+                    morfologicoI = 2;
+                    break;
+                case 4:
+                    morfologicoI = 1;
+                    break;
+                case 5:
+                    morfologicoI = 1;
+                    break;
+                case 6:
+                    morfologicoI = 1;
+                    break;
+            };
+            
+            switch (biomarcador) {
+                case 1:
+                    biomarcadorI = 0;
+                    break;
+                case 2:
+                    biomarcadorI = 2;
+                    break;
+                case 3:
+                    biomarcadorI = 1;
+                    break;
+            };
+           
+            switch (biomarcadorFA) {
+                case 1:
+                    biomarcadorFAI = 0;
+                    break;
+                case 2:
+                    biomarcadorFAI = 2;
+                    break;
+                case 3:
+                    biomarcadorFAI = 1;
+                    break;
+            };
+
+            const indiceHfaPeef = funcionalI + morfologicoI + biomarcadorI + biomarcadorFAI;
+            document.getElementById('indiceHfaPeef').value = indiceHfaPeef;
 
             const resultado = document.getElementById('resultadoHfaPeef');
             if (indiceHfaPeef >= 5) {
@@ -853,40 +987,7 @@
         // final
         //
         //----------------------------------------------------------
-        // generar PDF
-        //https://raw.githack.com/MrRio/jsPDF/master/index.html
-        function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'pt', 'a4');
-           
-           const pageHeight = pdf.internal.pageSize.height || pdf.internal.pageSize.getHeight();
-            const pageWidth =  pdf.internal.pageSize.width || pdf.internal.pageSize.getWidth();
-            
-            pdf.setLineWidth(0.5);
-            pdf.line(10, 5, pageWidth - 10, 5);
-            pdf.line(10, 35, pageWidth - 10, 35);
-            pdf.line(10, 250, pageWidth - 10, 250);
-            pdf.line(10, 5, 10, 250);
-            pdf.line(pageWidth - 10, 5, pageWidth - 10, 250);
 
-            pdf.setFontSize(10);
-            pdf.text(20, 20, 'Informe de valoración preoperatoria');
-            pdf.text(400, 20, 'Fecha de valoración: ' + new Date().toLocaleDateString());
-           
-            pdf.text(20, 40, 'NHC: ' + document.getElementById('nhc').value);
-            pdf.text(50, 40, 'Sexo: ' + document.getElementById('sexoinicio').value);
-            pdf.text(110, 40, 'Edad: ' + document.getElementById('edadinicio').value);
-            pdf.text(170, 40, 'Peso: ' + document.getElementById('pesoinicio').value);
-            pdf.text(240, 40, 'Talla: ' + document.getElementById('tallainicio').value);
-            pdf.text(310, 40, 'IMC: ' + document.getElementById('imcinicio').value);
-
-            pdf.text(20, 60, 'Nombre: ' + document.getElementById('nombre').value);
-            pdf.text(20, 200, 'Primer apellido: ' + document.getElementById('primerApellido').value);
-            pdf.text(20, 300, 'Segundo apellido: ' + document.getElementById('segundoApellido').value);
-           
-           
-           pdf.save('formulario_valoracion.pdf');
-        }
         
         
         // comprueba requeridos
