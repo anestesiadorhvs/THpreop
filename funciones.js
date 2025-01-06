@@ -117,7 +117,7 @@
                 backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
                 borderWidth: 0,
                 gaugeData: {
-                    value: 7,
+                    value: parseInt(document.getElementById("childPughScore").value),
                     valueColor: "#ff7143"
                 },
                 gaugeLimits: [0, 6, 10, 15]
@@ -136,9 +136,9 @@
             data: {
                 datasets: [{
                     backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
-                    borderWidth: 0,
+                    borderWidth: 1,
                     gaugeData: {
-                        value: 20,
+                        value: parseInt(document.getElementById("meldScore").value),
                         valueColor: "#ff7143"
                     },
                     gaugeLimits: [0, 10, 30, 50]
@@ -150,6 +150,73 @@
             }
         });
    }
+
+
+   function VIgauge() {
+    var ctx = document.getElementById("VIcanvas").getContext("2d");
+    new Chart(ctx, {
+    type: "tsgauge",
+    data: {
+        datasets: [{
+            backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
+            borderWidth: 0,
+            gaugeData: {
+                value: 5,
+                valueColor: "#ff7143"
+            },
+            gaugeLimits: [0, 6, 10, 15]
+        }]
+    },
+    options: {
+            events: [],
+            showMarkers: true
+    }
+});
+}
+
+function VDgauge() {
+    var ctx = document.getElementById("VDcanvas").getContext("2d");
+    new Chart(ctx, {
+    type: "tsgauge",
+    data: {
+        datasets: [{
+            backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
+            borderWidth: 0,
+            gaugeData: {
+                value: 5,
+                valueColor: "#ff7143"
+            },
+            gaugeLimits: [0, 6, 10, 15]
+        }]
+    },
+    options: {
+            events: [],
+            showMarkers: true
+    }
+});
+}
+
+function CIgauge() {
+    var ctx = document.getElementById("CIcanvas").getContext("2d");
+    new Chart(ctx, {
+    type: "tsgauge",
+    data: {
+        datasets: [{
+            backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
+            borderWidth: 0,
+            gaugeData: {
+                value: 5,
+                valueColor: "#ff7143"
+            },
+            gaugeLimits: [0, 6, 10, 15]
+        }]
+    },
+    options: {
+            events: [],
+            showMarkers: true
+    }
+});
+}
     // funciones
      //----------------------------------------------------------
      //----------------------------------------------------------
@@ -159,8 +226,12 @@
             document.getElementById('section' + currentSection).classList.remove('active');
             document.getElementById('section' + (currentSection + 1)).classList.add('active');
             if (currentSection === 6) {
+                cuadrado("cuadradoriesgo",50);
+                cuadrado("cuadradocardio",80);
                 childgauge();
-                meldgauge()
+                meldgauge();
+                VIgauge();
+                CIgauge();
                 
                 
             }
@@ -170,7 +241,25 @@
             document.getElementById('section' + currentSection).classList.remove('active');
             document.getElementById('section' + (currentSection - 1)).classList.add('active');
         }
-
+        function cuadrado(identificador, valor){
+            let texto = "";
+            const cuadrado = document.getElementById(identificador); 
+            let color = "green";
+           
+            if (valor < 34){
+                color = 'green';
+                texto = "Leve"
+            } else if (valor<67){
+                color = 'yellow'; 
+                texto = "Moderado"
+            } else{
+                color = 'red'; 
+                texto = "Elevado"
+            }
+            cuadrado.style.backgroundColor = color; 
+            cuadrado.style.color = color === 'yellow' ? 'black' : 'white';
+            cuadrado.textContent = texto;
+        }
         function saveJSON() {
             var formData = form2js('valoracionForm', '.', true,
 				function(node)

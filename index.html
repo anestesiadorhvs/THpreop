@@ -44,8 +44,8 @@
         border: 0;
         height: 1px;
         background: #333;
-        background-image: linear-gradient(to right, #ccc, #333, #ccc);
     }
+
     body {
         background-color: #fbf9e6; /* Fondo amarillo pastel pálido */
     }
@@ -53,7 +53,31 @@
         background-color: #ffffff; /* Fondo blanco */
     }
     
-
+    .cuadrado { 
+    width: 80%; /* Tamaño relativo al contenedor */
+      height: 80%; /* Tamaño relativo al contenedor */
+      margin: auto; /* Márgenes automáticos para centrar */
+      position: absolute; /* Necesario para centrar con top y left */
+      top: 50%; /* Lleva el cuadrado al centro vertical */
+      left: 50%; /* Lleva el cuadrado al centro horizontal */
+      transform: translate(-50%, -50%); /* Ajusta para centrar completamente */
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      transition: background-color 0.3s ease;
+    }
+    h4 {
+      text-align: center; /* Centra horizontalmente el texto */
+      margin: 10px auto 0; /* Margen superior de 10px, centrado horizontalmente */
+      width: 100%; /* Asegura que el título use todo el ancho disponible */
+      font-size: 24px;
+      color: #333;
+      
+    }
     </style>
     
 </head>
@@ -1373,6 +1397,71 @@
         <div id="section7" class="section">
             <h2>Estimación de riesgos y recomendaciones</h2>
             <!-- Contenido de la sección -->
+            
+            <fieldset class="border p-4">
+                <legend class="w-auto">Riesgo Global</legend>
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div id="cuadradoriesgo" class = "cuadrado"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Child-Pugh</h4>
+                        <canvas id="childcanvas"></canvas>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>MELD</h4>
+                        <canvas id="meldcanvas"></canvas>
+                    </div>
+                    <div class = "col-md-6">
+
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="border p-4">
+                <legend class="w-auto">Vía aérea</legend>
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div id="cuadradovia" class = "cuadrado"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Score</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Mallapati</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Dist. Tiroment.</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Movilidad cerv.</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Apertura bucal</h4>
+                    </div>
+            </fieldset>
+
+            <fieldset class="border p-4">
+                <legend class="w-auto">Valoración cardiológica</legend> 
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div id="cuadradocardio" class = "cuadrado"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Disf. VI</h4>
+                        <canvas id="VIcanvas"></canvas>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <h4>Riesgo C.Isq.</h4>
+                        <canvas id="CIcanvas"></canvas>
+                    </div>
+                    <div class = "col-md-6">
+
+                    </div>
+                </div>
+            </fieldset>
+
             <fieldset class="border p-4">
                 <legend class="w-auto">Analítica Pretrasplante</legend>
                 <div class="form-row">
@@ -1446,21 +1535,8 @@
                     </div>
                 </div>
             </fieldset>
-            <div class="form-row">
-                <hr>
-                <div class="col-md-2">
-                    <h3>Child-Pugh</h3>
-                    <canvas id="childcanvas"></canvas>
-                </div>
-                <div class="col-md-2">
-                    <h3>MELD</h3>
-                    <canvas id="meldcanvas"></canvas>
-                </div>
-                <div class = "col-md-8">
 
-                </div>
-                <hr>
-            </div>
+
             <fieldset class="border p-4">
                 <legend class="w-auto">test</legend>
                 <div class="form-group">
