@@ -587,12 +587,12 @@
                     <div class="form-group">
                         <label for="funcional">Funcional</label>
                         <select id="funcional" required class="form-control" >
-                            <option value="1" selected>Normal (0 puntos)</option>
-                            <option value="2">e' Septal &lt; 7 cm/seg ó e' Lateral &lt; 10 cm/seg (2 puntos)</option>
-                            <option value="3">Relación E/e' ≥ 15 (2 puntos)</option>
-                            <option value="4">PASP &gt; 35 mmHg (2 puntos)</option>
-                            <option value="5">Relación E/e' 9-14 (1 punto)</option>
-                            <option value="6">Global Strain &lt; 16% (1 punto)</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="2">e' Septal &lt; 7 cm/seg ó e' Lateral &lt; 10 cm/seg</option>
+                            <option value="5">Relación E/e' 9-14</option>
+                            <option value="3">Relación E/e' ≥ 15</option>
+                            <option value="4">PASP &gt; 35 mmHg</option>
+                            <option value="6">Global Strain &lt; 16%</option>
                         </select>
                     </div>
     
@@ -600,12 +600,12 @@
                     <div class="form-group">
                         <label for="morfologico">Morfológico</label>
                         <select id="morfologico" required class="form-control" >
-                            <option value="1" selected>Normal (0 puntos)</option>
-                            <option value="2">Vol. Aurícula izquierda &gt; 34 ml/m<sup>2</sup> (2 puntos)</option>
-                            <option value="3">Masa VI &gt; 149/122 m<sup>2</sup> + Grosor relativo pared &gt; 0.42 (2 puntos)</option>
-                            <option value="4">Vol. Aurícula izquierda 29-34 ml/m<sup>2</sup> (1 punto)</option>
-                            <option value="5">Masa VI &gt; 115/95 gr/m<sup>2</sup> (1 punto)</option>
-                            <option value="6">Grosor pared VI &ge; 12 mm (1 punto)</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="4">Vol. Aurícula izquierda 29-34 ml/m<sup>2</sup></option>
+                            <option value="2">Vol. Aurícula izquierda &gt; 34 ml/m<sup>2</sup></option>
+                            <option value="5">Masa VI &gt; 115/95 gr/m<sup>2</sup></option>
+                            <option value="3">Masa VI &gt; 149/122 m<sup>2</sup> + Grosor relativo pared &gt; 0.42</option>
+                            <option value="6">Grosor pared VI &ge; 12 mm</option>
                         </select>
                     </div>
     
@@ -613,9 +613,10 @@
                     <div class="form-group">
                         <label for="biomarcador">Biomarcador en ritmo sinusal</label>
                         <select id="biomarcador" class="form-control" >
-                            <option value="1" selected>Normal (0 puntos)</option>
-                            <option value="2">NT-proBNP &gt; 220 pg/ml (2 puntos)</option>
-                            <option value="3">NT-proBNP 115-220 pg/ml (1 punto)</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="3">NT-proBNP 115-220 pg/ml</option>
+                            <option value="2">NT-proBNP &gt; 220 pg/ml</option>
+                            
                         </select>
                     </div>
     
@@ -623,9 +624,10 @@
                     <div class="form-group">
                         <label for="biomarcadorFA">Biomarcador en FA</label>
                         <select id="biomarcadorFA" class="form-control" >
-                            <option value="1" selected>Normal (0 puntos)</option>
-                            <option value="2">NT-proBNP &gt; 660 pg/ml (2 puntos)</option>
-                            <option value="3">NT-proBNP 365-660 pg/ml (1 punto)</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="3">NT-proBNP 365-660 pg/ml</option>
+                            <option value="2">NT-proBNP &gt; 660 pg/ml</option>
+                            
                         </select>
                     </div>
     
@@ -733,13 +735,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="mordida">Test Mordida Labio superior</label>
-                    <select id="mordida"  name="th.mordida" class="form-control">
-                        <option value="1" selected>I. Los incisivos inferiores pueden morder completamente el labio superior, ocultando la mucosa del labio.</option>
-                        <option value="2">II. Los incisivos inferiores pueden morder completamente el labio superior, ocultando la mucosa del labio.</option>
-                        <option value="3">III. Los incisivos inferiores no pueden morder el labio superior. </option>
-                        </select>
+                    <label for="apertura">Apertura Bucal</label>
+                    <select id="apertura"  name="th.apertura" class="form-control">
+                        <option value="1" selected>< 4cm</option>
+                        <option value="2">> 4cm</option>
+                    </select>
                 </div>
+                
                 <div class="form-group">
                     <label for="distancia">Distancia Tiro-Mentoniana</label>
                     <select id="distancia"  name="th.distancia" class="form-control">
@@ -755,6 +757,16 @@
                         <option value="2">Limitación en la extensión</option>
                     </select>
                 </div>
+                
+                <div class="form-group">
+                    <label for="mordida">Test Mordida Labio superior</label>
+                    <select id="mordida"  name="th.mordida" class="form-control">
+                        <option value="1" selected>I. Los incisivos inferiores pueden morder completamente el labio superior, ocultando la mucosa del labio.</option>
+                        <option value="2">II. Los incisivos inferiores pueden morder completamente el labio superior, ocultando la mucosa del labio.</option>
+                        <option value="3">III. Los incisivos inferiores no pueden morder el labio superior. </option>
+                        </select>
+                </div>
+
                 <div class="form-group col">
                     <label for="comentarioVia">Comentario:</label>
                     <textarea id="comentarioVia"  name="th.comentarioVia" class="form-control"></textarea>
