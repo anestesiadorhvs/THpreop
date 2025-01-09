@@ -728,17 +728,17 @@
                 <div class="form-group">
                     <label for="mallampati">Mallampatti</label>
                     <select id="mallampati"  name="th.mallampati" class="form-control">
-                        <option value="1" selected>I. Se observan el paladar blando, la úvula completa y los pilares amigdalinos.</option>
-                        <option value="2">II. Se visualizan el paladar blando y la úvula, pero no los pilares amigdalinos.</option>
-                        <option value="3">III. Solo se aprecia el paladar blando y la base de la úvula.</option>
-                        <option value="4">IV. Únicamente se ve el paladar duro; el paladar blando no es visible.</option>
+                        <option value="0" selected>I. Se observan el paladar blando, la úvula completa y los pilares amigdalinos.</option>
+                        <option value="1">II. Se visualizan el paladar blando y la úvula, pero no los pilares amigdalinos.</option>
+                        <option value="2">III. Solo se aprecia el paladar blando y la base de la úvula.</option>
+                        <option value="3">IV. Únicamente se ve el paladar duro; el paladar blando no es visible.</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="apertura">Apertura Bucal</label>
                     <select id="apertura"  name="th.apertura" class="form-control">
-                        <option value="1" selected>< 4cm</option>
-                        <option value="2">> 4cm</option>
+                        <option value="1" selected>> 4cm</option>
+                        <option value="2">< 4cm</option>
                     </select>
                 </div>
                 
@@ -1414,7 +1414,7 @@
                 <legend class="w-auto">Riesgo Global</legend>
                 <div class="form-row">
                     <div class="col-md-2">
-                        <div id="cuadradoriesgo" class = "cuadrado"></div>
+                        <div id="cuadradoriesgo" class = "rounded-shadow"></div>
                     </div>
                     <div class="col-md-2">
                         <h4>Child-Pugh</h4>
@@ -1425,7 +1425,9 @@
                         <canvas id="meldcanvas"></canvas>
                     </div>
                     <div class = "col-md-6">
-
+                        <div id = "riskMessage" class ="rounded-corners" style="padding: 5px; background-color: green; color: white;">
+                            estimacion de riesgo
+                        </div>
                     </div>
                 </div>
             </fieldset>
@@ -1434,10 +1436,11 @@
                 <legend class="w-auto">Vía aérea</legend>
                 <div class="form-row">
                     <div class="col-md-2">
-                        <div id="cuadradovia" class = "cuadrado"></div>
+                        <div id="cuadradovia" class = "rounded-shadow"></div>
                     </div>
                     <div class="col-md-2">
                         <h4>Score</h4>
+                        <canvas id="viacanvas"></canvas>
                     </div>
                     <div class="col-md-2">
                         <h4>Mallapati</h4>
@@ -1457,7 +1460,7 @@
                 <legend class="w-auto">Valoración cardiológica</legend> 
                 <div class="form-row">
                     <div class="col-md-2">
-                        <div id="cuadradocardio" class = "cuadrado"></div>
+                        <div id="cuadradocardio" class = "rounded-shadow"></div>
                     </div>
                     <div class="col-md-2">
                         <h4>Disf. VI</h4>

@@ -110,7 +110,7 @@
     //-------------------------------------------------------
     function riskgeneral(){
         const child = parseInt(document.getElementById("childPughScore").value);
-        let meld = parseFloat(document.getElementById("meldScore").value);
+        let meld = (parseFloat(document.getElementById("meldScore").value)).toFixed(1);
         if (meld > 41 ){
             meld = 40;
         }
@@ -118,12 +118,33 @@
         if (riesgo >41){
             riesgo = 40;
         }
+        let mensaje = "";
+        if (riesgo > 39){
+            mensaje ="Paciente con muy alta mortalidad preoperatoria. Mortalidad 71%";
+        }else if(riesgo > 29){
+            mensaje = "Paciente con alta mortalidad preoperatoria. Mortalidad 52%";
+        }else if(riesgo > 20){
+            mensaje = "Paciente con moderada mortalidad preoperatoria. Mortalidad 19%";
+        }else if(riesgo > 10){
+            mensaje ="Paciente con baja mortalidad preoperatoria. Mortalidad 6%";
+        }else{
+            mensaje = "Paciente con baja mortalidad preoperatoria. Mortalidad 2%";
+        }
+        document.getElementById("riskMessage").innerText = mensaje;
         riesgo = riesgo * 2.5;// 0-100
         cuadrado("cuadradoriesgo",riesgo);
         gauge("childcanvas",child,0,6,9,15);
         gauge("meldcanvas",meld,0,15,30,40);
     }   
     function riskVA(){
+        const malampatti= parseInt(document.getElementById("malampatti").value)*2;
+        const apertura = parseInt(document.getElementById("apertura").value);
+        const distancia = parseInt(document.getElementById("distancia").value);
+        const movilidad = parseInt(document.getElementById("movilidadcolumna").value);
+        const mordida = document.getElementById("mordida").value;
+        const riesgo = parseInt((malampatti + apertura + distancia + movilidad)*100/12);
+        cuadrado("cuadradovia", riesgo);
+        gauge("viacanvas",riesgo,0,35,70,100);
 
     }
     function riskcardio(){
@@ -160,7 +181,7 @@
         },
         options: {
                 events: [],
-                showMarkers: true
+                showMarkers: false
         }
     });
    }
