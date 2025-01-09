@@ -105,11 +105,46 @@
         document.querySelectorAll('#autocuidado, #caminarCasa, #caminar200m, #subirEscaleras, #correr, #trabajoLigero, #trabajoModerado, #trabajoFuerte, #trabajosJardin, #relacionesSexuales, #ejercicioModerado, #ejercicioIntenso').forEach(element => {
                     element.addEventListener('change', calculateDukeScore);
                 });
-       
-    // graficos
+
+    // riesgos
+    //-------------------------------------------------------
+    function riskgeneral(){
+        const child = parseInt(document.getElementById("childPughScore").value);
+        let meld = parseFloat(document.getElementById("meldScore").value);
+        if (meld > 41 ){
+            meld = 40;
+        }
+        let riesgo = parseFloat(document.getElementById("meldNaScore").value);
+        if (riesgo >41){
+            riesgo = 40;
+        }
+        riesgo = riesgo * 2.5;// 0-100
+        cuadrado("cuadradoriesgo",riesgo);
+        gauge("childcanvas",child,0,6,9,15);
+        gauge("meldcanvas",meld,0,15,30,40);
+    }   
+    function riskVA(){
+
+    }
+    function riskcardio(){
+
+    }
+    function riskneumo(){
+
+    }
+    function risksangrado(){
+
+    }
+    function risknefro(){
+
+    }
+    function risknutricion(){
+
+    }
+                // graficos
     //----------------------------------------------------------
-   function childgauge() {
-        var ctx = document.getElementById("childcanvas").getContext("2d");
+   function gauge(canvas,valor,limite1,limite2,limite3,limite4) {
+        var ctx = document.getElementById(canvas).getContext("2d");
     new Chart(ctx, {
         type: "tsgauge",
         data: {
@@ -117,10 +152,10 @@
                 backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
                 borderWidth: 0,
                 gaugeData: {
-                    value: parseInt(document.getElementById("childPughScore").value),
+                    value: valor,
                     valueColor: "#ff7143"
                 },
-                gaugeLimits: [0, 6, 10, 15]
+                gaugeLimits: [limite1, limite2, limite3, limite4]
             }]
         },
         options: {
@@ -129,94 +164,25 @@
         }
     });
    }
-   function meldgauge() {
-    var ctx = document.getElementById("meldcanvas").getContext("2d");
-        new Chart(ctx, {
-            type: "tsgauge",
-            data: {
-                datasets: [{
-                    backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
-                    borderWidth: 1,
-                    gaugeData: {
-                        value: parseInt(document.getElementById("meldScore").value),
-                        valueColor: "#ff7143"
-                    },
-                    gaugeLimits: [0, 10, 30, 50]
-                }]
-            },
-            options: {
-                    events: [],
-                    showMarkers: true
-            }
-        });
-   }
-
-
-   function VIgauge() {
-    var ctx = document.getElementById("VIcanvas").getContext("2d");
-    new Chart(ctx, {
-    type: "tsgauge",
-    data: {
-        datasets: [{
-            backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
-            borderWidth: 0,
-            gaugeData: {
-                value: 5,
-                valueColor: "#ff7143"
-            },
-            gaugeLimits: [0, 6, 10, 15]
-        }]
-    },
-    options: {
-            events: [],
-            showMarkers: true
+   function cuadrado(identificador, valor){
+        let texto = "";
+        const cuadrado = document.getElementById(identificador); 
+        let color = "green";
+    
+        if (valor < 34){
+            color = 'green';
+            texto = "Leve"
+        } else if (valor<67){
+            color = 'yellow'; 
+            texto = "Moderado"
+        } else{
+            color = 'red'; 
+            texto = "Elevado"
+        }
+        cuadrado.style.backgroundColor = color; 
+        cuadrado.style.color = color === 'yellow' ? 'black' : 'white';
+        cuadrado.textContent = texto;
     }
-});
-}
-
-function VDgauge() {
-    var ctx = document.getElementById("VDcanvas").getContext("2d");
-    new Chart(ctx, {
-    type: "tsgauge",
-    data: {
-        datasets: [{
-            backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
-            borderWidth: 0,
-            gaugeData: {
-                value: 5,
-                valueColor: "#ff7143"
-            },
-            gaugeLimits: [0, 6, 10, 15]
-        }]
-    },
-    options: {
-            events: [],
-            showMarkers: true
-    }
-});
-}
-
-function CIgauge() {
-    var ctx = document.getElementById("CIcanvas").getContext("2d");
-    new Chart(ctx, {
-    type: "tsgauge",
-    data: {
-        datasets: [{
-            backgroundColor: ["#0fdc63", "#fd9704", "#ff7143"],
-            borderWidth: 0,
-            gaugeData: {
-                value: 5,
-                valueColor: "#ff7143"
-            },
-            gaugeLimits: [0, 6, 10, 15]
-        }]
-    },
-    options: {
-            events: [],
-            showMarkers: true
-    }
-});
-}
     // funciones
      //----------------------------------------------------------
      //----------------------------------------------------------
@@ -226,12 +192,8 @@ function CIgauge() {
             document.getElementById('section' + currentSection).classList.remove('active');
             document.getElementById('section' + (currentSection + 1)).classList.add('active');
             if (currentSection === 6) {
-                cuadrado("cuadradoriesgo",50);
-                cuadrado("cuadradocardio",80);
-                childgauge();
-                meldgauge();
-                VIgauge();
-                CIgauge();
+              riskgeneral();
+               
                 
                 
             }
@@ -241,25 +203,7 @@ function CIgauge() {
             document.getElementById('section' + currentSection).classList.remove('active');
             document.getElementById('section' + (currentSection - 1)).classList.add('active');
         }
-        function cuadrado(identificador, valor){
-            let texto = "";
-            const cuadrado = document.getElementById(identificador); 
-            let color = "green";
-           
-            if (valor < 34){
-                color = 'green';
-                texto = "Leve"
-            } else if (valor<67){
-                color = 'yellow'; 
-                texto = "Moderado"
-            } else{
-                color = 'red'; 
-                texto = "Elevado"
-            }
-            cuadrado.style.backgroundColor = color; 
-            cuadrado.style.color = color === 'yellow' ? 'black' : 'white';
-            cuadrado.textContent = texto;
-        }
+       
         function saveJSON() {
             var formData = form2js('valoracionForm', '.', true,
 				function(node)

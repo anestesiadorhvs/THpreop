@@ -183,7 +183,7 @@
 			animateRotate: true,
 			animateScale: false
 		},
-		cutoutPercentage: 95,
+		cutoutPercentage: 85,
 		rotation: Math.PI,
 		circumference: Math.PI,
 		legend: {
