@@ -145,7 +145,36 @@
         const riesgo = parseInt((malampatti + apertura + distancia + movilidad)*100/12);
         cuadrado("cuadradovia", riesgo);
         gauge("viacanvas",riesgo,0,35,70,100);
+        let texto1,texto2,texto3,texto4;
+        let mensaje ="";
+        if (apertura ==1){
+            texto1="<4 cm";
 
+        }else{
+            texto1=">4cm";
+        }
+        if (movilidad ==1){
+            texto2 = "Normal";
+        }else{
+            texto2 = "limitada";
+        }
+        if (distancia == 1){
+            texto3 = "> 6cm";
+        }else{
+            texto3 = "<6cm";
+        }
+        if (mordida ==1) {
+            texto4 = "incisivos inferiores ocupan TOTALMENTE el labio superior";
+        }else if (mordida == 2){
+            texto4 = "incisivos inferiores ocupan PARCIALMENTE el labio superior";
+        }else {
+            texto4 ="los incisivos inferiores NO LLEGAN al labio superior";
+        }
+
+        document.getElementById("txtmallapati").innerHTML="<h4> Mallampati </h4><br><h3>" & (malampatti +1).toString() &"</h3>";
+        document.getElementById("txtdistancia").innerHTML="<h4> Dist.Tiroment. </h4><br><h3>" & texto3 & "</h3>";
+        document.getElementById("txtmovilidad").innerHTML="<h4> Mov. Cervical </h4><br><h3>" & texto2 & "</h3>";
+        document.getElementById("txtapertura").innerHTML="<h4> Apert. Bucal </h4><br><h3>" & texto1 & "</h3>";
     }
     function riskcardio(){
 
@@ -214,6 +243,7 @@
             document.getElementById('section' + (currentSection + 1)).classList.add('active');
             if (currentSection === 6) {
               riskgeneral();
+              riskVA();
                
                 
                 
