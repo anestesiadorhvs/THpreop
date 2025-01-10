@@ -137,12 +137,12 @@
         gauge("meldcanvas",meld,0,15,30,40);
     }   
     function riskVA(){
-        const malampatti= parseInt(document.getElementById("malampatti").value)*2;
+        const mallampati= parseInt(document.getElementById("mallampati").value);
         const apertura = parseInt(document.getElementById("apertura").value);
         const distancia = parseInt(document.getElementById("distancia").value);
         const movilidad = parseInt(document.getElementById("movilidadcolumna").value);
         const mordida = document.getElementById("mordida").value;
-        const riesgo = parseInt((malampatti + apertura + distancia + movilidad)*100/12);
+        const riesgo = parseInt((mallampati * 2 + apertura + distancia + movilidad)*100/12);
         cuadrado("cuadradovia", riesgo);
         gauge("viacanvas",riesgo,0,35,70,100);
         let texto1,texto2,texto3,texto4;
@@ -159,22 +159,23 @@
             texto2 = "limitada";
         }
         if (distancia == 1){
-            texto3 = "> 6cm";
+            texto3 = ">6 cm";
         }else{
-            texto3 = "<6cm";
+            texto3 = "<6 cm";
         }
         if (mordida ==1) {
-            texto4 = "incisivos inferiores ocupan TOTALMENTE el labio superior";
+            texto4 = "Los incisivos inferiores ocupan TOTALMENTE el labio superior";
         }else if (mordida == 2){
-            texto4 = "incisivos inferiores ocupan PARCIALMENTE el labio superior";
+            texto4 = "Los incisivos inferiores ocupan PARCIALMENTE el labio superior";
         }else {
-            texto4 ="los incisivos inferiores NO LLEGAN al labio superior";
+            texto4 ="Los incisivos inferiores NO LLEGAN al labio superior";
         }
 
-        document.getElementById("txtmallapati").innerHTML="<h4> Mallampati </h4><br><h3>" & (malampatti +1).toString() &"</h3>";
-        document.getElementById("txtdistancia").innerHTML="<h4> Dist.Tiroment. </h4><br><h3>" & texto3 & "</h3>";
-        document.getElementById("txtmovilidad").innerHTML="<h4> Mov. Cervical </h4><br><h3>" & texto2 & "</h3>";
-        document.getElementById("txtapertura").innerHTML="<h4> Apert. Bucal </h4><br><h3>" & texto1 & "</h3>";
+        document.getElementById("txtmallampati").innerHTML="<h4> Mallampati </h4><br><h5>" + (mallampati +1).toString() + "</h5>";
+        document.getElementById("txtdistancia").innerHTML="<h4> Dist.Tiroment. </h4><br><h5>" + texto3 + "</h5>";
+        document.getElementById("txtmovilidad").innerHTML="<h4> Mov. Cervical </h4><br><h5>" + texto2 + "</h5>";
+        document.getElementById("txtapertura").innerHTML="<h4> Apert. Bucal </h4><br><h5>" + texto1 + "</h5>";
+        document.getElementById("viaMessage").innerHTML = "Test Mordida: " + texto4;
     }
     function riskcardio(){
 
@@ -229,9 +230,10 @@
             color = 'red'; 
             texto = "Elevado"
         }
+        
+        cuadrado.innerHTML ="<h3>"+ texto+ "</h3>";
         cuadrado.style.backgroundColor = color; 
         cuadrado.style.color = color === 'yellow' ? 'black' : 'white';
-        cuadrado.textContent = texto;
     }
     // funciones
      //----------------------------------------------------------

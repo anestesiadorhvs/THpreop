@@ -78,6 +78,14 @@
       color: #333;
       
     }
+    h5 {
+      text-align: center; /* Centra horizontalmente el texto */
+      margin: 10px auto 0; /* Margen superior de 10px, centrado horizontalmente */
+      width: 100%; /* Asegura que el título use todo el ancho disponible */
+      font-size: 22px;
+      color: #3d2890;
+      
+    }
     </style>
     
 </head>
@@ -524,8 +532,9 @@
                         <option value="0" selected>No indicado</option>
                         <option value="1">No puede realizarse</option>
                         <option value="2">No concluyente</option>
-                        <option value="3">Concluyente positivo para isquemia</option>
-                        <option value="4">Concluyente negativo para isquemia</option>
+                        <option value="3">WMSI 1.1-1.7</option>
+                        <option value="3">WMSI >=1.7 o FEVI<=45</option>
+                        <option value="4">No isquemia o WMSI 1</option>
                     </select>
                 </div>
                 <div class="form-group col-md-8">
@@ -762,7 +771,7 @@
                     <label for="mordida">Test Mordida Labio superior</label>
                     <select id="mordida"  name="th.mordida" class="form-control">
                         <option value="1" selected>I. Los incisivos inferiores pueden morder completamente el labio superior, ocultando la mucosa del labio.</option>
-                        <option value="2">II. Los incisivos inferiores pueden morder completamente el labio superior, ocultando la mucosa del labio.</option>
+                        <option value="2">II. Los incisivos inferiores pueden morder parcialmente el labio superior, ocultando la mucosa del labio.</option>
                         <option value="3">III. Los incisivos inferiores no pueden morder el labio superior. </option>
                         </select>
                 </div>
@@ -1414,7 +1423,7 @@
                 <legend class="w-auto">Riesgo Global</legend>
                 <div class="form-row">
                     <div class="col-md-2">
-                        <div id="cuadradoriesgo" class = "rounded-shadow"></div>
+                        <div id="cuadradoriesgo" class = "rounded-shadow" style="height:100%"></div>
                     </div>
                     <div class="col-md-2">
                         <h4>Child-Pugh</h4>
@@ -1425,7 +1434,7 @@
                         <canvas id="meldcanvas"></canvas>
                     </div>
                     <div class = "col-md-6">
-                        <div id = "riskMessage" class ="rounded-corners" style="padding: 5px; background-color: green; color: white;">
+                        <div id = "riskMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
                             estimacion de riesgo
                         </div>
                     </div>
@@ -1436,14 +1445,14 @@
                 <legend class="w-auto">Vía aérea</legend>
                 <div class="form-row">
                     <div class="col-md-2">
-                        <div id="cuadradovia" class = "rounded-shadow"></div>
+                        <div id="cuadradovia" class = "rounded-shadow" style="height:100%"></div>
                     </div>
                     <div class="col-md-2">
                         <h4>Score</h4>
                         <canvas id="viacanvas"></canvas>
                     </div>
                     <div id="txtmallampati" class="col-md-2">
-                        <h4>Mallapati</h4>
+                        <h4>Mallampati</h4>
                     </div>
                     <div id = "txtdistancia" class="col-md-2">
                         <h4>Dist. Tiroment.</h4>
@@ -1455,6 +1464,19 @@
                     <div id ="txtapertura" class="col-md-2">
                         <h4>Apertura bucal</h4>
                     </div>
+                </div>
+                <div class ="form-row">
+                        <div class = "col-md-2"></div>
+                        <div class = "col-md-2"></div>
+                        <div class = "col-md-2"></div>
+
+                        <div class = "col-md-6">
+                            <div id = "viaMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
+                                ventilacion
+                            </div>
+                        </div>
+                </div>
+              
             </fieldset>
 
             <fieldset class="border p-4">

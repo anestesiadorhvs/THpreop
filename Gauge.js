@@ -121,7 +121,7 @@
 		var newFontSize = Math.floor(30 * widthRatio);
 		var fontSizeToUse = Math.min(newFontSize, this.gaugeRadius);
 		ctx.textAlign = "center";
-		ctx.font = fontSizeToUse + "px " + this.fontStyle;
+		ctx.font = fontSizeToUse - 10 + "px " + this.fontStyle;
 		ctx.fillStyle = this.data.valueColor || this.fontColor;
 		ctx.fillText(label, this.gaugeCenterX, this.gaugeCenterY);
 	};
@@ -183,7 +183,7 @@
 			animateRotate: true,
 			animateScale: false
 		},
-		cutoutPercentage: 85,
+		cutoutPercentage: 90,
 		rotation: Math.PI,
 		circumference: Math.PI,
 		legend: {
