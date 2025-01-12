@@ -34,6 +34,8 @@
         document.getElementById('historiaPatologiaCoronaria').addEventListener('change', evaluateStressEcho);
         document.getElementById('historiaFamiliarPatologiaCoronaria').addEventListener('change', evaluateStressEcho);
         document.getElementById('arteriopatiaPeriferica').addEventListener('change', evaluateStressEcho);
+        document.getElementById('historiaInsuficienciaCardiaca').addEventListener('change', evaluateStressEcho);
+        document.getElementById('historiaCerebrovascular').addEventListener('change', evaluateStressEcho);
        
         document.getElementById('resultadoStress').addEventListener('change', evaluateResultadoStressEcho);
         document.getElementById('estenosisDerecha').addEventListener('change', evaluateCoronariografia);
@@ -148,10 +150,10 @@
         let texto1,texto2,texto3,texto4;
         let mensaje ="";
         if (apertura ==1){
-            texto1="<4 cm";
+            texto1=">4 cm";
 
         }else{
-            texto1=">4cm";
+            texto1="<4cm";
         }
         if (movilidad ==1){
             texto2 = "Normal";
@@ -178,17 +180,430 @@
         document.getElementById("viaMessage").innerHTML = "Test Mordida: " + texto4;
     }
     function riskcardio(){
+        let colorinsuficiencia;
+        let colorisquemia;
+        let colorparada;
+        let colorderecho
+        // riesgo disfuncion. Escala HAFF
+        const haff = parseInt(document.getElementById("indiceHfaPeef").value);
+        let mensajeHAFF="";
+        if (haff>=5){
+            mensajeHAFF="Paciente con muy elevado riesgo de insuficiencia cardiaca. Considera iniciar tratamiento con levosimedan dosis de carga 5 mcgr/kg y PC 0,1 mcgr/kg/min ó incluso adrenalina en PC inicio a 0,1 mcg/kg/min.";
+            colorinsuficiencia ="rojo";
+        }else if (haff > 2){
+            mensajeHAFF="Paciente con riesgo moderado de presentar insuficiencia cardiaca intraoperatoria. Considera iniciar tratamiento con levosimedan dosis de carga 5 mcgr/kg y PC 0,1 mcgr/kg/min y preparar PC adrenalina";
+            colorinsuficiencia="amarillo";
+        }else{
+            mensajeHAFF="Paciente con bajo riesgo de presentar insuficiencia cardiaca intraoperatoria";
+            colorinsuficiencia = "verde";
+        }
+        // riesgo isquemia. Fact. riesgo no revasc.
+        /*
+        RICR: 
+            0:<1%
+            1-2: 1-5%
+            >=3: > 5%
+        Eco Stress
+            +:10%
+            -:1-5%
+        AngioTAC:
+            score calcico > 100: 7%
+            Estenosis coronaria signif.: 30%
+        */
+        /* valor riesgo
+            1%: RICR <=2 || eco stress normal || revasc
+            8%: RICR >=3 || Ca score >100 || ecostress moderado
+            12%: Ecostress severo
+            30%: angiotac estenosis
+        */
+        let ricr = 1; // un punto por cirugia mayor
+        let mensajeCI = "";
+        let valorriesgo = 0;
+        
+        // calculo de RCRI despues se modifica con PC
+        const creatinina = parseFloat(document.getElementById("creatininaMeld").value);
+        const isquemia = document.getElementById('historiaPatologiaCoronaria').checked;
+        const cerebro = document.getElementById('historiaCerebrovascular').checked;
+        const insuficiencia = document.getElementById('historiaInsuficienciaCardiaca').checked;
+        const diabetes = document.getElementById('diabetes').checked;
+        
+        ricr += (creatinina >=2) ? 1:0;
+        ricr += (isquemia) ? true:false;
+        ricr += (cerebro) ? true:false;
+        ricr += (insuficiencia) ? true:false;
+        ricr += (diabetes) ? true:false;
+        
+        if (ricr >=3){
+            mensajeCI ="Paciente con factores de riesgo que podrian indicar alto riesgo de isquemia intraoperatoria (>5%). Seria aconsejable ampliar estudio. En pacientes de alto riesgo es aconsejable dejar una guía en arteria femoral izquierda por si es necesario colocar BCIAo intraoperatorio. Evita fármacos como la terlipresina para el tratamiento del sd hepatorenal prefiriendo en este caso noradrenalina. Considera el uso de betabloqueantes intraoperatorios, Esmolol inicio a 50 mcgr/kg/min, vigilando la función derecha sobre todo en pacientes con hipertensión pulmonar. En hipertension portal puedes usar somatostatina u octeotrido y no se aconseja terlipresina";
+            valorriesgo = 10;
+            colorisquemia="rojo"
+        }else if (ricr >=1){
+            mensajeCI ="Paciente con factores de riesgo que indican riesgo moderado (1-5%) de sufrir eventos intraoperatorios isquémicos. Aconsejable ampliar estudio. En pacientes de riesgo moderado evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido)";
+            valorriesgo=5;
+            colorisquemia="amarillo";
+        } else {
+            mensajeCI ="Bajo riesgo de eventos isquemicos intraoperatorios (<1%)"
+            valorriesgo=1;
+            colorisquemia="verde";
+        }
 
+        // esta revascularizadoo y estable?
+        const revasc = parseInt(document.getElementById("resultadoCoronariografia").value);
+        
+        if (revasc == 2 || revasc==0) {
+            // revascularizado o no indicado. riesgo leve /moderado
+            // RCRI
+            valorriesgo = 1;
+            colorisquemia="verde";
+        }else if (revasc == 1){
+            // no puede realizarse revasc incompleta. Riesgo moderado/elevado
+            // chequear eco stress
+            const resultadoStress = parseInt(document.getElementById('resultadoStress').value);
+                if (resultadoStress ==1 || resultadoStress==2){
+                    // no concluyente o no puede realizarse. check angiotac
+                    const estenosisDerecha = document.getElementById('estenosisDerecha').checked;
+                    const estenosisIzquierda = document.getElementById('estenosisIzquierda').checked;
+                    const scoreCalcico = document.getElementById('scoreCalcico').checked;
+                    const realizacion = document.getElementById('norealizado').checked;
+                        if (estenosisDerecha || estenosisIzquierda){
+                            mensajeCI="Los pacientes con estenosis coronaria significativa no revascularizada presentan un riesgo de eventos isquémicos intraoperatorios del 30% si no han sido revascularizados. Es aconsejable dejar una guía en arteria femoral izquierda por si es necesario colocar BCIAo intraoperatorio. Evita fármacos como la terlipresina para el tratamiento del sd hepatorenal prefiriendo en este caso noradrenalina. Considera el uso de betabloqueantes intraoperatorios, Esmolol inicio a 50 mcgr/kg/min, vigilando la función derecha sobre todo en pacientes con hipertensión pulmonar. En hipertension portal puedes usar somatostatina u octeotrido y no se aconseja terlipresina";
+                            valorriesgo = 30;
+                            colorisquemia="rojo";
+                        } else if ( scoreCalcico){
+                            mensajeCI="En ausencia de lesiones coronarias significativas un score calcico por encima de 100 asocia un riesgo de eventos isquémicos en torno a un 8% si no es revascularizado. Evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido).";
+                            valorriesgo = 8;
+                            colorisquemia="amarillo";
+                        } else if (realizacion) {
+                            // elevado
+                            mensajeCI = "En ausencia de coronariografía un paciente con ecostress positivo presenta un riesgo de eventos isquemicos que oscila entre el 10% si las lesiones coronarias no son significativas y el 30% si lo son. Evita fármacos como la terlipresina para el tratamiento del sd hepatorenal prefiriendo en este caso noradrenalina. Considera el uso de betabloqueantes intraoperatorios, Esmolol inicio a 50 mcgr/kg/min, vigilando la función derecha sobre todo en pacientes con hipertensión pulmonar. En hipertension portal puedes usar somatostatina u octeotrido y no se aconseja terlipresina";
+                            valorriesgo = 15;
+                            colorisquemia="rojo";
+                        }else{
+                            // normal
+                            mensajeCI="El riesgo de isquemia intraoperatoria en estos pacientes se situa entre el 1-5%. Evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido).";
+                            valorriesgo=3;
+                            colorisquemia="verde";
+                        }
+                }else if (resultadoStress == 4){
+                    // riesgo bajo
+                    mensajeCI = "El riesgo de isquemia intraoperatoria en este grupo de pacientes se situa por debajo del 1%";
+                    valorriesgo = 1;
+                    colorisquemia="verde";
+                }else{
+                    // resultado = 3. riesgo moderado o alto
+                    const selectedOptionText = document.getElementById('resultadoStress').options[document.getElementById('resultadoStress').selectedIndex].text;
+                    if (selectedOptionText == "WMSI 1.1-1.7"){
+                        //riesgo moderado 3%
+                        mensajeCI =  "El riesgo de isquemia intraoperatoria en este grupo de pacientes se situa en torno al 3%. Evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido).";
+                        valorriesgo=3;
+                        colorisquemia="amarillo";
+                    }else{
+                        //riesgo elevado 10%
+                        mensajeCI =  "El riesgo de isquemia intraoperatoria en este grupo de pacientes se situa  en torno al 7%. Evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido).";
+                        valorriesgo=7;
+                        colorisquemia="amarillo";
+                    }
+                } 
+           
+        }
+        // riesgo parada sd reperfusión. Indice CARI QTc, edad, sexo, MELD
+        /* 4-5 elevado
+           2-3 moderado
+           0-1 bajo
+        */
+        const QTc= parseInt(document.getElementById("qtc").value);
+        const edad = parseInt(document.getElementById("edadinicio").value);
+        const MELD = parseInt(document.getElementById("meldScore").value);
+        const sexo = parseInt(document.getElementById("sexoinicio").value);
+        let CARI = 0;
+        let mensajePC="";
+        CARI += (QTc >= 480) ? 2 : 0;
+        CARI += (edad >=65) ? 1 : 0;
+        CARI += (MELD >=30) ? 1 : 0;
+        CARI += (sexo ==1) ? 1 : 0;
+        if (CARI >=4){
+            colorparada="rojo";
+            mensajePC = "Paciente con riesgo elevado de arritmia grave o parada intraoperatoria. Considera evitar fármacos que prolonguen el QT como la amiodarona, quinolonas, droperidol, macrolidos y ondasetron. Considera realizar profilaxis con la administración de 2gr iv de sulfato de magnesio";
+        }else if (CARI ==2 || CARI ==3 ){
+            colorparada="amarillo";
+            mensajePC = "paciente con riesgo moderado de parada intraoperatoria.Considera evitar fármacos que prolonguen el QT como la amiodarona, quinolonas, droperidol, macrolidos y ondasetron. Considera realizar profilaxis con la administración de 2gr iv de sulfato de magnesio."
+        }else{
+            colorparada="verde"
+            mensajePC = "Paciente con bajo riesgo de parada intraoperatoria";
+        };
+        // riesgo de disfuncion derecha
+        // TAPSE/PASP en traspl hepatico
+        /*
+        >0.32 leve 
+        0.19-0.32 mod
+        < 0.19 severo
+        */
+
+        let mensajeVD="";
+        const paps = parseInt(document.getElementById("papsEstimada").value);
+        const tapse = parseInt(document.getElementById("Tapse").value);
+        const indiceTP = (tapse/paps).toFixed(2);
+        if (indiceTP <0.19){
+            colorderecho="rojo";
+            mensajeVD ="Muy alto riesgo de disfunción severa de VD en el intraoperatorio. Considera monitorizar CAP, si PAPm >=45-50 contraindica el implante. Considera iniciar PC de milrinona a 0.5 mcgr/kg/min, subir FiO2 e hiperventilar para paCO2 30-35 mmHg";
+        }else if (indiceTP >= 0.19&& indiceTP<=0.32){
+            mensajeVD ="Riesgo moderado de disfunción severa de VD en el intraoperatorio. Considera monitorizar CAP, si PAPm >=45-50 contraindica el implante. Considera iniciar PC de milrinona a 0.5 mcgr/kg/min, subir FiO2 e hiperventilar para paCO2 30-35 mmHg";
+            colorderecho="amarillo";
+        }else{
+            mensajeVD ="Riesgo leve de disfunción de VD";
+            colorderecho="verde";
+        }
+
+        let recomendaciones="<ul>";
+        recomendaciones = "<li><b>Valoración de riesgo de I. Cardiaca:</b> " + mensajeHAFF +"</li>";
+        recomendaciones = recomendaciones + "<li><b>Valoración del riesgo de isquemia:</b> " + mensajeCI + "</li>";
+        recomendaciones = recomendaciones + "<li><b>Valoración del riesgo de parada intraoperatoria:</b> " + mensajePC + "</li>";
+        recomendaciones = recomendaciones + "<li><b>Valoración del riesgo de disfunción derecha:</b> " + mensajeVD + "</li>";
+        recomendaciones = recomendaciones + "</ul>";
+        // actualiza pagina
+        gauge("PCcanvas",CARI,0,1,3,5);
+        gauge("VIcanvas",haff,0,3,5,6);
+        gauge("CIcanvas",valorriesgo,0,5,15,30);
+        gauge("VDcanvas",indiceTP,0.8,0.31,0.19,0);
+        if (colorderecho=="rojo" || colorisquemia=="rojo" || colorinsuficiencia=="rojo"){
+            //rojo
+            cuadrado("cuadradocardio",90);
+        }else if (colorderecho="verde" && colorisquemia=="verde" && colorinsuficiencia =="verde" && colorparada =="verde"){
+            //verde
+            cuadrado("cuadradocardio",30);
+        }else{
+            //amarillo
+            cuadrado("cuadradocardio",60);
+        }
+        document.getElementById("cardioMessage").innerHTML=recomendaciones;
+        
     }
     function riskneumo(){
-
+        // sd hepato pulmonar
+        const fio2 = parseFloat(document.getElementById('fio2').value) || 0.21;
+        const paco2 = parseFloat(document.getElementById('paco2').value) || 35;
+        const pao2 = parseFloat(document.getElementById('pao2').value) || 95;
+        const edad = parseInt(document.getElementById('edadinicio').value) || 50;
+        const aaGradient = (713 * fio2) - (paco2 / 0.8) - pao2;
+        let recomiendashp;
+        
+        if ((edad >=65 && aaGradient >=20 )|| (edad < 65 && aaGradient>=15)){
+            if (pao2 >= 80){
+                //leve
+                recomiendashp = "Paciente con Sd Hepatopulmonar leve";
+            }else if (pao2 >=60){
+                recomiendashp = "Paciente con Sd Hepatopulmonar moderado. Considera usar octeotrido 50 mg en bolo lento iv";
+                //moderado
+            }else if (pao2 >=50){
+                // severa
+                recomiendashp = "Paciente con Sd Hepatopulmonar severo. Considera usar octeotrido 50 mg en bolo lento iv y/o azul de metileno en bolo lento iv (15 min) 3 mg/kg";
+                
+            }else{
+                //muy severa
+                recomiendashp = "Paciente con Sd Hepatopulmonar muy severo. Considera usar octeotrido 50 mg en bolo lento iv y/o azul de metileno en bolo lento iv (15 min) 3 mg/kg";
+                
+            }
+        } else {
+            //normal
+                recomiendashp="Paciente sin Sd Hepatopulmonar."
+        }
+        //HTP
+        const papm = parseInt(document.getElementById("papmSelect").value);
+        let papvalue;
+        let recomiendapapm;
+            if (papm == 0){
+                // <25 normal
+                recomiendapapm = "Presión pulmonar normal";
+                papvalue=24;
+            }else if (papm == 1){
+                // 25-34 leve
+                recomiendapapm = "HTP leve. Evita factores agravantes como la hipercapnia o la hipoxia y fármacos como la amiodarona, el tramadol o inhibidores recaptacion serotonina";
+                papvalue=30;
+            }else if (papm == 2){
+                // 35-44 moderado
+                recomiendapapm ="HTP moderada. Considera monitorizar con CAP. Evita factores agravantes como la hipercapnia o la hipoxia y fármacos como la amiodarona, el tramadol o inhibidores recaptacion serotonina. Considera usar sildenafilo en bolo lento de 10 mg iv y/o epoprostenol iv en pc inicio a 2 nanogr/kg/min y aumentar 2 nanogr/kg/min cada 15 min hasta 15-30 nanogr/kg/min";
+                papvalue=40;
+            }else{
+                //>=45 severo
+                recomiendapapm = "HTP severa. Considera monitorizar con CAP. Valores de PAPm en torno a 50 contraindican el trasplante. Considera usar sildenafilo en bolo lento de 10 mg iv y/o epoprostenol iv en pc inicio a 2 nanogr/kg/min y aumentar 2 nanogr/kg/min cada 15 min hasta 15-30 nanogr/kg/min";
+                papvalue = 45;
+            }
+        // pfr
+        document.getElementById("lblpfr").innerHTML="<b>Pruebas de Función respiratoria:</b><br>" + document.getElementById("pulmonaryFunctionMessage").innerHTML;
+           
+        gauge("SHPcanvas",pao2,100,60,50,30);
+        gauge("HPPcanvas",papvalue,20,25,35,45);
+        let color=0;
+        if (papvalue == 45 || pao2 <=50){
+            color = 90;
+        }else if (papvalue <= 30 && pao2 >=80){
+            color = 20;
+        }else{
+            color = 55;
+        }
+        cuadrado("cuadradopulmon",color);
+        document.getElementById("neumoMessage").innerHTML="<ul><li><b>Valoración del sd hepatopulmonar: </b>" + recomiendashp + "</li><li><b>Valoración de hipertensión portopulmonar:</b> " + recomiendapapm + "</li></ul>";
     }
     function risksangrado(){
+        // score, cirugia previa e HTPortal
+        // chequear medicacion
+        let score = 0;
+        const retrasplante = document.getElementById('retrasplantehemato').value;
+        const sexo = document.getElementById('sexoinicio').value;
+        const edad = parseFloat(document.getElementById('edadinicio').value);
+        const hemoglobina = parseFloat(document.getElementById('hemoglobina').value);
+        const protrombina = parseFloat(document.getElementById('protrombina').value);
+        const creatinina = parseFloat(document.getElementById('creatininahemato').value);
+        const albumina = parseFloat(document.getElementById('albumina').value);
+        const plaquetas = parseFloat(document.getElementById('plaquetas').value);
+        
+        if (retrasplante == '1') score += 1;
+        if (hemoglobina < 10) score += 1;
+        if (edad > 40) score += 1;
+        if (protrombina >2) score += 2;
+        if (sexo == '1' && creatinina >= 1.36) score += 1;
+        if (sexo == '2' && creatinina >= 1.28) score += 1;
+        if (plaquetas < 70000) score += 1;
+        if (albumina < 24) score += 1;
+        gauge("sangradocanvas",score,0,2,2,8);
+        let mensajesangrado;
+        let mensajeportal;
+        let color;
 
+        if (score>=3){
+            // riesgo alto. avisar a hematologia, preactivar protocolo hemrragia masiva corregir hb, plaqu, INR
+            mensajesangrado = "Paciente con riesgo elevado de sangrado intraoperatorio. Considera avisar a hematología para disponer de concentrados de hematies en nevera, pedir 2 gr de fibrinogeno y 2 viales de prothromplex del dispensador, y corregir plaquetas e INR previo a la fase de disección. Preactiva el protocolo de hemorragia masiva.";
+        }else{
+            // riesgo bajo
+            mensajesangrado = "Paciente sin alteraciones analíticas que lo pongan en riesgo para sangrado intraoperatorio."
+        }
+        const pe= document.getElementById('pshe').value;
+        const pl= document.getElementById('pshl').value;
+        const gpvh = pe-pl;
+        gauge("portalcanvas",gpvh,0,9,12,25);
+
+        if (gpvh >=12){
+            //grave, vasopresina terlipresina, bypass
+            //vasopresina 4UI/h, terlipresina bolo 1 mg PC 2 mcgr/kg/h
+            mensajeportal="Paciente con HTP severa, riesgo de sangrado intraoperatorio. Considera iniciar tratamiento con vasopresina 4UI/h, o (especialmente si presenta sindrome hepatorenal) terlipresina bolo 1 mg seguido de PC a 2 mcgr/kg/h. Es posible que pueda requerir transfusión importante, considera preactivar protocolo de hemorragia masiva.";
+
+        }else if (gpvh>=10){
+            //moderada vasopresina terlipresina
+            mensajeportal="Paciente con HTP moderada, riesgo de sangrado intraoperatorio. Considera iniciar tratamiento con vasopresina 4UI/h, o (especialmente si presenta sindrome hepatorenal) terlipresina bolo 1 mg seguido de PC a 2 mcgr/kg/h. Es posible que pueda requerir transfusión importante, considera preactivar protocolo de hemorragia masiva.";
+
+        }else if (gpvh>=6){
+            //leve
+            mensajeportal="paciente con HTP leve. Vigilancia de sangrado en fase de disección."
+        }else{
+            //no HTP
+            mensajeportal="Paciente sin hipertensión portal";
+        }
+
+        if (parseInt(document.getElementById("cirugiaAbdominalPrevia").value) == 1 || parseInt(document.getElementById("peritonitisBacterianaEspontanea").value == 1)){
+            // cirugia o peritonitis alto riesgo
+            document.getElementById("cirugiasprevias").innerHTML = "Paciente con mayor riesgo de sangrado por cirugía abdominal previa y/o episodios de peritonitis bacteriana.";
+           
+        }
+
+        if (gpvh>=10 || score>=3){
+            color=90;
+        }else if (gpvh<9 && score<2){
+            color = 20
+        }else{
+            color = 55;
+        }
+        cuadrado("cuadradosangrado",color);
+        document.getElementById("sangreMessage").innerHTML="<ul><li><b>Riesgo de sangrado: </b>" + mensajesangrado + "</li><li><b>Hipertensión portal: </b>" + mensajeportal + "</li></ul>";
     }
     function risknefro(){
+            // filtrado
+            const eGFR = parseInt(document.getElementById('egfrValue').innerText);
+            let lblefgr;
+    
+            if (eGFR >= 90) {
+               lblefgr = "Grado 1";
+            } else if (eGFR >= 60) {
+                lblefgr = "Grado 2";
+            } else if (eGFR >= 45) {
+                lblefgr = "Grado 3a";
+            } else if (eGFR >= 30) {
+                lblefgr = "Grado 3b";
+            } else if (eGFR >= 15) {
+                lblefgr = "Grado 4";
+            } else {
+                lblefgr = "Grado 5";
+            }   
+            gauge("eFGRcanvas",eGFR,150,30,15,0);
+            document.getElementById("grado").innerHTML=lblefgr;
+            // sd hepatorenal
+            let mensajeaki;
+            let coloraki;
+            const divaki = document.getElementById('akiMessage').innerHTML;
+            document.getElementById("riesgoAKI").innerHTML= divaki;
+            if (divaki !="AKI / Sd Hepatorrenal poco probable"){
+                mensajeaki = "Paciente con Sd Hepatorenal/AKI. No olvidar reponer las pérdidas de liq. ascitico con 10 gr de albumina por cada litro evacuado. Considera comenzar tratamiento con terlipresina bolo 1 mg seguido de PC a 2 mcgr/kg/h, si no es posible considera la PC de noradrenalina comenzando a 0,1 mcgr/kg/min.";
+                coloraki=90;
+            }else{
+                mensajeaki ="Paciente con bajo riesgo de sd hepatorenal/AKI"
+                coloraki=20;
+            }
+            // Agopian
+            const falloHepatico = parseInt(document.getElementById('falloHepatico').value);
+            const donanteAsistolia = parseInt(document.getElementById('donanteAsistolia').value);
+            const retrasplante = parseInt(document.getElementById('retrasplante').value);
+            const vasopresoresPreop = parseInt(document.getElementById('vasopresoresPreop').value);
+            const crrtPreop = parseInt(document.getElementById('crrtPreop').value);
+            const kPreop = parseFloat(document.getElementById('kPreop').value) || 3.5;
+            const bilirrubina = parseFloat(document.getElementById('bilirrubinaCRRT').value) || 5;
 
+            let score = 0;
+            if (falloHepatico === 1) { // Crónico
+                if (donanteAsistolia === 1) score += 10;
+                if (retrasplante === 1) score += 9;
+                if (vasopresoresPreop === 1) score += 7;
+                if (crrtPreop === 1) score += 6;
+                score += Math.floor((kPreop - 3.5) / 0.12);
+                //score += Math.floor(isquemiaFrio / 0.72);
+                score += Math.floor(bilirrubina / 6);
+            } else if (falloHepatico === 2) { // Agudo
+                if (donanteAsistolia === 1) score += 10;
+                if (vasopresoresPreop === 1) score += 7;
+                if (crrtPreop === 1) score += 28;
+                //score += Math.floor(isquemiaFrio / 0.72);
+                score += Math.floor(bilirrubina / 6);
+            }
+            let colorcrrt;
+            let mensajecrrt = "";
+            if (score >= 42 && falloHepatico===1){
+                mensajecrrt = "Paciente con riesgo elevado de requerir CRRT intraoperatoria";
+                colorcrrt=90;
+            }else if (score >=28 && falloHepatico ===2){
+                mensajecrrt = " Paciente con riesgo elevado de requerir CRRT intraoperatoria. Considera la canalización de Shaldon en lugar de introductor de CAP";
+                colorcrrt=90
+            }else if (score <42  && falloHepatico ===1){
+                mensajecrrt = " Paciente con riesgo moderado de requerir CRRT intraoperatoria. Considera la canalización de Shaldon en lugar de introductor de CAP";
+                colorcrrt =55;
+            } else if (score <28 && falloHepatico ===2){
+                mensajecrrt = " Paciente con riesgo moderado de requerir CRRT intraoperatoria";
+                colorcrrt=55;
+            }else{
+                mensajecrrt = "Paciente con bajo riesgo de necesitar CRRT intraoperatoria"
+                colorcrrt = 20;
+            };
+            
+            gauge ("CRRTcanvas",score,0,28,42,60);
+            let color;
+            if (eGFR<=45 || coloraki==90 || colorcrrt==90){
+                color=90;
+            }else if(eFGR>=90 && coloraki ==20 && colorcrrt==90){
+                color=20;
+            }else{
+                color=55;
+            }
+            cuadrado("cuadradorenal",color);
+            document.getElementById("renalMessage").innerHTML="<ul><li><b>Filtrado Glomerular:</b> Paciente con eFGR de " + eGFR +" mL/min/1.73m². " + lblefgr + "</li><li><b>Riesgo Sd Hepatorenal/AKI: </b>" +mensajeaki+"</li><li><b>Riesgo de requerir CRRT intraoperatorio: </b>" + mensajecrrt + "</li></ul>";
     }
+
     function risknutricion(){
 
     }
@@ -211,7 +626,7 @@
         },
         options: {
                 events: [],
-                showMarkers: false
+                showMarkers: true
         }
     });
    }
@@ -246,9 +661,13 @@
             if (currentSection === 6) {
               riskgeneral();
               riskVA();
-               
-                
-                
+              riskcardio();
+              riskneumo();
+              risksangrado();
+              risknefro();
+            }
+            if (currentSection==3){
+                calculateEGFR();
             }
         }
 
@@ -277,7 +696,7 @@
         // generar PDF
         //https://raw.githack.com/MrRio/jsPDF/master/index.html
         function generatePDF() {
-            const { jsPDF } = window.jspdf;
+            /*const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'pt', 'a4');
            
            const pageHeight = pdf.internal.pageSize.height || pdf.internal.pageSize.getHeight();
@@ -307,7 +726,7 @@
            
            
            pdf.save('formulario_valoracion.pdf');
-        }
+        */}
         
     // seccion 1.Valoracion inicial
     //----------------------------------------------------------
@@ -570,6 +989,8 @@
             const tabaquismo = document.getElementById('tabaquismo').checked;
             const historiaPatologiaCoronaria = document.getElementById('historiaPatologiaCoronaria').checked;
             const historiaFamiliarPatologiaCoronaria = document.getElementById('historiaFamiliarPatologiaCoronaria').checked;
+            const historiaInsuficienciaCardiaca = document.getElementById('historiaInsuficienciaCardiaca').checked;
+            const historiaCerebrovascular = document.getElementById('historiaCerebrovascular').checked;
             const arteriopatiaPeriferica = document.getElementById('arteriopatiaPeriferica').checked;
             const edad = parseInt(document.getElementById('edadinicio').value);
 
@@ -577,7 +998,7 @@
             let mensaje = "No es necesario ecocardiograma de stress";
             let color = "green";
 
-            if (diabetes || historiaPatologiaCoronaria) {
+            if (diabetes || historiaPatologiaCoronaria||historiaCerebrovascular||historiaInsuficienciaCardiaca) {
                 mensaje = "Es necesario ecocardiograma de stress";
                 color = "red";
             } else {

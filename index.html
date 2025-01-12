@@ -86,6 +86,10 @@
       color: #3d2890;
       
     }
+    .centrado {
+    display: block; /* Asegura que el span se comporte como un bloque */
+    text-align: center; /* Centra el texto horizontalmente */
+    }
     </style>
     
 </head>
@@ -399,14 +403,23 @@
                     <h3>Criterios Mayores</h3>
                 <div class="form-check">
                     <input type="checkbox" id="diabetes"  name="th.criterios.mayores[]" class="form-check-input" value="diabetes">
-                    <label for="diabetes" class="form-check-label">Diabetes</label>
+                    <label for="diabetes" class="form-check-label">Diabetes en tto insulina</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" id="historiaPatologiaCoronaria"  name="th.criterios.mayores[]" class="form-check-input" value="historiaPatologiaCoronaria">
                     <label for="historiaPatologiaCoronaria" class="form-check-label">Historia previa o clínica de patología coronaria</label>
                 </div>
-                <br>
-                
+
+                <div class="form-check">
+                    <input type="checkbox" id="historiaInsuficienciaCardiaca"  name="th.criterios.mayores[]" class="form-check-input" value="historiaInsuficienciaCardiaca">
+                    <label for="historiaInsuficienciaCardiaca" class="form-check-label">Historia previa o clínica de Insuficiencia Cardiaca</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="historiaCerebrovascular"  name="th.criterios.mayores[]" class="form-check-input" value="historiaCerebrovascular">
+                    <label for="historiaCerebrovascular" class="form-check-label">Historia previa de enf. Cerebrovascular</label>
+                </div>
+               
+
                 </div>
                 <div class="col-md-6">
                     <h3>Criterios Menores</h3>
@@ -550,6 +563,11 @@
                     <div id="angioTacMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                         No es necesario angioTAC
                     </div>
+                   
+                    <div class="form-check">
+                        <input type="checkbox" id="norealizado"  name="th.angioTAC[]" class="form-check-input" value="norealizado">
+                        <label for="norealizado" class="form-check-label">No puede realizarse </label>
+                    </div>
                     <div class="form-check">
                         <input type="checkbox" id="estenosisDerecha"  name="th.angioTAC[]" class="form-check-input" value="estenosisDerecha">
                         <label for="estenosisDerecha" class="form-check-label">Estenosis coronaria derecha &gt;70%</label>
@@ -578,6 +596,7 @@
                         <select id="resultadoCoronariografia"  name="th.resultadoCoronariografia" class="form-control">
                             <option value="0">No indicado</option>
                             <option value="1">No puede realizarse</option>
+                            <option value="1">Revascularización incompleta</option>
                             <option value="2">Revascularizado</option>
                         </select>
                     </div>
@@ -643,7 +662,7 @@
                    
                     <div class="form group rounded-shadow" style="background-color: darkseagreen;">
                         <label for="indiceHfaPeef">Índice HFA PEEF:</label>
-                        <input id="indiceHfaPeef" name = "indiceHfaPeef" type = "number" class="form-control" readonly>
+                        <input id="indiceHfaPeef" name = "indiceHfaPeef" type = "number" class="form-control" value ="0" readonly>
                     </div>
                     <div id="resultadoHfaPeef" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                         Bajo riesgo de insuficiencia cardiaca
@@ -655,8 +674,8 @@
                 <table border="1" id="gpvhTable" class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Gradiente</th>
                         <th>Estadío</th>
+                        <th>Gradiente</th>
                         <th>Comentario</th>
                     </tr>
                     </thead>
@@ -846,7 +865,7 @@
                     <span id="fev1FvcRatio">0</span>
                 </div>
                 <div id="pulmonaryFunctionMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
-                    Resultado de la función pulmonar
+                    Patron de PFR normal
                 </div>
             </fieldset>
             <fieldset class="border p-4 mt-4">
@@ -1428,10 +1447,12 @@
                     <div class="col-md-2">
                         <h4>Child-Pugh</h4>
                         <canvas id="childcanvas"></canvas>
+                        <span class ="centrado">Score Child</span>
                     </div>
                     <div class="col-md-2">
-                        <h4>MELD</h4>
+                        <h4>Score MELD</h4>
                         <canvas id="meldcanvas"></canvas>
+                        <span class ="centrado">Score MELD</span>
                     </div>
                     <div class = "col-md-6">
                         <div id = "riskMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
@@ -1448,8 +1469,9 @@
                         <div id="cuadradovia" class = "rounded-shadow" style="height:100%"></div>
                     </div>
                     <div class="col-md-2">
-                        <h4>Score</h4>
+                        <h4>Riesgo</h4>
                         <canvas id="viacanvas"></canvas>
+                        <span class="centrado">Score Naguib mod</span>
                     </div>
                     <div id="txtmallampati" class="col-md-2">
                         <h4>Mallampati</h4>
@@ -1483,19 +1505,136 @@
                 <legend class="w-auto">Valoración cardiológica</legend> 
                 <div class="form-row">
                     <div class="col-md-2">
-                        <div id="cuadradocardio" class = "rounded-shadow"></div>
+                        <div id="cuadradocardio" class = "rounded-shadow" style="height:100%"></div>
                     </div>
                     <div class="col-md-2">
-                        <h4>Disf. VI</h4>
+                        <h4>Insuf. Card</h4>
                         <canvas id="VIcanvas"></canvas>
+                        <span class="centrado">Score HFA-PEEF</span>
+
                     </div>
                     
                     <div class="col-md-2">
                         <h4>Riesgo C.Isq.</h4>
                         <canvas id="CIcanvas"></canvas>
+                        <span class ="centrado">RICR mod (%)</span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <h4>Riesgo Parada</h4>
+                        <canvas id="PCcanvas"></canvas>
+                        <span class ="centrado">Score CARI (%)</span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <h4>Disf. Derecha</h4>
+                        <canvas id="VDcanvas"></canvas>
+                        <span class ="centrado">TAPSE/PAP</span>
+                    </div>
+
+                    <div class = "col-md-2">
+
+                    </div>
+                </div>
+                <br>
+                <div class="form-row">
+                    <div id = "cardioMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(235, 240, 235); color: black;">
+                       cardio
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="border p-4">
+                <legend class="w-auto">Valoración Pulmonar</legend> 
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div id="cuadradopulmon" class = "rounded-shadow" style="height:100%"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Riesgo Sd. Hepatopulm.</h4>
+                        <canvas id="SHPcanvas"></canvas>
+                        <span class ="centrado">PaO2 (mmHg)</span>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <h4>Hipertension portopulm</h4>
+                        <canvas id="HPPcanvas"></canvas>
+                        <span class="centrado">PAP (mmHg)</span>
+                    </div>
+                    <div class="col-md-6">
+                        <div id ="lblpfr" class="rounded-shadow"  style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div class ="form-row">
+                    <div class="col-md-12">
+                    <div id = "neumoMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(235, 240, 235); color: black;">
+                        neumo
+                     </div>
+                     </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4">
+                <legend class="w-auto">Valoración Riesgo de sangrado</legend> 
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div id="cuadradosangrado" class = "rounded-shadow" style="height:100%"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Riesgo Sangrado</h4>
+                        <canvas id="sangradocanvas"></canvas>
+                        <span class ="centrado">Score</span>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Hipertens. Portal</h4>
+                        <canvas id="portalcanvas"></canvas>
+                        <span class ="centrado">GPVH (mmHg)</span>
                     </div>
                     <div class = "col-md-6">
-
+                        <div id = "cirugiasprevias" class ="rounded-shadow" style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
+                            El paciente no presenta antecedentes de cirugía previa o peritonitis bacteriana
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class ="form-row">
+                    <div class="col-md-12">
+                        <div id = "sangreMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(235, 240, 235); color: black;">
+                            
+                         </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4">
+                <legend class="w-auto">Valoración Función Renal</legend> 
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div id="cuadradorenal" class = "rounded-shadow" style="height:100%"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>eFGR</h4>
+                        <canvas id="eFGRcanvas"></canvas>
+                        <span id="grado" class ="centrado">Grado</span>
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Riesgo CRRT</h4>
+                        <canvas id="CRRTcanvas"></canvas>
+                        <span class ="centrado">Score Agopian</span>
+                    </div>
+                    <div class = "col-md-6">
+                        <div id = "riesgoAKI" class ="rounded-shadow" style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
+                            Bajo riesgo de sd hepatorenal/ AKI
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class ="form-row">
+                    <div class="col-md-12">
+                        <div id = "renalMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(235, 240, 235); color: black;">
+                            
+                         </div>
                     </div>
                 </div>
             </fieldset>
