@@ -1437,6 +1437,81 @@
         <div id="section7" class="section">
             <h2>Estimación de riesgos y recomendaciones</h2>
             <!-- Contenido de la sección -->
+            <fieldset class="border p-4">
+                <legend class="w-auto">Datos Administrativos</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="Rnhc">NHC:</label>
+                        <span id="Rnhc"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="Rsexo">Sexo:</label>
+                        <span id="Rsexo"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="Redad">Edad:</label>
+                        <span id="Redad"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="Rpeso">Peso:</label>
+                        <span id="Rpeso"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="Rtalla">Talla:</label>
+                        <span id="Rtalla"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="Rimc">IMC:</label>
+                        <span id="Rimc"></span> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="Rnombre">Nombre:</label>
+                        <span id="Rnombre"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="RprimerApellido">1er Apellido:</label>
+                        <span id="RprimerApellido"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="RsegundoApellido">2º Apellido:</label>
+                        <span id="RsegundoApellido"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4">
+                <legend class="w-auto">Antecedentes</legend>
+            <div class = "form-row">
+                <div class="form-group col-md-4">
+                    <label for="antecedentesMedicos">Antecedentes médicos:</label>
+                    <textarea id="antecedentesMedicos"  name="th.antecedentesMedicos" class="form-control" rows="4"></textarea>
+                
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="antecedentesQcos">Antecedentes quirúrgicos:</label>
+                    <textarea id="antecedentesQcos"  name="th.antecedentesQcos" class="form-control" rows="4"></textarea>   
+                    </div>
+                <div class="form-group col-md-4">
+                    <label for="medicacion">Medicación:</label>
+                    <textarea id="medicacion"  name="th.medicacion" class="form-control" rows="4"></textarea>
+                </div>
+            </div>
+            </fieldset>
+            <fieldset class="border p-4">
+                <legend class="w-auto">Indicaciones</legend>
+                
+                <div class="form-group">
+                   
+                    <div class="form-row">
+                        <div class="form-check col-md-4">
+                        <input type="checkbox" id="hepatocarcinoma"  name="th.indicacion[]" value="Hepatocarcinoma" class="form-check-input">
+                        <label for="hepatocarcinoma" class="form-check-label">Hepatocarcinoma</label>
+                    </div>
+                    
+                </div>
+            </fieldset>
+ 
             
             <fieldset class="border p-4">
                 <legend class="w-auto">Riesgo Global</legend>

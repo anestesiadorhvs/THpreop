@@ -110,6 +110,9 @@
 
     // riesgos
     //-------------------------------------------------------
+    function riskinicio(){
+
+    }
     function riskgeneral(){
         const child = parseInt(document.getElementById("childPughScore").value);
         let meld = (parseFloat(document.getElementById("meldScore").value)).toFixed(1);
@@ -595,7 +598,7 @@
             let color;
             if (eGFR<=45 || coloraki==90 || colorcrrt==90){
                 color=90;
-            }else if(eFGR>=90 && coloraki ==20 && colorcrrt==90){
+            }else if(eFGR>=90 && coloraki ==20 && colorcrrt==20){
                 color=20;
             }else{
                 color=55;
@@ -659,6 +662,7 @@
             document.getElementById('section' + currentSection).classList.remove('active');
             document.getElementById('section' + (currentSection + 1)).classList.add('active');
             if (currentSection === 6) {
+              riskinicio();
               riskgeneral();
               riskVA();
               riskcardio();
