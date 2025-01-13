@@ -111,7 +111,27 @@
     // riesgos
     //-------------------------------------------------------
     function riskinicio(){
+       const nhc = parseInt(document.getElementById('nhc').value);
+       const sexo = document.getElementById('sexoinicio').selectedIndex;
+       const sexodef = document.getElementById("sexoinicio").options[sexo].text;
+       const edad = parseInt(document.getElementById('edadinicio').value);
+       const peso = parseInt(document.getElementById('pesoinicio').value);
+       const talla = parseInt(document.getElementById('tallainicio').value);
+       const imc = parseInt(document.getElementById('imcinicio').value);
+       const nombre = document.getElementById("nombre").value;
+       const apellido1 = document.getElementById("primerApellido").value;
+       const apellido2 = document.getElementById("segundoApellido").value;
 
+       document.getElementById("Rnhc").innerHTML="<b>" + nhc +"</b>";
+       document.getElementById("Rsexo").innerHTML="<b>" + sexodef +"</b>";
+       document.getElementById("Redad").innerHTML="<b>" + edad +"</b>";
+       document.getElementById("Rpeso").innerHTML="<b>" + peso +"</b>";
+       document.getElementById("Rtalla").innerHTML="<b>" + talla +"</b>";
+       document.getElementById("Rimc").innerHTML="<b>" + imc +"</b>";
+       document.getElementById("Rnombre").innerHTML="<b>" + nombre +"</b>";
+       document.getElementById("RprimerApellido").innerHTML="<b>" + apellido1 +"</b>";
+       document.getElementById("RsegundoApellido").innerHTML="<b>" + apellido2 +"</b>";
+        
     }
     function riskgeneral(){
         const child = parseInt(document.getElementById("childPughScore").value);
@@ -575,7 +595,7 @@
                 //score += Math.floor(isquemiaFrio / 0.72);
                 score += Math.floor(bilirrubina / 6);
             }
-            let colorcrrt;
+            let colorcrrt=20;
             let mensajecrrt = "";
             if (score >= 42 && falloHepatico===1){
                 mensajecrrt = "Paciente con riesgo elevado de requerir CRRT intraoperatoria";
@@ -584,21 +604,21 @@
                 mensajecrrt = " Paciente con riesgo elevado de requerir CRRT intraoperatoria. Considera la canalización de Shaldon en lugar de introductor de CAP";
                 colorcrrt=90
             }else if (score <42  && falloHepatico ===1){
-                mensajecrrt = " Paciente con riesgo moderado de requerir CRRT intraoperatoria. Considera la canalización de Shaldon en lugar de introductor de CAP";
-                colorcrrt =55;
+                mensajecrrt = " Paciente con riesgo leve de requerir CRRT intraoperatoria.";
+                colorcrrt =20;
             } else if (score <28 && falloHepatico ===2){
-                mensajecrrt = " Paciente con riesgo moderado de requerir CRRT intraoperatoria";
-                colorcrrt=55;
+                mensajecrrt = " Paciente con riesgo leve de requerir CRRT intraoperatoria.";
+                colorcrrt=20;
             }else{
-                mensajecrrt = "Paciente con bajo riesgo de necesitar CRRT intraoperatoria"
-                colorcrrt = 20;
+                mensajecrrt = "Paciente con riesgo moderado de necesitar CRRT intraoperatoria. Considera usar Shaldon en lugar de introductor de CAP"
+                colorcrrt = 50;
             };
             
             gauge ("CRRTcanvas",score,0,28,42,60);
-            let color;
+            let color=20;
             if (eGFR<=45 || coloraki==90 || colorcrrt==90){
                 color=90;
-            }else if(eFGR>=90 && coloraki ==20 && colorcrrt==20){
+            }else if(eGFR>=90 && coloraki ==20 && colorcrrt==20){
                 color=20;
             }else{
                 color=55;
@@ -672,6 +692,7 @@
             }
             if (currentSection==3){
                 calculateEGFR();
+                calculateCRRTScore();
             }
         }
 
