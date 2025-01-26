@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta  name="th.viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Valoración</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="Chart.min.css" rel="stylesheet">
@@ -148,17 +148,170 @@
                 <legend class="w-auto">Antecedentes</legend>
             <div class = "form-row">
                 <div class="form-group col-md-4">
-                    <label for="antecedentesMedicos">Antecedentes médicos:</label>
-                    <textarea id="antecedentesMedicos"  name="th.antecedentesMedicos" class="form-control" rows="4"></textarea>
-                
+                    <label for="antecedentesMedicos"><b>Antecedentes médicos:</b></label>
+                    <div class="form-check">
+                        <input type="checkbox" id="hipertension"  name="th.comorbilidad[]" value="hipertension" class="form-check-input">
+                        <label for="hipertension" class="form-check-label">Hipertensión</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="diabetes"  name="th.comorbilidad[]" value="diabetes" class="form-check-input">
+                        <label for="diabetes" class="form-check-label">Diabetes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cancer"  name="th.comorbilidad[]" value="cancer" class="form-check-input">
+                        <label for="cancer" class="form-check-label">Cáncer (excepto piel de baja importancia)</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="enfermedadPulmonar"  name="th.comorbilidad[]" value="enfermedadPulmonar" class="form-check-input">
+                        <label for="enfermedadPulmonar" class="form-check-label">Enfermedad pulmonar crónica</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="infarto"  name="th.comorbilidad[]" value="infarto" class="form-check-input">
+                        <label for="infarto" class="form-check-label">Infarto de miocardio</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="insuficienciaCardiaca"  name="th.comorbilidad[]" value="insuficienciaCardiaca" class="form-check-input">
+                        <label for="insuficienciaCardiaca" class="form-check-label">Insuficiencia cardíaca congestiva</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="angina"  name="th.comorbilidad[]" value="angina" class="form-check-input">
+                        <label for="angina" class="form-check-label">Angina de pecho</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="asma"  name="th.comorbilidad[]" value="asma" class="form-check-input">
+                        <label for="asma" class="form-check-label">Asma</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="artritis"  name="th.comorbilidad[]" value="artritis" class="form-check-input">
+                        <label for="artritis" class="form-check-label">Artritis</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="ictus"  name="th.comorbilidad[]" value="ictus" class="form-check-input">
+                        <label for="ictus" class="form-check-label">Ictus</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="enfermedadRenal"  name="th.comorbilidad[]" value="enfermedadRenal" class="form-check-input">
+                        <label for="enfermedadRenal" class="form-check-label">Enfermedad renal</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="enfermedadVascular"  name="th.comorbilidad[]" value="enfermedadVascular" class="form-check-input">
+                        <label for="enfermedadVascular" class="form-check-label">Enfermedad Vascular</label>
+                    </div>
+    
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="antecedentesQcos">Antecedentes quirúrgicos:</label>
-                    <textarea id="antecedentesQcos"  name="th.antecedentesQcos" class="form-control" rows="4"></textarea>   
+                    <label for="antecedentesQcos"><b>Antecedentes quirúrgicos:</b></label>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiaAbdominalAlta"  name="th.cirugia[]" value="cirugiaAbdominalAlta" class="form-check-input">
+                        <label for="cirugiaAbdominalAlta" class="form-check-label">Cirugía Abdominal Alta</label>
                     </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiaAbdominalBaja"  name="th.cirugia[]" value="cirugiaAbdominalBaja" class="form-check-input">
+                        <label for="cirugiaAbdominalBaja" class="form-check-label">Cirugía Abdominal Baja</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiaHepatobilioPancreas"  name="th.cirugia[]" value="cirugiaHepatobilioPancreas" class="form-check-input">
+                        <label for="cirugiaHepatobilioPancreas" class="form-check-label">Cirugía Hepatobiliar y Pancreas</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiaPulmonar"  name="th.cirugia[]" value="cirugiaPulmonar" class="form-check-input">
+                        <label for="cirugiaPulmonar" class="form-check-label">Cirugía Pulmonar</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiacardiaca"  name="th.cirugia[]" value="cirugiacardiaca" class="form-check-input">
+                        <label for="cirugiacardiaca" class="form-check-label">Cirugía Cardiaca</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiavascular"  name="th.cirugia[]" value="cirugiavascular" class="form-check-input">
+                        <label for="cirugiavascular" class="form-check-label">Cirugía Vascular Arterial</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugianeuro"  name="th.cirugia[]" value="cirugianeuro" class="form-check-input">
+                        <label for="cirugianeuro" class="form-check-label">Neurocirugía</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiatrauma"  name="th.cirugia[]" value="cirugiatrauma" class="form-check-input">
+                        <label for="cirugiatrauma" class="form-check-label">Cirugía Traumatológica</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiaORL"  name="th.cirugia[]" value="cirugiaORL" class="form-check-input">
+                        <label for="cirugiaORL" class="form-check-label">Cirugía ORL</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cirugiaMXF"  name="th.cirugia[]" value="cirugiaMXF" class="form-check-input">
+                        <label for="cirugiaMXF" class="form-check-label">Cirugía Maxilofacial</label>
+                    </div>
+                </div>
+                
                 <div class="form-group col-md-4">
-                    <label for="medicacion">Medicación:</label>
-                    <textarea id="medicacion"  name="th.medicacion" class="form-control" rows="4"></textarea>
+                    <label for="medicacion"><b>Medicación:</b></label>
+                    <div class="form-check">
+                        <input type="checkbox" id="medACO"  name="th.medicacion[]" value="medACO" class="form-check-input">
+                        <label for="medACO" class="form-check-label">Anticoagulantes acc. directa</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medsintrom"  name="th.medicacion[]" value="medsintrom" class="form-check-input">
+                        <label for="medsintrom" class="form-check-label">Sintrom</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medclopidogrel"  name="th.medicacion[]" value="medclopidogrel" class="form-check-input">
+                        <label for="medclopidogrel" class="form-check-label">Clopidogrel</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medAASalta"  name="th.medicacion[]" value="medmedAASalta" class="form-check-input">
+                        <label for="medAASalta" class="form-check-label">AAS > 150 mg/d</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medalfa"  name="th.medicacion[]" value="medalfa" class="form-check-input">
+                        <label for="medalfa" class="form-check-label">Bloqueantes alfa</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medbeta"  name="th.medicacion[]" value="medbeta" class="form-check-input">
+                        <label for="medbeta" class="form-check-label">Bloqueantes beta</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medcalcio"  name="th.medicacion[]" value="medcalcio" class="form-check-input">
+                        <label for="medcalcio" class="form-check-label">Calcio antagonistas</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medieca"  name="th.medicacion[]" value="medieca" class="form-check-input">
+                        <label for="medieca" class="form-check-label">iECAs y ARA II</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medcortis"  name="th.medicacion[]" value="medcortis" class="form-check-input">
+                        <label for="medcortis" class="form-check-label">Corticoides</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medbiguanidas"  name="th.medicacion[]" value="medbiguanidas" class="form-check-input">
+                        <label for="medbiguanidas" class="form-check-label">Biguanidas(Metformina)</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medGL1"  name="th.medicacion[]" value="medGL1" class="form-check-input">
+                        <label for="medGL1" class="form-check-label">Análogos GLP1 (Trulicity, Ozempic)</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medSGLT2"  name="th.medicacion[]" value="medSGLT2" class="form-check-input">
+                        <label for="medSGLT2" class="form-check-label">Inhibidores SGLT-2 (Forxiga, Jardiance)</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medIMAO"  name="th.medicacion[]" value="medIMAO" class="form-check-input">
+                        <label for="medIMAO" class="form-check-label">IMAOs</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medADT"  name="th.medicacion[]" value="medADT" class="form-check-input">
+                        <label for="medADT" class="form-check-label">Antidepresivos triciclicos</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="medNSRR"  name="th.medicacion[]" value="medNSRR" class="form-check-input">
+                        <label for="medNSRR" class="form-check-label">Inhibidores recaptación Serotonina</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class = "form-row">
+                <div class="form-group col-md-12">
+                    <label for="comentarioantecedentes">Comentario:</label>
+                    <textarea id="comentarioantecedentes"  name="th.comentarioantecedentes" class="form-control"></textarea>
                 </div>
             </div>
             </fieldset>
@@ -167,82 +320,87 @@
                 <div class="form-group">
                     <label for="tipoTrasplante">Tipo de Trasplante:</label>
                     <select id="tipoTrasplante"  name="th.tipoTrasplante" class="form-control">
-                        <option value="1">Trasplante</option>
-                        <option value="2">Re-trasplante</option>
+                        <option value="0" selected>Trasplante</option>
+                        <option value="1">Re-trasplante</option>
                     </select>
                 </div>
-                <div class="form-group">
-                   
-                    <div class="form-row">
-                        <div class="form-check col-md-4">
+                <div class="form-row">
+                <div class="form-group col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="hepatocarcinoma"  name="th.indicacion[]" value="Hepatocarcinoma" class="form-check-input">
                         <label for="hepatocarcinoma" class="form-check-label">Hepatocarcinoma</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="cirrosisAlcoholica"  name="th.indicacion[]" value="Cirrosis Alcohólica" class="form-check-input">
                         <label for="cirrosisAlcoholica" class="form-check-label">Cirrosis Alcohólica</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="cirrosisVirusB"  name="th.indicacion[]" value="Cirrosis por virus B" class="form-check-input">
                         <label for="cirrosisVirusB" class="form-check-label">Cirrosis por virus B</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="cirrosisVirusC"  name="th.indicacion[]" value="Cirrosis por virus C" class="form-check-input">
                         <label for="cirrosisVirusC" class="form-check-label">Cirrosis por virus C</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="cirrosisNASH"  name="th.indicacion[]" value="Cirrosis NASH" class="form-check-input">
                         <label for="cirrosisNASH" class="form-check-label">Cirrosis NASH</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="cirrosisAutoinmune"  name="th.indicacion[]" value="Cirrosis Autoinmune" class="form-check-input">
                         <label for="cirrosisAutoinmune" class="form-check-label">Cirrosis Autoinmune</label>
                     </div>
-                    <div class="form-check col-md-4">
+                </div>
+                <div class="form-group col-md-4">
+                   
+                    <div class="form-check">
                         <input type="checkbox" id="cirrosisCriptogenica"  name="th.indicacion[]" value="Cirrosis Criptogénica" class="form-check-input">
                         <label for="cirrosisCriptogenica" class="form-check-label">Cirrosis Criptogénica</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="cirrosisBiliarPrimaria"  name="th.indicacion[]" value="Cirrosis Biliar Primaria" class="form-check-input">
                         <label for="cirrosisBiliarPrimaria" class="form-check-label">Cirrosis Biliar Primaria</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="colangitisEsclerosante"  name="th.indicacion[]" value="Colangitis Esclerosante" class="form-check-input">
                         <label for="colangitisEsclerosante" class="form-check-label">Colangitis Esclerosante</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="hemangioma"  name="th.indicacion[]" value="Hemangioma" class="form-check-input">
                         <label for="hemangioma" class="form-check-label">Hemangioma</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="poliquistosisOvarica"  name="th.indicacion[]" value="Poliquistosis Ovárica" class="form-check-input">
                         <label for="poliquistosisOvarica" class="form-check-label">Poliquistosis Ovárica</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="buddChiari"  name="th.indicacion[]" value="Budd Chiari" class="form-check-input">
                         <label for="buddChiari" class="form-check-label">Budd Chiari</label>
                     </div>
-                    <div class="form-check col-md-4">
+                </div>
+                <div class="form-group col-md-4">
+                    
+                    <div class="form-check">
                         <input type="checkbox" id="falloHepaticoAgudo"  name="th.indicacion[]" value="Fallo Hepático Agudo" class="form-check-input">
                         <label for="falloHepaticoAgudo" class="form-check-label">Fallo Hepático Agudo</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="falloHepaticoAgudoSobreCronico"  name="th.indicacion[]" value="Fallo Hepático Agudo Sobre Crónico" class="form-check-input">
                         <label for="falloHepaticoAgudoSobreCronico" class="form-check-label">Fallo Hepático Agudo Sobre Crónico</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="hepatitisAgudaSubfulminante"  name="th.indicacion[]" value="Hepatítis Aguda subfulminante" class="form-check-input">
                         <label for="hepatitisAgudaSubfulminante" class="form-check-label">Hepatítis Aguda subfulminante</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="trombosisArteriaHepatica"  name="th.indicacion[]" value="Trombosis de arteria Hepática" class="form-check-input">
                         <label for="trombosisArteriaHepatica" class="form-check-label">Trombosis de arteria Hepática</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="trombosisPortal"  name="th.indicacion[]" value="Trombosis Portal" class="form-check-input">
                         <label for="trombosisPortal" class="form-check-label">Trombosis Portal</label>
                     </div>
-                    <div class="form-check col-md-4">
+                    <div class="form-check">
                         <input type="checkbox" id="malfuncionPrimaria"  name="th.indicacion[]" value="Malfunción Primaria" class="form-check-input">
                         <label for="malfuncionPrimaria" class="form-check-label">Malfunción Primaria</label>
                     </div>
@@ -389,6 +547,108 @@
                 </table>
             </div>
             </div>
+            <fieldset class="border p-4">
+                <legend class="w-auto">Analítica actual</legend>
+                <div class="form-row">
+                    
+                    <div class="form-group col-md-2">
+                        <label for="phPRE">Ph:</label>
+                        <input type="number" id="phPRE"  name="th.phPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="pao2PRE">PaO2:</label>
+                        <input type="number" id="pao2PRE"  name="th.pao2PREPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="paco2PRE">PaCO2:</label>
+                        <input type="number" id="paco2PRE"  name="th.paco2PRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="ebPRE">EB:</label>
+                        <input type="number" id="ebPRE"  name="th.ebPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="co3hPRE">CO3H:</label>
+                        <input type="number" id="co3hPRE"  name="th.co3hPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="lacticoPRE">Láctico:</label>
+                        <input type="number" id="lacticoPRE"  name="th.lacticoPRE" class="form-control" step="0.01">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="hemoglobinaPRE">Hemoglobina:</label>
+                        <input type="number" id="hemoglobinaPRE"  name="th.hemoglobinaPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="tProtrombinaPRE">T. Protrombina:</label>
+                        <input type="number" id="tProtrombinaPRE"  name="th.tProtrombinaPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inrPRE">INR:</label>
+                        <input type="number" id="inrPRE"  name="th.inrPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="ttpaPRE">TTPa:</label>
+                        <input type="number" id="ttpaPRE"  name="th.ttpaPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="fibrinogenoPRE">Fibrinógeno:</label>
+                        <input type="number" id="fibrinogenoPRE"  name="th.fibrinogenoPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="plaquetasPRE">Plaquetas:</label>
+                        <input type="number" id="plaquetasPRE"  name="th.plaquetasPRE" class="form-control" step="0.01">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="naPRE">Na:</label>
+                        <input type="number" id="naPRE"  name="th.naPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="kPRE">K:</label>
+                        <input type="number" id="kPRE"  name="th.kPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="caPRE">Ca:</label>
+                        <input type="number" id="caPRE"  name="th.caPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="mgPRE">Mg:</label>
+                        <input type="number" id="mgPRE"  name="th.mgPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="clPRE">Cl:</label>
+                        <input type="number" id="clPRE"  name="th.clPRE" class="form-control" step="1">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="procalcitoninaPRE">Procalcitonina:</label>
+                        <input type="number" id="procalcitoninaPRE"  name="th.procalcitoninaPRE" class="form-control" step="0.01">
+                    </div>
+                    
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="proBNPPRE">ProBNP:</label>
+                        <input type="number" id="proBNPPRE"  name="th.proBNPPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="bilirrubinaPRE">Bilirrubina:</label>
+                        <input type="number" id="bilirrubinaPRE"  name="th.bilirrubinaPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="crPRE">Creatinina:</label>
+                        <input type="number" id="crPRE"  name="th.crPRE" class="form-control" step="0.01">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="albuminaPRE">Albumina:</label>
+                        <input type="number" id="albuminaPRE"  name="th.albuminaPRE" class="form-control" step="0.01">
+                    </div>
+                </div>
+            </fieldset>
+
             <hr>
             <button type="button" class="btn btn-primary" onclick="showNextSection(1)">Siguiente</button>
             <hr>
@@ -402,21 +662,21 @@
                     <div class="col-md-6">
                     <h3>Criterios Mayores</h3>
                 <div class="form-check">
-                    <input type="checkbox" id="diabetes"  name="th.criterios.mayores[]" class="form-check-input" value="diabetes">
-                    <label for="diabetes" class="form-check-label">Diabetes en tto insulina</label>
+                    <input type="checkbox" id="FRdiabetes"  name="th.criterios.mayores[]" class="form-check-input" value="FRdiabetes">
+                    <label for="FRdiabetes" class="form-check-label">Diabetes en tto insulina</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="historiaPatologiaCoronaria"  name="th.criterios.mayores[]" class="form-check-input" value="historiaPatologiaCoronaria">
-                    <label for="historiaPatologiaCoronaria" class="form-check-label">Historia previa o clínica de patología coronaria</label>
+                    <input type="checkbox" id="FRhistoriaPatologiaCoronaria"  name="th.criterios.mayores[]" class="form-check-input" value="FRhistoriaPatologiaCoronaria">
+                    <label for="FRhistoriaPatologiaCoronaria" class="form-check-label">Historia previa o clínica de patología coronaria</label>
                 </div>
 
                 <div class="form-check">
-                    <input type="checkbox" id="historiaInsuficienciaCardiaca"  name="th.criterios.mayores[]" class="form-check-input" value="historiaInsuficienciaCardiaca">
-                    <label for="historiaInsuficienciaCardiaca" class="form-check-label">Historia previa o clínica de Insuficiencia Cardiaca</label>
+                    <input type="checkbox" id="FRhistoriaInsuficienciaCardiaca"  name="th.criterios.mayores[]" class="form-check-input" value="FRhistoriaInsuficienciaCardiaca">
+                    <label for="FRhistoriaInsuficienciaCardiaca" class="form-check-label">Historia previa o clínica de Insuficiencia Cardiaca</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="historiaCerebrovascular"  name="th.criterios.mayores[]" class="form-check-input" value="historiaCerebrovascular">
-                    <label for="historiaCerebrovascular" class="form-check-label">Historia previa de enf. Cerebrovascular</label>
+                    <input type="checkbox" id="FRhistoriaCerebrovascular"  name="th.criterios.mayores[]" class="form-check-input" value="FRhistoriaCerebrovascular">
+                    <label for="FRhistoriaCerebrovascular" class="form-check-label">Historia previa de enf. Cerebrovascular</label>
                 </div>
                
 
@@ -424,33 +684,33 @@
                 <div class="col-md-6">
                     <h3>Criterios Menores</h3>
                     <div class="form-group">
-                        <label for="edadeco">Edad:</label>
-                        <input type="number" id="edadeco"  name="th.edadeco" class="form-control" step="1" readonly>
+                        <label for="FRedad">Edad:</label>
+                        <input type="number" id="FRedad"  name="th.FRedad" class="form-control" step="1" readonly>
                     </div>
                 <div class="form-check">
-                    <input type="checkbox" id="hipertension"  name="th.criterios.menores[]" class="form-check-input" value="hipertension">
-                    <label for="hipertension" class="form-check-label">Hipertensión</label>
+                    <input type="checkbox" id="FRhipertension"  name="th.criterios.menores[]" class="form-check-input" value="FRhipertension">
+                    <label for="FRhipertension" class="form-check-label">Hipertensión</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="dislipidemia"  name="th.criterios.menores[]" class="form-check-input" value="dislipidemia">
-                    <label for="dislipidemia" class="form-check-label">Dislipemia</label>
+                    <input type="checkbox" id="FRdislipidemia"  name="th.criterios.menores[]" class="form-check-input" value="FRdislipidemia">
+                    <label for="FRdislipidemia" class="form-check-label">Dislipemia</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="tabaquismo"  name="th.criterios.menores[]" class="form-check-input" value="tabaquismo">
-                    <label for="tabaquismo" class="form-check-label">Tabaquismo (actual o pasado)</label>
+                    <input type="checkbox" id="FRtabaquismo"  name="th.criterios.menores[]" class="form-check-input" value="FRtabaquismo">
+                    <label for="FRtabaquismo" class="form-check-label">Tabaquismo (actual o pasado)</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="obesidad"  name="th.criterios.menores[]" class="form-check-input" value="obesidad">
-                    <label for="obesidad" class="form-check-label">Obesidad</label>
+                    <input type="checkbox" id="FRobesidad"  name="th.criterios.menores[]" class="form-check-input" value="FRobesidad">
+                    <label for="FRobesidad" class="form-check-label">Obesidad</label>
                 </div>
                 
                 <div class="form-check">
-                    <input type="checkbox" id="historiaFamiliarPatologiaCoronaria"  name="th.criterios.menores[]" class="form-check-input" value="historiaFamiliarPatologiaCoronaria">
-                    <label for="historiaFamiliarPatologiaCoronaria" class="form-check-label">Historia familiar de patología coronaria</label>
+                    <input type="checkbox" id="FRhistoriaFamiliarPatologiaCoronaria"  name="th.criterios.menores[]" class="form-check-input" value="FRhistoriaFamiliarPatologiaCoronaria">
+                    <label for="FRhistoriaFamiliarPatologiaCoronaria" class="form-check-label">Historia familiar de patología coronaria</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" id="arteriopatiaPeriferica"  name="th.criterios.menores[]" class="form-check-input" value="arteriopatiaPeriferica">
-                    <label for="arteriopatiaPeriferica" class="form-check-label">Presencia de arteriopatía periférica</label>
+                    <input type="checkbox" id="FRarteriopatiaPeriferica"  name="th.criterios.menores[]" class="form-check-input" value="FRarteriopatiaPeriferica">
+                    <label for="FRarteriopatiaPeriferica" class="form-check-label">Presencia de arteriopatía periférica</label>
                 </div>
                 </div>
                 </div>
@@ -798,6 +1058,8 @@
                 <div class="form-group col">
                     <label for="comentarioVia">Comentario:</label>
                     <textarea id="comentarioVia"  name="th.comentarioVia" class="form-control"></textarea>
+                    <input type="hidden" id="hiddenscoreVA" name="hiddenscoreVA" value="0">
+
                 </div>
 
             </fieldset>
@@ -833,10 +1095,6 @@
                     <input type="number" id="eb"  name="th.eb" step="0.01" class="form-control" value="0">
                 </div>
                 <div class="form-group">
-                    <label for="cl">Cl:</label>
-                    <input type="number" id="cl"  name="th.cl" step="0.01" class="form-control" value="100">
-                </div>
-                <div class="form-group">
                     <label for="na">Na:</label>
                     <input type="number" id="na"  name="th.na" step="0.01" class="form-control" value="140">
                 </div>
@@ -844,7 +1102,7 @@
                     <label for="fio2">FiO2:</label>
                     <input type="number" id="fio2"  name="th.fio2" step="0.01" min="0" max="1" value="0.21" class="form-control" readonly>
                 </div>
-    
+                <input type="hidden" id ="hiddengradiente" name="th.hiddengradiente" value ="4">
                 <div id="aaGradientMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                     Gradiente A-a de oxígeno: normal
                 </div>
@@ -854,11 +1112,11 @@
                 <legend class="w-auto">Pruebas de Función Respiratoria</legend>
                 <div class="form-group">
                     <label for="fev1">FEV1 (% predicho):</label>
-                    <input type="number" id="fev1"  name="th.fev1" step="0.01" class="form-control">
+                    <input type="number" id="fev1"  name="th.fev1" step="0.01" class="form-control" value = "80">
                 </div>
                 <div class="form-group">
                     <label for="fvc">FVC (% predicho):</label>
-                    <input type="number" id="fvc"  name="th.fvc" step="0.01" class="form-control" >
+                    <input type="number" id="fvc"  name="th.fvc" step="0.01" class="form-control" value ="80">
                 </div>
                 <div class="form-group">
                     <label for="fev1FvcRatio">FEV1/FVC:</label>
@@ -923,9 +1181,18 @@
                 <legend class="w-auto">Afectación renal</legend>
                 <div class="form-group">
                     <label for="currentCreatinine">Creatinina actual:</label>
-                    <input type="number" id="currentCreatinine" value ="0.5" class="form-control">
+                    <input type="number" id="currentCreatinine" name="th.currentCreatinine" value ="0.5" class="form-control">
                 </div>
-                
+                <div class="form-group">
+                    <label for="h48Creatinine">Creatinina hace 48h:</label>
+                    <input type="number" id="h48Creatinine" value ="0.5" name="th.h48Creatinine" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="previousCreatinine">Creatinina basal:</label>
+                    <input type="number" id="previousCreatinine" value= "0.5" class="form-control">
+                    <span>Se considera la Cr basal como los tres últimos meses, si existen varios valores, el más próximo al ingreso</span>
+                </div>
+                <input type="hidden" id="hiddenAKI" value = "0" name ="th.hiddenAKI">
                 <div id="egfrMessage" class = "rounded-shadow" style="padding: 5px; background-color: darkseagreen; color: black;">
                     eGFR: <span id="egfrValue">0</span> mL/min/1.73m²
                 </div>
@@ -969,10 +1236,7 @@
                         <td>Fracaso renal</td>
                     </tr>
                 </table>
-                <div class="form-group">
-                    <label for="previousCreatinine">Creatinina previa (últimos 3 meses):</label>
-                    <input type="number" id="previousCreatinine" value= "0.5" class="form-control">
-                </div>
+                
                 <div id="akiMessage" class = "rounded-shadow" style="padding: 5px; background-color:green; color:white;">
                     Bajo riesgo de AKI / Sd hepatorrenal
                 </div>
@@ -981,47 +1245,49 @@
                 <legend class="w-auto">Riesgo de CRRT intraoperatoria</legend>
                 <div class="form-group">
                     <label for="falloHepatico">Fallo Hepático:</label>
-                    <select id="falloHepatico"  name="th.falloHepatico" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="falloHepatico"  name="th.falloHepatico" class="form-control">
                         <option value="1" selected>Crónico</option>
                         <option value="2">Agudo</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="donanteAsistolia">Donante en asistolia:</label>
-                    <select id="donanteAsistolia"  name="th.donanteAsistolia" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="donanteAsistolia"  name="th.donanteAsistolia" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="retrasplante">Retrasplante:</label>
-                    <select id="retrasplante"  name="th.retrasplante" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="retrasplante"  name="th.retrasplante" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="vasopresoresPreop">Vasopresores preop:</label>
-                    <select id="vasopresoresPreop"  name="th.vasopresoresPreop" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="vasopresoresPreop"  name="th.vasopresoresPreop" class="form-control">
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="crrtPreop">CRRT preop:</label>
-                    <select id="crrtPreop"  name="th.crrtPreop" class="form-control" onchange="calculateCRRTScore()">
+                    <select id="crrtPreop"  name="th.crrtPreop" class="form-control" >
                         <option value="0" selected>No</option>
                         <option value="1">Sí</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="kPreop">K+ preop:</label>
-                    <input type="number" id="kPreop"  name="th.kPreop" step="0.01" class="form-control" onchange="calculateCRRTScore()">
+                    <input type="number" id="kPreop"  name="th.kPreop" step="0.01" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="bilirrubinaCRRT">Bilirrubina:</label>
-                    <input type="number" id="bilirrubinaCRRT"  name="th.bilirrubinaCRRT" step="0.01" class="form-control" onchange="calculateCRRTScore()">
+                    <input type="number" id="bilirrubinaCRRT"  name="th.bilirrubinaCRRT" step="0.01" class="form-control">
                 </div>
+                <input type="hidden" id="hiddenAgopian"  name="th.hiddenAgopian" step="0.01" class="form-control" value="0">
+                
                 <div id="crrtScoreMessage" class = "rounded-shadow" style="padding: 5px; background-color:darkseagreen; color:black;">
                     Score de CRRT: 0
                 </div>
@@ -1365,55 +1631,6 @@
                         <option value="1">Sí</option>
                     </select>
                 </div>
-
-                
-                <label>COMORBILIDAD</label>
-                <br>
-                <div class="form-check">
-                    <input type="checkbox" id="hipertension"  name="th.comorbilidad[]" value="hipertension" class="form-check-input">
-                    <label for="hipertension" class="form-check-label">Hipertensión</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="diabetes"  name="th.comorbilidad[]" value="diabetes" class="form-check-input">
-                    <label for="diabetes" class="form-check-label">Diabetes</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="cancer"  name="th.comorbilidad[]" value="cancer" class="form-check-input">
-                    <label for="cancer" class="form-check-label">Cáncer (excepto piel de baja importancia)</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="enfermedadPulmonar"  name="th.comorbilidad[]" value="enfermedadPulmonar" class="form-check-input">
-                    <label for="enfermedadPulmonar" class="form-check-label">Enfermedad pulmonar crónica</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="infarto"  name="th.comorbilidad[]" value="infarto" class="form-check-input">
-                    <label for="infarto" class="form-check-label">Infarto de miocardio</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="insuficienciaCardiaca"  name="th.comorbilidad[]" value="insuficienciaCardiaca" class="form-check-input">
-                    <label for="insuficienciaCardiaca" class="form-check-label">Insuficiencia cardíaca congestiva</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="angina"  name="th.comorbilidad[]" value="angina" class="form-check-input">
-                    <label for="angina" class="form-check-label">Angina de pecho</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="asma"  name="th.comorbilidad[]" value="asma" class="form-check-input">
-                    <label for="asma" class="form-check-label">Asma</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="artritis"  name="th.comorbilidad[]" value="artritis" class="form-check-input">
-                    <label for="artritis" class="form-check-label">Artritis</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="ictus"  name="th.comorbilidad[]" value="ictus" class="form-check-input">
-                    <label for="ictus" class="form-check-label">Ictus</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" id="enfermedadRenal"  name="th.comorbilidad[]" value="enfermedadRenal" class="form-check-input">
-                    <label for="enfermedadRenal" class="form-check-label">Enfermedad renal</label>
-                </div>
-
                 <br>
                 <div class="form-group">
                     <label for="pesofrail">PESO. ¿Cuánto peso ha perdido en un año?</label>
@@ -1810,5 +2027,5 @@
 
 
 </body>
-<script src="funciones.js"></script>
+<script src="interface.js"></script>
 </html>

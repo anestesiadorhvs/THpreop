@@ -681,6 +681,7 @@
         function showNextSection(currentSection) {
             document.getElementById('section' + currentSection).classList.remove('active');
             document.getElementById('section' + (currentSection + 1)).classList.add('active');
+           
             if (currentSection === 6) {
               riskinicio();
               riskgeneral();
@@ -1161,6 +1162,7 @@
             document.getElementById('fev1FvcRatio').innerText = fev1FvcRatio.toFixed(2);
 
             if (fev1FvcRatio < 0.7) {
+                //restricitivo
                 if (fvc <= 80) {
                     if (fvc > 65) {
                         pulmonaryFunctionMessage.innerText = "Patrón restrictivo leve (FVC > 65%)";
@@ -1177,6 +1179,7 @@
                     pulmonaryFunctionMessage.style.backgroundColor = "green";
                 }
             } else {
+                // mixto-obstructivo
                 if (fvc <= 80) {
                     pulmonaryFunctionMessage.innerText = "Patrón mixto";
                     pulmonaryFunctionMessage.style.backgroundColor = "red";
