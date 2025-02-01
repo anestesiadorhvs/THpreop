@@ -832,7 +832,26 @@ const UI = (() => {
             }
         });
     };
-
+    const cuadradoUI = (identificador, valor) =>{
+        let texto = "";
+        const cuadrado = document.getElementById(identificador); 
+        let color = "green";
+    
+        if (valor < 34){
+            color = 'green';
+            texto = "Leve"
+        } else if (valor<67){
+            color = 'yellow'; 
+            texto = "Moderado"
+        } else{
+            color = 'red'; 
+            texto = "Elevado"
+        }
+        
+        cuadrado.innerHTML ="<h3>"+ texto+ "</h3>";
+        cuadrado.style.backgroundColor = color; 
+        cuadrado.style.color = color === 'yellow' ? 'black' : 'white';
+    };
     const updateResumenGeneralUI = () => {
         // administradivos
         const nhc = parseInt(document.getElementById('nhc').value);
@@ -919,10 +938,34 @@ const UI = (() => {
         document.getElementById('crR').innerText = document.getElementById('crPRE').value;
 
     };
+    const updateResumenRiesgoUI = () => {
+        const riesgo1 = Indices.indicesChild();
+        const riesgo2= Indices.indicesMeld();
+        const riesgo = parseInt (riesgo1+riesgo2)/2; // igual ponderación
+        UI.cuadradoUI("cuadradoriesgo",riesgo);
+    };
     const updateResumenVAUI = () => {
-        
+        const mallampati= document.getElementById("mallampati").options[document.getElementById("mallampati").selectedIndex].text;  
+        const apertura = document.getElementById("apertura").options[document.getElementById("apertura").selectedIndex].text;   
+        const distancia = document.getElementById("distancia").options[document.getElementById("distancia").selectedIndex].text;
+        const movilidad = document.getElementById("movilidadcolumna").options[document.getElementById("movilidadcolumna").selectedIndex].text;
+        const mordida = document.getElementById("mordida").options[document.getElementById("mordida").selectedIndex].text;
+        document.getElementById("txtmallampati").innerHTML="<h4> Mallampati </h4><br><h5>" + mallampati + "</h5>";
+        document.getElementById("txtdistancia").innerHTML="<h4> Dist.Tiroment. </h4><br><h5>" + distancia + "</h5>";
+        document.getElementById("txtmovilidad").innerHTML="<h4> Mov. Cervical </h4><br><h5>" + movilidad + "</h5>";
+        document.getElementById("txtapertura").innerHTML="<h4> Apert. Bucal </h4><br><h5>" + apertura + "</h5>";
+        document.getElementById("viaMessage").innerHTML = "Test Mordida: " + mordida;
+        const riesgo = Indices.indiceNaguib();
+        UI.cuadradoUI("cuadradovia",riesgo);
+
     };
     const updateResumenCardioUI = () => {
+       const riesgo1 = Indices.indiceFHA();
+       const riesgo2 =Indices.indiceRICR();
+       const riesgo3 =Indices.indiceCARI();
+       const riesgo4 =Indices.indiceVD();
+       const riesgo = parseInt(riesgo1*0.3 + riesgo2 * 0.3 +riesgo3 * 0.3 +riesgo4 * 0.1);// diferente ponderación
+       UI.cuadradoUI("cuadradocardio",riesgo);
     };
 
 
@@ -942,8 +985,10 @@ const UI = (() => {
         updaterequerimientosUI,
         updateGpvhUI,
         gaugeUI,
+        cuadradoUI,
         updateCardioUI,
         updateResumenGeneralUI,
+        updateResumenRiesgoUI,
         updateResumenVAUI,
         updateResumenCardioUI
     };
@@ -1048,12 +1093,9 @@ const Secciones = (() => {
     const Seccion7 = () => {
         // resumen e indices
         UI.updateResumenGeneralUI();
-        Indices.indicesChildMeld();
-        Indices.indiceNaguib();
-        Indices.indiceFHA();
-        Indices.indiceRICR();
-        Indices.indiceCARI();
-        Indices.indiceVD();
+        UI.updateResumenRiesgoUI();
+        UI.updateResumenVAUI();
+        UI.updateResumenCardioUI();
         Indices.indiceSHP();
         Indices.indiceSPP();
         Indices.indicesangrado();
@@ -1078,11 +1120,16 @@ const Secciones = (() => {
 
 // Modulo para calculo de indices de riesgo
 const Indices = (() => {
-    const indicesChildMeld = () => {
+    const indicesChild = () => {
         const child = document.getElementById('childPughScore').value;
-        const meld = document.getElementById('meldScore').value;
         UI.gaugeUI("childcanvas",child,0,6,9,15);
+        return child * 100 / 15;
+        
+    };
+    const indicesMeld = () => {
+        const meld = document.getElementById('meldScore').value;
         UI.gaugeUI("meldcanvas",meld,0,15,30,40);
+        return meld * 100 / 40;
     };
     const indiceNaguib = () => {
         const mallampati= parseInt(document.getElementById("mallampati").value);
@@ -1091,10 +1138,12 @@ const Indices = (() => {
         const movilidad = parseInt(document.getElementById("movilidadcolumna").value);
         const riesgo = parseInt((mallampati * 2 + apertura + distancia + movilidad)*100/12);
         UI.gaugeUI("viacanvas",riesgo,0,35,70,100);
+        return riesgo;
     };
     const indiceFHA = () =>{
         const haff = parseInt(document.getElementById("indiceHfaPeef").value);
         UI.gaugeUI("VIcanvas",haff,0,3,5,6);
+        return haff * 100 / 6;
     };
     const indiceRICR = () =>{
         let ricr = 0;
@@ -1151,7 +1200,7 @@ const Indices = (() => {
             }
         }
         UI.gaugeUI("CIcanvas",valorriesgo,0,5,15,30);
-
+        return valorriesgo * 100 / 30;
     };
     const indiceCARI = () =>{
         const QTc= parseInt(document.getElementById("qtc").value);
@@ -1164,12 +1213,14 @@ const Indices = (() => {
         CARI += (MELD >=30) ? 1 : 0;
         CARI += (sexo ==1) ? 1 : 0;
         UI.gaugeUI("PCcanvas",CARI,0,1,3,5);
+        return CARI * 100 / 5;
     };
     const indiceVD = () =>{
         const paps = parseInt(document.getElementById("papsEstimada").value);
         const tapse = parseInt(document.getElementById("Tapse").value);
         const indiceTP = (tapse/paps).toFixed(2);
         UI.gaugeUI("VDcanvas",indiceTP,0.8,0.31,0.19,0);
+        return indiceTP * 100 / 0.8;
     };
 
     const indiceSHP = () =>{
@@ -1236,7 +1287,8 @@ const Indices = (() => {
         UI.gaugeUI("Dukecanvas",score,60,45,35,0);
     };
     return {
-        indicesChildMeld,
+        indicesChild,
+        indicesMeld,
         indiceNaguib,
         indiceFHA,
         indiceRICR,
