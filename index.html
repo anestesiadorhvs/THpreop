@@ -6,7 +6,8 @@
     <title>Formulario de Valoración</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="Chart.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="form2js.js"></script>
     <script src="js2form.js"></script>
     <script src="json2.js"></script>
@@ -90,6 +91,39 @@
     display: block; /* Asegura que el span se comporte como un bloque */
     text-align: center; /* Centra el texto horizontalmente */
     }
+    #btnGenerar {
+            position: relative;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        #btnGenerar:disabled {
+            background-color: #5a9bd5;
+            cursor: not-allowed;
+        }
+        .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
     </style>
     
 </head>
@@ -102,7 +136,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="nhc">NHC:</label>
-                        <input type="text" id="nhc"  name="th.nhc" class="form-control" step="1" required>
+                        <input type="text" id="nhc"  name="adm.nhc" class="form-control" step="1" required value="000000">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="sexoinicio">Sexo:</label>
@@ -131,19 +165,18 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre"  name="th.nombre" class="form-control" required>
+                        <input type="text" id="nombre"  name="adm.nombre" class="form-control" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="primerApellido">1er Apellido:</label>
-                        <input type="text" id="primerApellido"  name="th.primerApellido" class="form-control" required>
+                        <input type="text" id="primerApellido"  name="adm.primerApellido" class="form-control" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="segundoApellido">2º Apellido:</label>
-                        <input type="text" id="segundoApellido"  name="th.segundoApellido" class="form-control" required>
+                        <input type="text" id="segundoApellido"  name="adm.segundoApellido" class="form-control" required>
                     </div>
                 </div>
-                Todos los campos de esta seccion son obligatorios, el botón "Siguiente" se habilitará una vez se completen todos los campos.
-            </fieldset>
+                </fieldset>
             <fieldset class="border p-4">
                 <legend class="w-auto">Antecedentes</legend>
             <div class = "form-row">
@@ -648,7 +681,14 @@
                     </div>
                 </div>
             </fieldset>
-
+            <fieldset class="border p-4">
+                <legend class="w-auto">Otras recomendaciones</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="otrasRecomendaciones">Recomendaciones:</label>
+                        <textarea id="otrasRecomendaciones"  name="th.otrasRecomendaciones" class="form-control" rows = 5></textarea>
+                </div>
+            </fieldset>
             <hr>
             <button type="button" class="btn btn-primary" onclick="showNextSection(1)">Siguiente</button>
             <hr>
@@ -929,6 +969,9 @@
                     </div>
     
                 </fieldset>
+                <input type="hidden" id="hiddenrcir" name="th.ricr" value="0">
+                <input type="hidden" id="hiddencari" name="th.cari" value="0">
+                <input type="hidden" id="hiddenvd" name="th.vd" value="0"> 
 
                 <h4>Estadiaje GPVH</h4>
                 <table border="1" id="gpvhTable" class="table table-bordered">
@@ -1058,7 +1101,7 @@
                 <div class="form-group col">
                     <label for="comentarioVia">Comentario:</label>
                     <textarea id="comentarioVia"  name="th.comentarioVia" class="form-control"></textarea>
-                    <input type="hidden" id="hiddenscoreVA" name="hiddenscoreVA" value="0">
+                    <input type="hidden" id="hiddenscoreVA" name="th.hiddenscoreVA" value="0">
 
                 </div>
 
@@ -1361,7 +1404,7 @@
             </div>
         
             </div>
-            
+            <input type="hidden" id="hiddensangrado" name="th.hiddensangrado" value="0">
             <div id="bleedingScoreMessage" class = "rounded-shadow" style="padding: 5px; background-color: green; color: white;">
                 Bajo riesgo de sangrado. Score: 0
             </div>
@@ -1848,8 +1891,16 @@
                         <canvas id="meldcanvas"></canvas>
                         <span class ="centrado">Score MELD</span>
                     </div>
-                    <div class = "col-md-6">
-                        <div id = "riskMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
+                    <div class="col-md-2">
+                        <h4>MELD-Na</h4>
+                        <canvas id="meldnacanvas"></canvas>
+                        <span class ="centrado">MELD-Na</span>
+                    </div>
+                </div>
+                <br>
+                <div class="form-row">
+                    <div class = "col-md-12">
+                        <div id = "riskMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(235, 240, 235); color: black;">
                             estimacion de riesgo
                         </div>
                     </div>
@@ -1881,13 +1932,10 @@
                         <h4>Apertura bucal</h4>
                     </div>
                 </div>
+                <br>
                 <div class ="form-row">
-                        <div class = "col-md-2"></div>
-                        <div class = "col-md-2"></div>
-                        <div class = "col-md-2"></div>
-
-                        <div class = "col-md-6">
-                            <div id = "viaMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
+                            <div class = "col-md-12">
+                            <div id = "viaMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(235, 240, 235); color: black;">
                                 ventilacion
                             </div>
                         </div>
@@ -1932,8 +1980,10 @@
                 </div>
                 <br>
                 <div class="form-row">
+                    <div class = "col-md-12">
                     <div id = "cardioMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(235, 240, 235); color: black;">
                        cardio
+                    </div>
                     </div>
                 </div>
             </fieldset>
@@ -1945,17 +1995,22 @@
                         <div id="cuadradopulmon" class = "rounded-shadow" style="height:100%"></div>
                     </div>
                     <div class="col-md-2">
-                        <h4>Riesgo Sd. Hepatopulm.</h4>
+                        <h4> Hepatopulm.</h4>
                         <canvas id="SHPcanvas"></canvas>
                         <span class ="centrado">PaO2 (mmHg)</span>
                     </div>
                     
                     <div class="col-md-2">
-                        <h4>Hipertension portopulm</h4>
+                        <h4>Hipert. Pulm</h4>
                         <canvas id="HPPcanvas"></canvas>
                         <span class="centrado">PAP (mmHg)</span>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-2">
+                        <h4>Grad. A-a</h4>
+                        <canvas id="Gradientecanvas"></canvas>
+                        <span class="centrado">mmHg</span>
+                    </div>
+                    <div class="col-md-4">
                         <div id ="lblpfr" class="rounded-shadow"  style="padding: 5px; background-color: rgb(148, 189, 148); color: black;">
                         </div>
                     </div>
@@ -1977,12 +2032,12 @@
                         <div id="cuadradosangrado" class = "rounded-shadow" style="height:100%"></div>
                     </div>
                     <div class="col-md-2">
-                        <h4>Riesgo Sangrado</h4>
+                        <h4>Sangrado</h4>
                         <canvas id="sangradocanvas"></canvas>
                         <span class ="centrado">Score</span>
                     </div>
                     <div class="col-md-2">
-                        <h4>Hipertens. Portal</h4>
+                        <h4>HT. Portal</h4>
                         <canvas id="portalcanvas"></canvas>
                         <span class ="centrado">GPVH (mmHg)</span>
                     </div>
@@ -2033,16 +2088,16 @@
                 </div>
             </fieldset>
             <fieldset class="border p-4">
-                <legend class="w-auto">Valoración cardiológica</legend> 
+                <legend class="w-auto">Valoración Nutricional</legend> 
                 <div class="form-row">
                     <div class="col-md-2">
-                        <div id="cuadradocardio" class = "rounded-shadow" style="height:100%"></div>
+                        <div id="cuadradonutricion" class = "rounded-shadow" style="height:100%"></div>
                     </div>
                     
                     <div class="col-md-2">
                         <h4>Nutrición</h4>
                         <canvas id="NPTcanvas"></canvas>
-                        <span class ="centrado">Escalla RFH-NPT</span>
+                        <span class ="centrado">Escala RFH-NPT</span>
                     </div>
 
                     <div class="col-md-2">
@@ -2061,28 +2116,25 @@
 
                     </div>
                 </div>
-                <br>
-                <div class="form-row">
-                    <div id = "NPTMessage" class ="rounded-shadow" style="padding: 5px; background-color: rgb(235, 240, 235); color: black;">
-                       cardio
-                    </div>
-                </div>
+                
             </fieldset>
             
 
             <fieldset class="border p-4">
-                <legend class="w-auto">test</legend>
+                <legend class="w-auto">Otras recomendaciones</legend>
                 <div class="form-group">
-                    <label for="testArea">test:</label>
-                    <textarea id="testArea"  name="th.testArea" class="form-control" rows="5"></textarea>
+                    <label for="RecomendacionesArea">Recomendaciones:</label>
+                    <span id="RecomendacionesArea"  name="RecomendacionesArea" class="form-control" rows="5"></span>
                 </div>
             </fieldset>
 
             <hr>
             <button type="button" class="btn btn-primary" onclick="showPreviousSection(7)">Anterior</button>
             <button type="button" class="btn btn-primary" onclick="saveJSON()">Guardar JSON</button>
-            <button type="button" class="btn btn-primary" onclick="loadJSON()">Cargar JSON</button>
-            <button type="button" class="btn btn-primary" onclick="generatePDF()">Generar PDF</button>
+            <button type="button" id = "btnGenerar" class="btn btn-primary" onclick="generatePDF()">
+                <span id="btnTexto">Generar PDF</span>
+                <div class="spinner" id="spinner"></div>
+            </button>
             <hr>
         </div>
     </form>

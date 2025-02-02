@@ -406,8 +406,8 @@
         const fio2 = parseFloat(document.getElementById('fio2').value) || 0.21;
         const paco2 = parseFloat(document.getElementById('paco2').value) || 35;
         const pao2 = parseFloat(document.getElementById('pao2').value) || 95;
-        const edad = parseInt(document.getElementById('edadinicio').value) || 50;
-        const aaGradient = (713 * fio2) - (paco2 / 0.8) - pao2;
+       const edad = parseInt(document.getElementById('edadinicio').value) || 50;
+         const aaGradient = (713 * fio2) - (paco2 / 0.8) - pao2;
         let recomiendashp;
         
         if ((edad >=65 && aaGradient >=20 )|| (edad < 65 && aaGradient>=15)){

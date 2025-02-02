@@ -936,13 +936,43 @@ const UI = (() => {
         document.getElementById('bilirrubinaR').innerText = document.getElementById('bilirrubinaPRE').value;
         document.getElementById('albuminaR').innerText = document.getElementById('albuminaPRE').value;
         document.getElementById('crR').innerText = document.getElementById('crPRE').value;
-
+        // recomendaciones
+        document.getElementById('RecomendacionesArea').innerText = document.getElementById('otrasRecomendaciones').value;
     };
     const updateResumenRiesgoUI = () => {
         const riesgo1 = Indices.indicesChild();
-        const riesgo2= Indices.indicesMeld();
+        const riesgo2 = Indices.indicesMeld();
+        const riesgo4 = Indices.indicesMeldNa();
         const riesgo = parseInt (riesgo1+riesgo2)/2; // igual ponderación
         UI.cuadradoUI("cuadradoriesgo",riesgo);
+        // riesgo
+        let riesgo3 = parseFloat(document.getElementById("meldNaScore").value);
+        let mensaje2="Paciente con alta mortalidad preoperatoria. Mortalidad 52%";
+        if (riesgo3 > 41) {
+            riesgo3 = 40;
+            mensaje2 = "Muy alta mortalidad preoperatoria (71%) en caso de no intervenirse. Los pacientes con valores MELD por encima de 40 presentan:<br><ul>";
+            mensaje2 += "<li>Un 42% mas riesgo de infecciones</li>";
+            mensaje2 += "<li>Un 90% mas riesgo de necesitar terapia de trasplante renal</li>";
+            mensaje2 += "<li>Más complicaciones cardiovasculares</li>";
+            mensaje2 += "<li>Un 13% mas de riesgo de ventilacion mecánica prolongada</li>";
+            mensaje2 += "<li>Un 18% de mas riesgo de estenosis de conductos biliares</li></ul>";
+             }
+
+        const riesgoMap = [
+            { threshold: 39, message: mensaje2},
+            { threshold: 29, message: "Paciente con alta mortalidad preoperatoria. Mortalidad 52%" },
+            { threshold: 20, message: "Paciente con moderada mortalidad preoperatoria. Mortalidad 19%" },
+            { threshold: 10, message: "Paciente con baja mortalidad preoperatoria. Mortalidad 6%" },
+            { threshold: 0,  message: "Paciente con baja mortalidad preoperatoria. Mortalidad 2%" }
+        ];
+        let mensaje = "Paciente con baja mortalidad preoperatoria. Mortalidad 2%"; // Valor por defecto
+        for (const { threshold, message } of riesgoMap) {
+            if (riesgo3 > threshold) {
+                mensaje = message;
+                break;
+            }
+        }
+        document.getElementById("riskMessage").innerHTML = mensaje;
     };
     const updateResumenVAUI = () => {
         const mallampati= document.getElementById("mallampati").options[document.getElementById("mallampati").selectedIndex].text;  
@@ -950,10 +980,10 @@ const UI = (() => {
         const distancia = document.getElementById("distancia").options[document.getElementById("distancia").selectedIndex].text;
         const movilidad = document.getElementById("movilidadcolumna").options[document.getElementById("movilidadcolumna").selectedIndex].text;
         const mordida = document.getElementById("mordida").options[document.getElementById("mordida").selectedIndex].text;
-        document.getElementById("txtmallampati").innerHTML="<h4> Mallampati </h4><br><h5>" + mallampati + "</h5>";
-        document.getElementById("txtdistancia").innerHTML="<h4> Dist.Tiroment. </h4><br><h5>" + distancia + "</h5>";
-        document.getElementById("txtmovilidad").innerHTML="<h4> Mov. Cervical </h4><br><h5>" + movilidad + "</h5>";
-        document.getElementById("txtapertura").innerHTML="<h4> Apert. Bucal </h4><br><h5>" + apertura + "</h5>";
+        document.getElementById("txtmallampati").innerHTML="<h4> Mallampati </h4><br><span>" + mallampati + "</span>";
+        document.getElementById("txtdistancia").innerHTML="<h4> Dist.Tiroment. </h4><br><span>" + distancia + "</span>";
+        document.getElementById("txtmovilidad").innerHTML="<h4> Mov. Cervical </h4><br><span>" + movilidad + "</span>";
+        document.getElementById("txtapertura").innerHTML="<h4> Apert. Bucal </h4><br><span>" + apertura + "</span>";
         document.getElementById("viaMessage").innerHTML = "Test Mordida: " + mordida;
         const riesgo = Indices.indiceNaguib();
         UI.cuadradoUI("cuadradovia",riesgo);
@@ -963,11 +993,273 @@ const UI = (() => {
        const riesgo1 = Indices.indiceFHA();
        const riesgo2 =Indices.indiceRICR();
        const riesgo3 =Indices.indiceCARI();
-       const riesgo4 =Indices.indiceVD();
+       const riesgo4 =100 - Indices.indiceVD();
        const riesgo = parseInt(riesgo1*0.3 + riesgo2 * 0.3 +riesgo3 * 0.3 +riesgo4 * 0.1);// diferente ponderación
        UI.cuadradoUI("cuadradocardio",riesgo);
-    };
+       // riesgo disfuncion. Escala HAFF
+       let mensajeHAFF = "";
+        const haff = parseFloat(document.getElementById("indiceHfaPeef").value);
+        const haffMap = [
+            { threshold: 5, message: "Paciente con muy elevado riesgo de insuficiencia cardiaca. Considera iniciar tratamiento con levosimedan dosis de carga 5 mcgr/kg y PC 0,1 mcgr/kg/min ó incluso adrenalina en PC inicio a 0,1 mcg/kg/min." },
+            { threshold: 2, message: "Paciente con riesgo moderado de presentar insuficiencia cardiaca intraoperatoria. Considera iniciar tratamiento con levosimedan dosis de carga 5 mcgr/kg y PC 0,1 mcgr/kg/min y preparar PC adrenalina" },
+            { threshold: 0, message: "Paciente con bajo riesgo de presentar insuficiencia cardiaca intraoperatoria" }
+        ];
+        for (const { threshold, message } of haffMap) {
+            if (haff >= threshold) {
+                mensajeHAFF = message;
+                break;
+            }
+        }
+        // riesgo C isquemica
+        let mensajeCI = "";
+        const ricr = parseFloat(document.getElementById("hiddenrcir").value);
+        const ricrMap = [
+            { threshold: 3, message: "Paciente con factores de riesgo que podrian indicar alto riesgo de isquemia intraoperatoria (>5%). Seria aconsejable ampliar estudio. En pacientes de alto riesgo es aconsejable dejar una guía en arteria femoral izquierda por si es necesario colocar BCIAo intraoperatorio. Evita fármacos como la terlipresina para el tratamiento del sd hepatorenal prefiriendo en este caso noradrenalina. Considera el uso de betabloqueantes intraoperatorios, Esmolol inicio a 50 mcgr/kg/min, vigilando la función derecha sobre todo en pacientes con hipertensión pulmonar. En hipertension portal puedes usar somatostatina u octeotrido y no se aconseja terlipresina" },
+            { threshold: 1, message: "Paciente con factores de riesgo que indican riesgo moderado (1-5%) de sufrir eventos intraoperatorios isquémicos. Aconsejable ampliar estudio. En pacientes de riesgo moderado evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido)" },
+            { threshold: 0, message: "Bajo riesgo de eventos isquemicos intraoperatorios (<1%)" }
+        ];
+        for (const { threshold, message } of ricrMap) {
+            if (ricr >= threshold) {
+                mensajeCI = message;
+                break;
+            }
+        }
+        // esta revascularizadoo y estable?
+        const revasc = parseInt(document.getElementById("resultadoCoronariografia").value);
+        if (revasc == 2 || revasc==0) {
+            // revascularizado o no indicado. riesgo leve /moderado
+            // RCRI
+            valorriesgo = 1;
+            colorisquemia="verde";
+        }else if (revasc == 1){
+            // no puede realizarse revasc incompleta. Riesgo moderado/elevado
+            // chequear eco stress
+            const resultadoStress = parseInt(document.getElementById('resultadoStress').value);
+                if (resultadoStress ==1 || resultadoStress==2){
+                    // no concluyente o no puede realizarse. check angiotac
+                    const estenosisDerecha = document.getElementById('estenosisDerecha').checked;
+                    const estenosisIzquierda = document.getElementById('estenosisIzquierda').checked;
+                    const scoreCalcico = document.getElementById('scoreCalcico').checked;
+                    const realizacion = document.getElementById('norealizado').checked;
+                        if (estenosisDerecha || estenosisIzquierda){
+                            mensajeCI="Los pacientes con estenosis coronaria significativa no revascularizada presentan un riesgo de eventos isquémicos intraoperatorios del 30% si no han sido revascularizados. Es aconsejable dejar una guía en arteria femoral izquierda por si es necesario colocar BCIAo intraoperatorio. Evita fármacos como la terlipresina para el tratamiento del sd hepatorenal prefiriendo en este caso noradrenalina. Considera el uso de betabloqueantes intraoperatorios, Esmolol inicio a 50 mcgr/kg/min, vigilando la función derecha sobre todo en pacientes con hipertensión pulmonar. En hipertension portal puedes usar somatostatina u octeotrido y no se aconseja terlipresina";
+                            
+                        } else if ( scoreCalcico){
+                            mensajeCI="En ausencia de lesiones coronarias significativas un score calcico por encima de 100 asocia un riesgo de eventos isquémicos en torno a un 8% si no es revascularizado. Evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido).";
+                           
+                        } else if (realizacion) {
+                            // elevado
+                            mensajeCI = "En ausencia de coronariografía un paciente con ecostress positivo presenta un riesgo de eventos isquemicos que oscila entre el 10% si las lesiones coronarias no son significativas y el 30% si lo son. Evita fármacos como la terlipresina para el tratamiento del sd hepatorenal prefiriendo en este caso noradrenalina. Considera el uso de betabloqueantes intraoperatorios, Esmolol inicio a 50 mcgr/kg/min, vigilando la función derecha sobre todo en pacientes con hipertensión pulmonar. En hipertension portal puedes usar somatostatina u octeotrido y no se aconseja terlipresina";
+                            
+                        }else{
+                            // normal
+                            mensajeCI="El riesgo de isquemia intraoperatoria en estos pacientes se situa entre el 1-5%. Evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido).";
+                            
+                        }
+                }else if (resultadoStress == 4){
+                    // riesgo bajo
+                    mensajeCI = "El riesgo de isquemia intraoperatoria en este grupo de pacientes se situa por debajo del 1%";
+                   
+                }else{
+                    // resultado = 3. riesgo moderado o alto
+                    const selectedOptionText = document.getElementById('resultadoStress').options[document.getElementById('resultadoStress').selectedIndex].text;
+                    if (selectedOptionText == "WMSI 1.1-1.7"){
+                        //riesgo moderado 3%
+                        mensajeCI =  "El riesgo de isquemia intraoperatoria en este grupo de pacientes se situa en torno al 3%. Evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido).";
+                        
+                    }else{
+                        //riesgo elevado 10%
+                        mensajeCI =  "El riesgo de isquemia intraoperatoria en este grupo de pacientes se situa  en torno al 7%. Evita fármacos como la terlipresina para el tratamiento del síndrome hepatorenal (mejor usar la noradrenalina) o la hipertensión portal (mejor somatostatina u octeotrido).";
+                        
+                    }
+                } 
+           
+        }
 
+        // riesgo de parada
+        let CARI = document.getElementById("hiddencari").value;
+        let mensajePC = "Paciente con bajo riesgo de parada intraoperatoria"; // Valor por defecto
+        const CARIMap = [
+            { threshold: 4, message: "Paciente con riesgo elevado de arritmia grave o parada intraoperatoria. Considera evitar fármacos que prolonguen el QT como la amiodarona, quinolonas, droperidol, macrolidos y ondasetron. Considera realizar profilaxis con la administración de 2gr iv de sulfato de magnesio" },
+            { threshold: 2, message: "Paciente con riesgo moderado de parada intraoperatoria. Considera evitar fármacos que prolonguen el QT como la amiodarona, quinolonas, droperidol, macrolidos y ondasetron. Considera realizar profilaxis con la administración de 2gr iv de sulfato de magnesio." },
+            { threshold: 0, message: "Paciente con bajo riesgo de parada intraoperatoria" }
+        ];
+        for (const { threshold, color, message } of CARIMap) {
+            if (CARI >= threshold) {
+                mensajePC = message;
+                break;
+            }
+        }
+        // riesgo de disfuncion derecha
+        let mensajeVD = "";
+        const indiceTP = parseFloat(document.getElementById("hiddenvd").value);
+        const vdMap = [
+            { threshold: 0.19, message: "Muy alto riesgo de disfunción severa de VD en el intraoperatorio. Considera monitorizar CAP, si PAPm >=45-50 contraindica el implante. Considera iniciar PC de milrinona a 0.5 mcgr/kg/min, subir FiO2 e hiperventilar para paCO2 30-35 mmHg" },
+            { threshold: 0.32, message: "Riesgo moderado de disfunción severa de VD en el intraoperatorio. Considera monitorizar CAP, si PAPm >=45-50 contraindica el implante. Considera iniciar PC de milrinona a 0.5 mcgr/kg/min, subir FiO2 e hiperventilar para paCO2 30-35 mmHg" },
+            { threshold: Infinity, message: "Riesgo leve de disfunción de VD" }
+        ];
+        for (const { threshold, message } of vdMap) {
+            if (indiceTP < threshold) {
+                mensajeVD = message;
+                break;
+            }
+        }
+        // recomendaciones
+        let recomendaciones="<ul>";
+        recomendaciones = "<li><b>Valoración de riesgo de I. Cardiaca:</b> " + mensajeHAFF +"</li>";
+        recomendaciones = recomendaciones + "<li><b>Valoración del riesgo de isquemia:</b> " + mensajeCI + "</li>";
+        recomendaciones = recomendaciones + "<li><b>Valoración del riesgo de parada intraoperatoria:</b> " + mensajePC + "</li>";
+        recomendaciones = recomendaciones + "<li><b>Valoración del riesgo de disfunción derecha:</b> " + mensajeVD + "</li>";
+        recomendaciones = recomendaciones + "</ul>";
+        document.getElementById("cardioMessage").innerHTML=recomendaciones;
+        
+    };
+    const updateResumenNeumoUI = () => {
+        const riesgo1=100 - Indices.indiceSHP();// solo si grad >20 o 15
+        const riesgo2=Indices.indiceSPP();
+        const riesgo3 = Indices.indiceGradiente();
+        const edad = parseInt(document.getElementById('edadinicio').value) || 50;
+        const aaGradient = parseInt(document.getElementById('hiddengradiente').value);
+        let riesgo = 0;
+        if ((edad >= 65 && aaGradient >= 20) || (edad < 65 && aaGradient >= 15)) {
+            riesgo = parseInt(riesgo1 *0.5 + riesgo2 * 0.5);
+        } else {
+            riesgo = parseInt(riesgo2);
+        }
+        // Pruebas de función respiratoria
+        document.getElementById("lblpfr").innerHTML = "<b>Pruebas de Función respiratoria:</b><br>" + document.getElementById("pulmonaryFunctionMessage").innerHTML;
+        // SHP
+        let recomiendashp = "Paciente sin Sd Hepatopulmonar.";
+        if ((edad >= 65 && aaGradient >= 20) || (edad < 65 && aaGradient >= 15)) {
+            const riesgoMap = [
+                { threshold: 80, message: "Paciente con Sd Hepatopulmonar leve" },
+                { threshold: 60, message: "Paciente con Sd Hepatopulmonar moderado. Considera usar octeotrido 50 mg en bolo lento iv" },
+                { threshold: 50, message: "Paciente con Sd Hepatopulmonar severo. Considera usar octeotrido 50 mg en bolo lento iv y/o azul de metileno en bolo lento iv (15 min) 3 mg/kg" },
+                { threshold: 0,  message: "Paciente con Sd Hepatopulmonar muy severo. Considera usar octeotrido 50 mg en bolo lento iv y/o azul de metileno en bolo lento iv (15 min) 3 mg/kg" }
+            ];
+            for (const { threshold, message } of riesgoMap) {
+                if (riesgo1 >= threshold) {
+                    recomiendashp = message;
+                    break;
+                }
+            }
+        }
+        // SPP
+        //HTP
+        const papm = parseInt(document.getElementById("papmSelect").value);
+        const papmMap = [
+            { threshold: 0, value: 24, message: "Presión pulmonar normal" },
+            { threshold: 1, value: 30, message: "HTP leve. Evita factores agravantes como la hipercapnia o la hipoxia y fármacos como la amiodarona, el tramadol o inhibidores recaptacion serotonina" },
+            { threshold: 2, value: 40, message: "HTP moderada. Considera monitorizar con CAP. Evita factores agravantes como la hipercapnia o la hipoxia y fármacos como la amiodarona, el tramadol o inhibidores recaptacion serotonina. Considera usar sildenafilo en bolo lento de 10 mg iv y/o epoprostenol iv en pc inicio a 2 nanogr/kg/min y aumentar 2 nanogr/kg/min cada 15 min hasta 15-30 nanogr/kg/min" },
+            { threshold: 3, value: 45, message: "HTP severa. Considera monitorizar con CAP. Valores de PAPm en torno a 50 contraindican el trasplante. Considera usar sildenafilo en bolo lento de 10 mg iv y/o epoprostenol iv en pc inicio a 2 nanogr/kg/min y aumentar 2 nanogr/kg/min cada 15 min hasta 15-30 nanogr/kg/min" }
+        ];
+        let papvalue = 24; // Valor por defecto
+        let recomiendapapm = "Presión pulmonar normal"; // Mensaje por defecto
+        for (const { threshold, value, message } of papmMap) {
+            if (papm === threshold) {
+                papvalue = value;
+                recomiendapapm = message;
+                break;
+            }
+        }
+        UI.cuadradoUI("cuadradopulmon",riesgo);
+        document.getElementById("neumoMessage").innerHTML="<ul><li><b>Valoración del sd hepatopulmonar: </b>" + recomiendashp + "</li><li><b>Valoración de hipertensión portopulmonar:</b> " + recomiendapapm + "</li></ul>";
+ 
+    };
+    const updateResumenSangradoUI = () => {
+        const riesgo1 = Indices.indicesangrado();
+        const riesgo2 = Indices.indiceHP();
+        const riesgo = parseInt(riesgo1*0.65 + riesgo2 * 0.35);
+        const score = parseInt(document.getElementById("hiddensangrado").value);
+        // sangrado
+        let mensajesangrado ="";
+        if (score>=3){
+            // riesgo alto. avisar a hematologia, preactivar protocolo hemrragia masiva corregir hb, plaqu, INR
+            mensajesangrado = "Paciente con riesgo elevado de sangrado intraoperatorio. Considera avisar a hematología para disponer de concentrados de hematies en nevera, pedir 2 gr de fibrinogeno y 2 viales de prothromplex del dispensador, y corregir plaquetas e INR previo a la fase de disección. Preactiva el protocolo de hemorragia masiva.";
+        }else{
+            // riesgo bajo
+            mensajesangrado = "Paciente sin alteraciones analíticas que lo pongan en riesgo para sangrado intraoperatorio."
+        }
+        // HP
+        const gpvh = parseInt(document.getElementById("gpvh").value);
+        const gpvhMap = [
+            { threshold: 12, message: "Paciente con HTP severa, riesgo de sangrado intraoperatorio. Considera iniciar tratamiento con vasopresina 4UI/h, o (especialmente si presenta sindrome hepatorenal) terlipresina bolo 1 mg seguido de PC a 2 mcgr/kg/h. Es posible que pueda requerir transfusión importante, considera preactivar protocolo de hemorragia masiva." },
+            { threshold: 10, message: "Paciente con HTP moderada, riesgo de sangrado intraoperatorio. Considera iniciar tratamiento con vasopresina 4UI/h, o (especialmente si presenta sindrome hepatorenal) terlipresina bolo 1 mg seguido de PC a 2 mcgr/kg/h. Es posible que pueda requerir transfusión importante, considera preactivar protocolo de hemorragia masiva." },
+            { threshold: 6, message: "Paciente con HTP leve. Vigilancia de sangrado en fase de disección." },
+            { threshold: 0, message: "Paciente sin hipertensión portal" }
+        ];
+        let mensajeportal = "Paciente sin hipertensión portal"; // Mensaje por defecto
+        for (const { threshold, message } of gpvhMap) {
+            if (gpvh >= threshold) {
+                mensajeportal = message;
+                break;
+            }
+        }
+        // cirugia peritonitis
+        if (parseInt(document.getElementById("cirugiaAbdominalPrevia").value) == 1 || parseInt(document.getElementById("peritonitisBacterianaEspontanea").value == 1)){
+            // cirugia o peritonitis alto riesgo
+            document.getElementById("cirugiasprevias").innerHTML = "Paciente con mayor riesgo de sangrado por cirugía abdominal previa y/o episodios de peritonitis bacteriana.";
+           
+        }
+
+        UI.cuadradoUI("cuadradosangrado",riesgo);
+        document.getElementById("sangreMessage").innerHTML="<ul><li><b>Riesgo de sangrado: </b>" + mensajesangrado + "</li><li><b>Hipertensión portal: </b>" + mensajeportal + "</li></ul>";
+    
+    };
+    const updateResumenNefroUI = () => {
+        const riesgo1 = 100 - Indices.indiceeFGR();
+        const riesgo2 = Indices.indiceAgopian();
+        const riesgo = parseInt(riesgo1*0.5 + riesgo2 * 0.5);
+        // grado
+        // filtrado
+        const eGFR = parseInt(document.getElementById('egfrValue').innerText);
+        const eGFRMap = [
+            { threshold: 90, label: "Grado 1" },
+            { threshold: 60, label: "Grado 2" },
+            { threshold: 45, label: "Grado 3a" },
+            { threshold: 30, label: "Grado 3b" },
+            { threshold: 15, label: "Grado 4" },
+            { threshold: 0,  label: "Grado 5" }
+        ];
+        let lblefgr = "Grado 5"; // Valor por defecto
+        for (const { threshold, label } of eGFRMap) {
+            if (eGFR >= threshold) {
+                lblefgr = label;
+                break;
+            }
+        }
+        document.getElementById("grado").innerHTML=lblefgr;
+        // agopian
+        const score = document.getElementById("hiddenAgopian").value;
+        const falloHepatico = parseInt(document.getElementById("falloHepatico").value);
+        const crrtMap = [
+            { condition: score >= 42 && falloHepatico === 1, message: "Paciente con riesgo elevado de requerir CRRT intraoperatoria" },
+            { condition: score >= 28 && falloHepatico === 2, message: "Paciente con riesgo elevado de requerir CRRT intraoperatoria. Considera la canalización de Shaldon en lugar de introductor de CAP" },
+            { condition: score < 42 && falloHepatico === 1, message: "Paciente con riesgo leve de requerir CRRT intraoperatoria." },
+            { condition: score < 28 && falloHepatico === 2, message: "Paciente con riesgo leve de requerir CRRT intraoperatoria." },
+            { condition: true, message: "Paciente con riesgo moderado de necesitar CRRT intraoperatoria. Considera usar Shaldon en lugar de introductor de CAP" }
+        ];
+        let mensajecrrt = "Paciente con riesgo moderado de necesitar CRRT intraoperatoria. Considera usar Shaldon en lugar de introductor de CAP"; // Valor por defecto
+        for (const { condition, message } of crrtMap) {
+            if (condition) {
+                mensajecrrt = message;
+                break;
+            }
+        }
+
+        UI.cuadradoUI("cuadradorenal",riesgo);
+        const divaki = document.getElementById('akiMessage').innerHTML;
+        document.getElementById("riesgoAKI").innerHTML= divaki;
+        document.getElementById("renalMessage").innerHTML="<ul><li><b>Filtrado Glomerular:</b> Paciente con eFGR de " + eGFR +" mL/min/1.73m². " + lblefgr + "</li><li><b>Riesgo Sd Hepatorenal/AKI: </b>" +divaki+"</li><li><b>Riesgo de requerir CRRT intraoperatorio: </b>" + mensajecrrt + "</li></ul>";
+  
+    };
+    const updateResumenNutricionUI = () => {
+        const riesgo1 = Indices.indiceRFH();
+        const riesgo2 = 100 - Indices.indiceDuke();
+        const riesgo3 = Indices.indiceFrail();
+        const riesgo = parseInt(riesgo1*0.3 + riesgo2 * 0.3 + riesgo3 * 0.4);
+        UI.cuadradoUI("cuadradonutricion",riesgo);
+    };
 
     return {
         updateChildPughUI,
@@ -990,7 +1282,11 @@ const UI = (() => {
         updateResumenGeneralUI,
         updateResumenRiesgoUI,
         updateResumenVAUI,
-        updateResumenCardioUI
+        updateResumenCardioUI,
+        updateResumenNeumoUI,
+        updateResumenSangradoUI,
+        updateResumenNefroUI,
+        updateResumenNutricionUI
     };
 })();
 // botones atras y siguiente
@@ -1096,15 +1392,10 @@ const Secciones = (() => {
         UI.updateResumenRiesgoUI();
         UI.updateResumenVAUI();
         UI.updateResumenCardioUI();
-        Indices.indiceSHP();
-        Indices.indiceSPP();
-        Indices.indicesangrado();
-        Indices.indiceHP();
-        Indices.indiceeFGR();
-        Indices.indiceAgopian();
-        Indices.indiceRFH();
-        Indices.indiceDuke();
-        Indices.indiceFrail();
+        UI.updateResumenNeumoUI();
+        UI.updateResumenSangradoUI();
+        UI.updateResumenNefroUI();
+        UI.updateResumenNutricionUI();
 
     };
 
@@ -1131,6 +1422,12 @@ const Indices = (() => {
         UI.gaugeUI("meldcanvas",meld,0,15,30,40);
         return meld * 100 / 40;
     };
+    const indicesMeldNa = () => {
+        const meldNa = document.getElementById('meldNaScore').value;
+        UI.gaugeUI("meldnacanvas",meldNa,0,41,50,60);
+        return meldNa * 100 / 60;
+    };
+
     const indiceNaguib = () => {
         const mallampati= parseInt(document.getElementById("mallampati").value);
         const apertura = parseInt(document.getElementById("apertura").value);
@@ -1139,6 +1436,11 @@ const Indices = (() => {
         const riesgo = parseInt((mallampati * 2 + apertura + distancia + movilidad)*100/12);
         UI.gaugeUI("viacanvas",riesgo,0,35,70,100);
         return riesgo;
+    };
+    const indiceGradiente = () => {
+        const gradiente = parseInt(document.getElementById("hiddengradiente").value);
+        UI.gaugeUI("Gradientecanvas",gradiente,0,10,20,60);
+        return gradiente * 100 / 60;
     };
     const indiceFHA = () =>{
         const haff = parseInt(document.getElementById("indiceHfaPeef").value);
@@ -1200,6 +1502,7 @@ const Indices = (() => {
             }
         }
         UI.gaugeUI("CIcanvas",valorriesgo,0,5,15,30);
+        document.getElementById('hiddenrcir').value = valorriesgo;
         return valorriesgo * 100 / 30;
     };
     const indiceCARI = () =>{
@@ -1213,6 +1516,7 @@ const Indices = (() => {
         CARI += (MELD >=30) ? 1 : 0;
         CARI += (sexo ==1) ? 1 : 0;
         UI.gaugeUI("PCcanvas",CARI,0,1,3,5);
+        document.getElementById('hiddencari').value = CARI;
         return CARI * 100 / 5;
     };
     const indiceVD = () =>{
@@ -1220,6 +1524,7 @@ const Indices = (() => {
         const tapse = parseInt(document.getElementById("Tapse").value);
         const indiceTP = (tapse/paps).toFixed(2);
         UI.gaugeUI("VDcanvas",indiceTP,0.8,0.31,0.19,0);
+        document.getElementById('hiddenvd').value = indiceTP;
         return indiceTP * 100 / 0.8;
     };
 
@@ -1227,6 +1532,7 @@ const Indices = (() => {
         // sd hepato pulmonar
         const pao2 = parseFloat(document.getElementById('pao2').value) || 95;
         UI.gaugeUI("SHPcanvas",pao2,100,60,50,30);
+        return pao2 * 100 / 100;
     };
 
     const indiceSPP = () => {
@@ -1239,6 +1545,7 @@ const Indices = (() => {
         };
         const papvalue = papMap[papm] !== undefined ? papMap[papm] : papMap.default;
         UI.gaugeUI("HPPcanvas",papvalue,20,25,35,45);
+        return papvalue * 100 / 45;
     };
     const indicesangrado = () => {
         let score = 0;
@@ -1258,38 +1565,48 @@ const Indices = (() => {
         if (sexo == '2' && creatinina >= 1.28) score += 1;
         if (plaquetas < 70000) score += 1;
         if (albumina < 24) score += 1;
+        document.getElementById('hiddensangrado').value = score;
         UI.gaugeUI("sangradocanvas",score,0,2,2,8);
+        return score * 100 / 8;
     };
     const indiceHP=() => {
         const pe= document.getElementById('pshe').value;
         const pl= document.getElementById('pshl').value;
         const gpvh = pe-pl;
         UI.gaugeUI("portalcanvas",gpvh,0,9,12,25);
+        return gpvh * 100 / 25;
     };
     const indiceeFGR = () => {
         const eGFR = parseInt(document.getElementById('egfrValue').innerText);
         UI.gaugeUI("eFGRcanvas",eGFR,150,30,15,0);
+        return eGFR * 100 / 150;
     };
     const indiceAgopian = () => {
         const agopian = parseInt(document.getElementById('hiddenAgopian').value);
         UI.gaugeUI ("CRRTcanvas",agopian,0,28,42,60);
+        return agopian * 100 / 60;
     };
     const indiceRFH = () => {
         const score = parseInt(document.getElementById('hiddenNPT').value);
         UI.gaugeUI("NPTcanvas",score,0,1,2,7);
+        return score * 100 / 7;
     };
     const indiceFrail = () => {
         const score = parseInt(document.getElementById('hiddenFrail').value);
         UI.gaugeUI("Frailcanvas",score,0,1,2,3);
+        return score * 100 / 3;
     };
     const indiceDuke = () => {
         const score = parseInt(document.getElementById('hiddenDuke').value);
         UI.gaugeUI("Dukecanvas",score,60,45,35,0);
+        return score * 100 / 60;
     };
     return {
         indicesChild,
         indicesMeld,
+        indicesMeldNa,
         indiceNaguib,
+        indiceGradiente,
         indiceFHA,
         indiceRICR,
         indiceCARI,
@@ -1331,8 +1648,84 @@ const EventHandlers = (() => {
         modificarTalla
     };
 })();
+// graba Json
+function saveJSON() {
+    var formData = form2js('valoracionForm', '.', true,
+        function(node)
+        {
+            if (node.id && node.id.match(/callbackTest/))
+            {
+                return { name: node.id, value: node.innerHTML };
+            }
+        });
+        // Obtener nhc, fecha y hora
+        const nhc = document.getElementById('nhc').value;
+        const now = new Date();
+        const dia = String(now.getDate()).padStart(2, '0');
+        const mes = String(now.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11
+        const anio = now.getFullYear();
+        const fecha = `${dia}-${mes}-${anio}`; // dd-mm-yyyy
+        const hora = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // hh-mm-ss
 
+        const jsonString = JSON.stringify(formData, null, '\t');
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${nhc}_${fecha}_${hora}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+}
+async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const btn = document.getElementById('btnGenerar');
+    const btnTexto = document.getElementById('btnTexto');
+    const spinner = document.getElementById('spinner');
 
+    // Activar el spinner dentro del botón
+    btn.disabled = true;
+    btnTexto.textContent = "Generando...";
+    spinner.style.display = "block";
+    try {
+        const elemento = document.getElementById('section7');
+        const canvas = await html2canvas(elemento, { scale: 2 });
+        const imgData = canvas.toDataURL('image/png');
 
+        const imgWidthPx = canvas.width;
+        const imgHeightPx = canvas.height;
+        const a4WidthMM = 210;
+        const imgWidthMM = a4WidthMM;
+        const imgHeightMM = (imgHeightPx * imgWidthMM) / imgWidthPx;
+
+        const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: [a4WidthMM, imgHeightMM]
+        });
+
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidthMM, imgHeightMM);
+        // Obtener nhc, fecha y hora
+        const nhc = document.getElementById('nhc').value;
+        const now = new Date();
+        const dia = String(now.getDate()).padStart(2, '0');
+        const mes = String(now.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11
+        const anio = now.getFullYear();
+        const fecha = `${dia}-${mes}-${anio}`; // dd-mm-yyyy
+        const hora = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // hh-mm-ss
+
+        // Descargar el PDF con el nombre personalizado
+        pdf.save(`${nhc}_${fecha}_${hora}.pdf`);
+    } catch (error) {
+        console.error('Error al generar el PDF:', error);
+    } finally {
+        // Restaurar el botón
+        btn.disabled = false;
+        btnTexto.textContent = "Generar PDF";
+        spinner.style.display = "none";
+    }
+}
+//
 // Inicialización de la aplicación
 document.addEventListener('DOMContentLoaded', App.init);
