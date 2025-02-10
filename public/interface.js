@@ -994,6 +994,7 @@ const UI = (() => {
        const riesgo2 =Indices.indiceRICR();
        const riesgo3 =Indices.indiceCARI();
        const riesgo4 =100 - Indices.indiceVD();
+       Indices.indiceVI();
        const riesgo = parseInt(riesgo1*0.3 + riesgo2 * 0.3 +riesgo3 * 0.3 +riesgo4 * 0.1);// diferente ponderación
        UI.cuadradoUI("cuadradocardio",riesgo);
        // riesgo disfuncion. Escala HAFF
@@ -1104,6 +1105,8 @@ const UI = (() => {
                 break;
             }
         }
+        
+
         // recomendaciones
         let recomendaciones="<ul>";
         recomendaciones = "<li><b>Valoración de riesgo de I. Cardiaca:</b> " + mensajeHAFF +"</li>";
@@ -1112,7 +1115,23 @@ const UI = (() => {
         recomendaciones = recomendaciones + "<li><b>Valoración del riesgo de disfunción derecha:</b> " + mensajeVD + "</li>";
         recomendaciones = recomendaciones + "</ul>";
         document.getElementById("cardioMessage").innerHTML=recomendaciones;
-        
+        // ecocardio, stress, angio, coronariografia
+        descripcionCardiologicaText = document.getElementById("descripcionCardiologica").value || "Sin datos en la ecografía";
+        comentariosstresstext = document.getElementById("comentarioStress").value || "Sin datos en el eco stress";
+        comentarioangiotactext = document.getElementById("comentarioAngioTac").value || "Sin datos en la angio TAC";
+        comentariocoronariografiatext = document.getElementById("comentarioCoronariografia").value || "Sin datos en la coronariografía";
+        if (descripcionCardiologicaText.trim() !== "") {
+            document.getElementById("Recocardio").innerHTML = "<b>Ecocardiografía:</b><br>" + descripcionCardiologicaText;
+        }
+        if (comentariosstresstext.trim() !== "") {
+            document.getElementById("Recostress").innerHTML = "<b>Eco Stress:</b><br>" + comentariosstresstext;
+        }
+        if (comentarioangiotactext.trim() !== "") {
+            document.getElementById("Rangiotc").innerHTML = "<b>Angio TAC:</b><br>" + comentarioangiotactext;
+        }
+        if (comentariocoronariografiatext.trim() !== "") {
+            document.getElementById("Rcoronario").innerHTML = "<b>Coronariografía:</b><br>" + comentariocoronariografiatext;
+        }
     };
     const updateResumenNeumoUI = () => {
         const riesgo1=100 - Indices.indiceSHP();// solo si grad >20 o 15
@@ -1519,6 +1538,11 @@ const Indices = (() => {
         document.getElementById('hiddencari').value = CARI;
         return CARI * 100 / 5;
     };
+    const indiceVI = () =>{
+        // FEVI
+        const fevi = document.getElementById("fraccionEyeccion").value || 60;
+        UI.gaugeUI("FEVIcanvas",fevi,0,35,50,80);
+    };
     const indiceVD = () =>{
         const paps = parseInt(document.getElementById("papsEstimada").value);
         const tapse = parseInt(document.getElementById("Tapse").value);
@@ -1611,6 +1635,7 @@ const Indices = (() => {
         indiceRICR,
         indiceCARI,
         indiceVD,
+        indiceVI,
         indiceSHP,
         indiceSPP,
         indicesangrado,
@@ -1726,6 +1751,8 @@ async function generatePDF() {
         spinner.style.display = "none";
     }
 }
+
+
 //
 // Inicialización de la aplicación
 document.addEventListener('DOMContentLoaded', App.init);

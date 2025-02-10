@@ -795,12 +795,7 @@
                 <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="fraccionEyeccion">Fracción de Eyección VI:</label>
-                    <select id="fraccionEyeccion"  name="th.fraccionEyeccion" class="form-control">
-                        <option value="1" selected>Normal (&gt;50%)</option>
-                        <option value="2">Levemente Disminuida (40-49%)</option>
-                        <option value="3">Moderadamente disminuida (30-39%)</option>
-                        <option value="4">Severamente disminuida (&lt;30%)</option>
-                    </select>
+                    <input type=" number" id="fraccionEyeccion"  name="th.fraccionEyeccion" class="form-control">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="fraccionVD">Función VD:</label>
@@ -1953,7 +1948,6 @@
                         <h4>Insuf. Card</h4>
                         <canvas id="VIcanvas"></canvas>
                         <span class="centrado">Score HFA-PEEF</span>
-
                     </div>
                     
                     <div class="col-md-2">
@@ -1975,7 +1969,39 @@
                     </div>
 
                     <div class = "col-md-2">
+                        <h4>FEVI</h4>
+                        <canvas id="FEVIcanvas"></canvas>
+                        <span class ="centrado">FEVI (%)</span>
+                    </div>
 
+                </div>
+                <br>
+                <div class ="form-row">
+                    <div class="col-md-12">
+                        <span id = "Recocardio" >
+                        cardio
+                    </div>
+                </div>
+                <br>
+                <div class ="form-row">
+                    <div class="col-md-12">
+                        <span id = "Recostress" >
+                        cardio
+                    </div>
+                </div>
+                <br>
+                <div class ="form-row">
+                    <div class="col-md-12">
+                        <span id = "Rangiotc" >
+                        cardio
+                    </div>
+                </div>
+                <br>
+                <div class ="form-row">
+                    <div class="col-md-12">
+                        <span id = "Rcoronario" >
+                        cardio
+                    
                     </div>
                 </div>
                 <br>
@@ -1986,6 +2012,7 @@
                     </div>
                     </div>
                 </div>
+                
             </fieldset>
 
             <fieldset class="border p-4">
@@ -2127,7 +2154,14 @@
                     <span id="RecomendacionesArea"  name="RecomendacionesArea" class="form-control" rows="5"></span>
                 </div>
             </fieldset>
-
+            <fieldset class="border p-4">
+                <legend class="w-auto">Test IA</legend>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <iframe src="https://anestoledo-anestesia.hf.space" frameborder="0" width="90%" height="645"></iframe>
+                    </div>
+                </div>
+            </fieldset>
             <hr>
             <button type="button" class="btn btn-primary" onclick="showPreviousSection(7)">Anterior</button>
             <button type="button" class="btn btn-primary" onclick="saveJSON()">Guardar JSON</button>
